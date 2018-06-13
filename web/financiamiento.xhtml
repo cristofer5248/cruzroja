@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui"
+    template="./WEB-INF/plantillaboot.xhtml"
+    >
+
+    <ui:define name="title">
+        <title> Financiamiento</title>
+    </ui:define>
+
+    <ui:define name="contenido">      
+        <b:panel title="Click aqui para registrar financiamiento de los proyectos" look="success" collapsed="true" iconAwesome="fa-briefcase">
+
+            <b:form id="miFormulario">
+                <h:panelGroup layout="block" styleClass="alert alert-danger" 
+                              rendered="#{not empty facesContext.messageList}">
+                    <h:messages  />
+                </h:panelGroup>
+                <b:panelGrid columns="4" styleClass="table">
+                    <h:outputLabel for="sociedad" value="Sociedad:"/>
+                    <b:selectOneMenu value="#{financiamientoBean.financiamiento.sociedadN.id}">
+                        <f:selectItems value="#{sociedadBean.listaSociedad}" var="soci"
+                                       itemLabel="#{soci.nombre}" itemValue="#{soci.id}" />
+                    </b:selectOneMenu>
+
+                    <h:outputLabel for="proyecto" value="Proyecto:"/>
+                    <p:selectOneMenu  id="pro" value="#{financiamientoBean.financiamiento.proyecto.idproyecto}" panelStyle="width:180px"
+                                      effect="fade" var="t" style="width:240px" filter="true" filterMatchMode="startsWith">
+                        <f:selectItems value="#{proyectosBean.listaProyectos}" var="pro" itemLabel="#{pro.nombre}" itemValue="#{pro.idproyecto}" />
+                    </p:selectOneMenu>
+                    <h:outputLabel for="fechadeinicio" value="Fecha de ingreso"/>
+                    <b:dateTimePicker value="#{financiamientoBean.financiamiento.fechaIngreso}" format="MM/DD/YYYY" required="true" requiredMessage="Ingrese un fecha valida"/>
+                    <b:panel  title="Financiamiento" look="info" collapsed="true">
+                        <h:outputLabel for="financiamiento" value="Elije una opcion:"/>
+                        <b:selectBooleanCheckbox value="#{financiamientoBean.opcion1}" caption="Donacion" id="opcion1" onchange="scriptcheck1();" />
+                        <b:selectBooleanCheckbox value="#{financiamientoBean.opcion2}" caption="Gasto interno" id="opcion2" onchange="scriptcheck2();"/>
+                    </b:panel>                    
+                    <p:inputNumber id="financiamiento"
+                                   value="#{financiamientoBean.financiamiento.financiamiento}" 
+                                   required="true" 
+                                   requiredMessage="Debes ingresar una cantidad"
+                                   minValue="10"
+                                   >
+                    </p:inputNumber>
+                    <h:outputLabel for="des" value="Detalles"/>
+                    <b:inputTextarea id="des" value="#{financiamientoBean.financiamiento.detalles}" required="true" requiredMessage="Por favor ingresa una descripcion detallada sobre el financiamiento"
+                                     maxlength="200" placeholder="Ingresa una pequeña descripcion que detalle el motivo del financiamiento">                                                                        
+                    </b:inputTextarea>
+                    <h:outputLabel for="id" value="ID:"/>
+                    <b:inputText id="idauto" value="#{financiamientoBean.financiamiento.idp}"
+                                 maxlength="6" validatorMessage="ID no valido"                                         
+                                 >
+                    </b:inputText>
+
+                </b:panelGrid>
+                <p:dialog header="Effects" widgetVar="dlg2" showEffect="explode" hideEffect="bounce" height="100">
+                    <b><h:outputText value="Financiamiento:" /></b><br></br>
+                    <h:outputText value="- La opcion 'ABONO' toma en cuenta el registro como una donacion de una empresa, sociedad o persona." style="color: green;" /><br></br>
+                    <h:outputText value="- La opcion 'GASTO' toma en cuenta el registro como un gasto que Cruz roja realizo en algun proyecto." style="color: red;" />
+                </p:dialog>
+                <p:commandButton value="Ayuda" icon="fa fa-fw fa-question" onclick="PF('dlg2').show();"  style="margin-right:10px; color: black; background-color: #42bff4;">
+
+                </p:commandButton>                           
+                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{financiamientoBean.guardarFinanaciamiento()}" style="margin-right:10px"/>
+                <b:commandButton type="reset" value="Limpiar" look="danger"/>
+            </b:form>
+        </b:panel>
+        <center>
+            <h:form id="filtro">
+                <p:outputLabel value="Fecha de inicio" />
+                <p:calendar id="mask" value="#{financiamientoBean.fecha1}" pattern="yyyy-MM-dd" mask="true" >
+                </p:calendar>
+                <p:outputLabel style="margin-left: 5px;" value="Fecha final" />
+                <p:calendar id="mask2" value="#{financiamientoBean.fecha2}" pattern="yyyy-MM-dd" mask="true">
+                </p:calendar>               
+                <p:commandButton style="margin-left: 5px; background:none;" value="filtrar" icon="fa fa-fw fa-filter" update="tablafinanciamiento">
+
+                </p:commandButton>
+                <b:commandButton value="PDF" style="margin-left: 5px;" iconAwesome="fa-file-pdf-o" look="danger"
+                                 actionListener="#{financiamientoBean.filtrarpdf}"> 
+                </b:commandButton>
+            </h:form>
+        </center>
+
+        <b:row>
+            <b:form  id="tablafinanciamiento">
+                <b:dataTable styleClass="table table-striped table-bordered" pdf="true" excel="true" print="true" value="#{financiamientoBean.financiamientoList}" var="est" rendered="#{financiamientoBean.financiamientoList.size()>0}"
+                             row-style-class="#{est.financiamiento}>100 ? 'background-color:red'">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Proyecto"/>
+                        </f:facet>
+                        <h:outputText value="#{est.proyecto.nombre}"/>                          
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Sociedad"/>
+                        </f:facet>
+                        <h:outputText value="#{est.sociedadN.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Tip. lugar"/>
+                        </f:facet>
+                        <h:outputText value="#{est.proyecto.categoria.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Ubic. seccional"/>
+                        </f:facet>
+                        <h:outputText value="#{est.proyecto.seccionales.nombre}"/>
+                    </h:column>                                       
+                    <b:dataTableColumn value="$ #{est.financiamiento}" label="Financiamiento"/>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha de ingreso"/>
+                        </f:facet>
+                        <h:outputText value="#{est.fechaIngreso}">
+                            <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Descripcion"/>
+                        </f:facet>
+                        <h:outputText value="#{est.detalles}">
+                            <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </h:column>
+
+                </b:dataTable>
+                <b:panel title="Presupuesto total segun tabla superior" collapsible="false" look="info">
+                    <h:outputText value="$#{financiamientoBean.totalfinanciamiento2}"></h:outputText>
+                </b:panel>
+                <b:panel title="Total de presupuesto" collapsible="false" look="success">
+                    <h:outputText value="$#{financiamientoBean.totalfinanciamiento1}"></h:outputText>
+                </b:panel>
+            </b:form>
+        </b:row>
+
+        <h:outputScript>
+            var x = document.getElementById("input_miFormulario:opcion1");
+            var y = document.getElementById("input_miFormulario:opcion2");
+            if(x.checked==false)
+            {
+            document.getElementById("input_miFormulario:opcion1").checked = true;
+            document.getElementById("miFormulario:financiamiento_input").style.color = "blue";
+            document.getElementById("input_miFormulario:opcion2").checked = false;
+            document.getElementById("input_miFormulario:opcion2").disabled = true;
+            }
+            function fun1()
+            {
+            document.getElementById("input_miFormulario:opcion2").checked = true;
+            document.getElementById("input_miFormulario:opcion1").checked = false;            
+            document.getElementById("input_miFormulario:opcion1").disabled = true;
+            document.getElementById("input_miFormulario:opcion2").disabled = false;                                   
+            }
+            function fun2()
+            {
+            document.getElementById("input_miFormulario:opcion1").checked = true;
+            document.getElementById("input_miFormulario:opcion2").checked = false;
+            document.getElementById("input_miFormulario:opcion2").disabled = true;
+            document.getElementById("input_miFormulario:opcion1").disabled = false;                        
+            }
+
+            function scriptcheck1()
+            {
+            fun1();
+            document.getElementById("miFormulario:financiamiento_input").style.color = "red";                             
+            }
+
+            function scriptcheck2(){
+            fun2();
+            document.getElementById("miFormulario:financiamiento_input").style.color = "green";                                   
+            }            
+
+
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');               
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
+
+
+
+    </ui:define>
+</ui:composition>

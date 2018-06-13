@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="660" pageHeight="842" columnWidth="620" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="cc395214-d0ff-4d51-a84a-34c019d50276">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="33"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codbene" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     datosbeneficiados.`nombres` AS datosbeneficiados_nombres,
+     datosbeneficiados.`apellidos` AS datosbeneficiados_apellidos,
+     datosbeneficiados.`edad` AS datosbeneficiados_edad,
+     lugar.`nombre` AS lugar_nombre,
+     proyectos.`nombre` AS proyectos_nombre,
+     departamento.`nombre` AS departamento_nombre,
+     usuarios.`nombres` AS usuarios_nombres,
+     genero.`nombre` AS genero_nombre
+FROM
+     `datosbeneficiados` datosbeneficiados INNER JOIN `beneficiados` beneficiados ON datosbeneficiados.`idusuario` = beneficiados.`idbeneficiado`
+     INNER JOIN `lugarproyecto` lugarproyecto ON beneficiados.`idproyecto` = lugarproyecto.`idl`
+     INNER JOIN `lugar` lugar ON lugarproyecto.`idlugar` = lugar.`idlugar`
+     INNER JOIN `proyectos` proyectos ON lugarproyecto.`idlp` = proyectos.`idproyecto`
+     INNER JOIN `usuarios` usuarios ON proyectos.`encargado` = usuarios.`idusuario`
+     INNER JOIN `genero` genero ON usuarios.`genero` = genero.`idg`
+     AND genero.`idg` = datosbeneficiados.`genero`
+     INNER JOIN `departamento` departamento ON lugar.`departamento` = departamento.`iddepartamento`
+WHERE
+     beneficiados.`idbeneficiado` = $P{codbene}]]>
+	</queryString>
+	<field name="datosbeneficiados_nombres" class="java.lang.String"/>
+	<field name="datosbeneficiados_apellidos" class="java.lang.String"/>
+	<field name="datosbeneficiados_edad" class="java.lang.Integer"/>
+	<field name="lugar_nombre" class="java.lang.String"/>
+	<field name="proyectos_nombre" class="java.lang.String"/>
+	<field name="departamento_nombre" class="java.lang.String"/>
+	<field name="usuarios_nombres" class="java.lang.String"/>
+	<field name="genero_nombre" class="java.lang.String"/>
+	<field name="actividad" class="java.lang.String"/>
+	<field name="area" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{proyectos_nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<textField>
+					<reportElement x="171" y="0" width="444" height="45" uuid="6e42a5c1-5927-42e2-bf36-3200d4131229"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font size="24"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{proyectos_nombre}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="25" y="10" width="138" height="35" forecolor="#CC0000" uuid="64484086-8592-4edb-b4fb-9bbe19eb6b4a"/>
+					<textElement textAlignment="Center">
+						<font size="20"/>
+					</textElement>
+					<text><![CDATA[PROYECTO:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="13"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement x="83" y="45" width="480" height="32" forecolor="#CC0000" uuid="20021784-3850-4614-9f93-7ee83316d36a"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Lista de proyectos del beneficiado:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="500" y="0" width="120" height="28" uuid="138c6234-2fa0-415a-a6a6-e7729a89210d"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="320" height="45" uuid="d3ffdfd7-cac6-42c3-96cf-48807f9fb327"/>
+				<imageExpression><![CDATA["logo_1.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="210" y="0" width="77" height="20" uuid="6ea4da73-cecd-4090-957d-21a1b453be5f"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="0" width="63" height="20" uuid="dcbd4af2-dc75-407b-88d2-b07a7467008c"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="124" y="0" width="63" height="20" uuid="b3cf83b9-cd40-4e4d-b04d-353eedce0b30"/>
+				<textElement>
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datosbeneficiados_nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="0" width="73" height="20" uuid="d0a2174b-89cf-4989-9573-13312d65e815"/>
+				<textElement>
+					<font size="14" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datosbeneficiados_apellidos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="356" y="0" width="62" height="20" uuid="19834472-1122-47bc-b9e8-caecfccb4287"/>
+				<textElement>
+					<font size="14" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Genero:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="0" width="53" height="20" uuid="ffc9622f-3273-4254-8957-f645aefbb26c"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="547" y="0" width="38" height="20" uuid="ebec24c3-9088-4c87-8459-09fe2c1e3a51"/>
+				<textElement>
+					<font size="14" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datosbeneficiados_edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="0" width="72" height="20" uuid="b10d7e13-4a26-4348-ad87-065ce79a5639"/>
+				<textElement>
+					<font size="14" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{genero_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="22" y="0" width="61" height="20" uuid="3cf2b5b2-1acd-472c-9586-881cf309b2e9"/>
+				<textElement>
+					<font fontName="Arial" size="15" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Lugar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="0" width="117" height="20" uuid="c3e5a0c1-edfd-4cb0-bcda-df7a41775c79"/>
+				<textElement>
+					<font fontName="Arial" size="15" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Departamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="3" width="91" height="20" uuid="59554f6f-b960-45b6-a193-1439ec72daf7"/>
+				<textElement>
+					<font fontName="Arial" size="15" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="3" width="70" height="20" uuid="7bc52d22-51d6-4bf7-b0f7-5cb4942797b9"/>
+				<textElement>
+					<font fontName="Arial" size="15" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Actividad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="3" width="105" height="20" uuid="12e3839b-0486-4a02-9421-ffc9a67abb8f"/>
+				<textElement>
+					<font fontName="Arial" size="15" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Area misional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="565" y="3" width="50" height="20" uuid="30e24004-5409-4269-9159-28f1e59c8932"/>
+				<textElement>
+					<font fontName="Arial" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="9" y="6" width="126" height="27" uuid="66d11321-d898-4d50-80fa-6c121b7b8ef5"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lugar_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="6" width="101" height="27" uuid="a327471d-c8ac-474c-aa8f-85cacb94a104"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{departamento_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="238" y="6" width="112" height="27" uuid="4cd4d691-db7a-49c7-a928-96cae494c933"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuarios_nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="4" width="110" height="29" uuid="ac194e71-e12e-47f3-b55c-50dc8bf97c44"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{actividad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="4" width="88" height="29" uuid="dc295cb6-516e-4234-899f-4dff3d7e4b9b"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="556" y="4" width="59" height="29" uuid="52ccbc1b-ba56-4529-a127-3f4f2050f01f"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="13" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="500" y="3" width="120" height="19" uuid="cdd1c872-a458-481b-b0f9-a3e1e56f3c3f"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="11" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:b="http://bootsfaces.net/ui"
+    template="./WEB-INF/plantillaboot.xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    >
+
+    <ui:define name="title">
+        <title>Unir Beneficiarios a proyecto</title>
+    </ui:define>
+
+    <ui:define name="contenido">      
+
+        <b:row>
+            <b:form >
+                <p:dataTable  id="checkboxDT"  var="est" value="#{proyectosbeneficiadoBean.beneficiadoproyecto}" selection="#{proyectosbeneficiadoBean.beneficiadosselected}" rowKey="#{est.idb}" style="margin-bottom:0">
+                    <f:facet name="header">
+                        Beneficiados de proyectos
+                    </f:facet>
+                    <p:column selectionMode="multiple" style="width:50px;text-align:center"/>
+                    <p:column headerText="ID">
+                        <h:outputText value="#{est.idb}"/>
+                    </p:column>                    
+                    <p:column headerText="Proyecto">
+                        <h:outputText value="#{est.idproyecto.lugarproyectoPadre.idlp.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Actividad">
+                        <h:outputText value="#{est.idproyecto.detalleactividad.titulo}"/>
+                    </p:column>
+                    <p:column headerText="Lugar">
+                        <h:outputText value="#{est.idproyecto.lugarproyectoPadre.idlugar.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Area misional">
+                        <h:outputText value="#{est.idproyecto.lugarproyectoPadre.idlp.categoria.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{est.fecha}">
+                            
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Operaciones">
+                        <h:commandButton value="Eliminar"  style="margin-right:10px" class="btn btn-danger"
+                                         action="#{proyectosbeneficiadoBean.eliminarBeneficidosproyecto()}" onclick="return confirmarEliminacion();">
+                            <f:param name="codigo" value="#{est.idb}"/>
+                        </h:commandButton>
+                        <b:commandButton value="Modificar" look="primary"  
+                                         action="#{proyectosBean.obtenerProyecto()}">
+                            <f:param name="codigo" value="#{est.idb}"/>
+                        </b:commandButton>
+                    </p:column>                      
+                </p:dataTable>
+                <h3>Elija un tipo de exportacion:</h3>
+                <h:commandLink>
+                    <p:graphicImage name="img/excel.png" />
+                    <p:dataExporter type="xls" target="checkboxDT" fileName="Beneficiados" pageOnly="true"/>
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="img/pdf.png" />
+                    <p:dataExporter type="pdf" target="checkboxDT" fileName="Beneficiados" pageOnly="true" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="img/csv.png" />
+                    <p:dataExporter type="csv" target="checkboxDT" fileName="Beneficiados" pageOnly="true" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="img/xml.png" />
+                    <p:dataExporter type="xml" target="checkboxDT" fileName="Beneficiados" pageOnly="true" />
+                </h:commandLink>
+            </b:form>
+        </b:row>
+
+        <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');               
+            </c:if>
+
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
+
+
+
+    </ui:define>
+</ui:composition>

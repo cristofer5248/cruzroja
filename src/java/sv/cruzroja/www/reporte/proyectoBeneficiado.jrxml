@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="660" pageHeight="842" columnWidth="620" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cc395214-d0ff-4d51-a84a-34c019d50276">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codbene" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     datosbeneficiados.`nombres` AS datosbeneficiados_nombres,
+     datosbeneficiados.`apellidos` AS datosbeneficiados_apellidos,
+     datosbeneficiados.`edad` AS datosbeneficiados_edad,
+     lugar.`nombre` AS lugar_nombre,
+     proyectos.`nombre` AS proyectos_nombre,
+     departamento.`nombre` AS departamento_nombre,
+     usuarios.`nombres` AS usuarios_nombres,
+     genero.`nombre` AS genero_nombre
+FROM
+     `datosbeneficiados` datosbeneficiados INNER JOIN `beneficiados` beneficiados ON datosbeneficiados.`idusuario` = beneficiados.`idbeneficiado`
+     INNER JOIN `lugarproyecto` lugarproyecto ON beneficiados.`idproyecto` = lugarproyecto.`idl`
+     INNER JOIN `lugar` lugar ON lugarproyecto.`idlugar` = lugar.`idlugar`
+     INNER JOIN `proyectos` proyectos ON lugarproyecto.`idlp` = proyectos.`idproyecto`
+     INNER JOIN `usuarios` usuarios ON proyectos.`encargado` = usuarios.`idusuario`
+     INNER JOIN `genero` genero ON usuarios.`genero` = genero.`idg`
+     AND genero.`idg` = datosbeneficiados.`genero`
+     INNER JOIN `departamento` departamento ON lugar.`departamento` = departamento.`iddepartamento`
+WHERE
+     beneficiados.`idbeneficiado` = $P{codbene}]]>
+	</queryString>
+	<field name="datosbeneficiados_nombres" class="java.lang.String"/>
+	<field name="datosbeneficiados_apellidos" class="java.lang.String"/>
+	<field name="datosbeneficiados_edad" class="java.lang.Integer"/>
+	<field name="lugar_nombre" class="java.lang.String"/>
+	<field name="proyectos_nombre" class="java.lang.String"/>
+	<field name="departamento_nombre" class="java.lang.String"/>
+	<field name="usuarios_nombres" class="java.lang.String"/>
+	<field name="genero_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="50" y="34" width="480" height="45" uuid="20021784-3850-4614-9f93-7ee83316d36a"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Proyectos relacionados con el beneficiado]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="443" y="14" width="100" height="20" uuid="138c6234-2fa0-415a-a6a6-e7729a89210d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="210" y="0" width="77" height="20" uuid="6ea4da73-cecd-4090-957d-21a1b453be5f"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="0" width="63" height="20" uuid="dcbd4af2-dc75-407b-88d2-b07a7467008c"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="124" y="0" width="63" height="20" uuid="b3cf83b9-cd40-4e4d-b04d-353eedce0b30"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datosbeneficiados_nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="0" width="73" height="20" uuid="d0a2174b-89cf-4989-9573-13312d65e815"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datosbeneficiados_apellidos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="330" y="0" width="72" height="20" uuid="19834472-1122-47bc-b9e8-caecfccb4287"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Genero:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="0" width="53" height="20" uuid="ffc9622f-3273-4254-8957-f645aefbb26c"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="547" y="0" width="38" height="20" uuid="ebec24c3-9088-4c87-8459-09fe2c1e3a51"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datosbeneficiados_edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="0" width="76" height="20" uuid="b10d7e13-4a26-4348-ad87-065ce79a5639"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{genero_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="70" y="3" width="54" height="20" uuid="3cf2b5b2-1acd-472c-9586-881cf309b2e9"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lugar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="0" width="100" height="20" uuid="c3e5a0c1-edfd-4cb0-bcda-df7a41775c79"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Departamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="3" width="84" height="20" uuid="59554f6f-b960-45b6-a193-1439ec72daf7"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="467" y="3" width="63" height="20" uuid="7bc52d22-51d6-4bf7-b0f7-5cb4942797b9"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proyecto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="69" y="6" width="67" height="20" uuid="66d11321-d898-4d50-80fa-6c121b7b8ef5"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lugar_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="6" width="118" height="27" uuid="6e42a5c1-5927-42e2-bf36-3200d4131229"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proyectos_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="6" width="86" height="20" uuid="a327471d-c8ac-474c-aa8f-85cacb94a104"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{departamento_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="6" width="84" height="20" uuid="4cd4d691-db7a-49c7-a928-96cae494c933"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuarios_nombres}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ca2ae238-9a6b-4440-bd21-f159fbc717da">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     departamento.`nombre` AS departamento_nombre,
+     actividadesdetalles.`titulo` AS actividadesdetalles_titulo,
+     lugarcategoria.`nombre` AS lugarcategoria_nombre,
+     lugar.`nombre` AS lugar_nombre,
+     actividades.`idactividad` AS actividades_idactividad,
+     municipio.`nombre` AS municipio_nombre
+FROM
+     `departamento` departamento INNER JOIN `municipio` municipio ON departamento.`iddepartamento` = municipio.`departamento`
+     INNER JOIN `lugar` lugar ON municipio.`idmunicipio` = lugar.`municipio`
+     AND departamento.`iddepartamento` = lugar.`departamento`
+     INNER JOIN `lugarcategoria` lugarcategoria ON lugar.`categoria` = lugarcategoria.`id`
+     INNER JOIN `lugarproyecto` lugarproyecto ON lugar.`idlugar` = lugarproyecto.`idlugar`
+     INNER JOIN `actividades` actividades ON lugarproyecto.`idl` = actividades.`lugarproyectoPadre`
+     INNER JOIN `actividadesdetalles` actividadesdetalles ON actividades.`detalleactividad` = actividadesdetalles.`idactividadesdetalles`]]>
+	</queryString>
+	<field name="departamento_nombre" class="java.lang.String"/>
+	<field name="actividadesdetalles_titulo" class="java.lang.String"/>
+	<field name="lugarcategoria_nombre" class="java.lang.String"/>
+	<field name="lugar_nombre" class="java.lang.String"/>
+	<field name="actividades_idactividad" class="java.lang.Integer"/>
+	<field name="municipio_nombre" class="java.lang.String"/>
+	<group name="actividadesdetalles_titulo">
+		<groupExpression><![CDATA[$F{actividadesdetalles_titulo}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#990000" uuid="b37ae0bd-3626-4319-9d82-55f6852a4d34"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{actividadesdetalles_titulo}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="b5984066-8d73-487d-b7d0-c0540d115742"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="271" y="0" width="200" height="22" forecolor="#990000" uuid="cf6f393c-0c83-4bff-a333-7bb5345abb49"/>
+				<text><![CDATA[Proyecto con actividad:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="271" height="70" uuid="5c69e3f9-198b-49cc-aa37-f51bd84e49ae"/>
+				<imageExpression><![CDATA["C:\\logo\\logo_1.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement style="SubTitle" x="284" y="22" width="271" height="24" forecolor="#FF0000" uuid="83ba0a72-ccf5-4cc6-bdbe-50a42308b58c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{actividadesdetalles_titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="99d49127-6120-4759-8551-dcb36cfe86ca"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="328" y="20" width="111" height="15" uuid="0d187772-976f-45e9-9eae-d88fab260d79"/>
+				<text><![CDATA[Departamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="111" y="19" width="111" height="15" uuid="f048f0a0-287b-4c9d-b339-8f29074fd187"/>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="222" y="19" width="111" height="15" uuid="da0cdf44-121a-4767-9ffa-13909c96faf1"/>
+				<text><![CDATA[Lugar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="20" width="111" height="15" uuid="a7b8fba9-06c1-49d6-8f27-0053c80d3807"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="444" y="19" width="111" height="15" uuid="89fde1a6-9554-4505-ba51-ba44be66ec26"/>
+				<text><![CDATA[Municipio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="22" width="555" height="1" uuid="c0c549cd-f9e4-4efa-800b-10a1558ea981"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="328" y="1" width="111" height="22" uuid="11dfa0f0-0ff3-4635-8a6f-2ec061599437"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{departamento_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="111" y="0" width="111" height="22" uuid="84275970-3381-4c9c-bb34-24ac663cd64f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lugarcategoria_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="222" y="0" width="111" height="22" uuid="4b7dff4c-6806-4bdb-8349-620db6bcc331"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lugar_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="0" y="1" width="111" height="22" uuid="caef1b43-4820-4981-817a-6038936a0c75"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{actividades_idactividad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="444" y="0" width="111" height="22" uuid="1a475ee5-a7d3-44a9-a751-293c7d61390a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{municipio_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="718e2818-47b3-4dde-969c-f277a148ccc4"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="3a1c71b8-da16-434b-a7a9-852873c95197"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="e0feecdd-030e-4ca5-bcc0-0793efeefee0"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="3b95c47e-6020-490d-905f-400bab83456a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

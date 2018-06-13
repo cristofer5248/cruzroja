@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:b="http://bootsfaces.net/ui"
+    template="./WEB-INF/plantillaboot.xhtml">
+
+    <ui:define name="title">
+        <title> Departamentos</title>
+    </ui:define>
+
+    <ui:define name="contenido">      
+        <b:row>
+            <b:form >
+                <b:dataTable styleClass="table table-striped table-bordered" value="#{departamentoBean.listaDepartamento}" var="est" rendered="#{departamentoBean.listaDepartamento.size()>0}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{est.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Operaciones"/>
+                        </f:facet>                       
+                        <b:commandButton value="Proyectos" ajax="true" icon-awesome="fa-search" look="info" update="datosbeneficiados" action="#{departamentoBean.buscarproyectos}"
+                                         oncomplete="$('#responsiveModal').modal('show')" >
+                            <f:param name="codigo" value="#{est.iddepartamento}"/>
+                        </b:commandButton>
+                        <b:commandButton value="Actividades" ajax="true" icon-awesome="fa-search" look="info" update="datosbeneficiados2" action="#{departamentoBean.buscarActividades()}"
+                                         oncomplete="$('#responsiveModal2').modal('show')" style="margin-left: 10px;" >
+                            <f:param name="codigo" value="#{est.iddepartamento}"/>
+                        </b:commandButton>
+                    </h:column>                      
+
+                </b:dataTable>
+            </b:form>
+        </b:row>
+
+        <b:modal title="Proyectos" styleClass="responsiveModalPseudoClass"
+                 id="responsiveModal">
+            <h:form id="datosbeneficiados">
+                <b:dataTable styleClass="table table-striped table-bordered" value="#{departamentoBean.proyectosDepartamento}" var="est" rendered="#{departamentoBean.proyectosDepartamento.size()>0}" responsive="true" scrollHorizontally="true" print="true" excel="true" pdf="true" copy="true">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Nombre del proyecto"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idlp.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Encargado"/>
+                        </f:facet>
+                        <h:outputText value="#{est.encargadoproyecto.nombres}"/>
+                    </h:column>                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Municipio"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idlugar.municipio.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Localizacion"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idlugar.nombre}"/>
+
+                    </h:column>
+                    <b:dataTableColumn value="#{est.idlp.objetivos}" label="Objetivos"/>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha de inicio"/>                                
+                        </f:facet>
+                        <h:outputText value="#{est.fechainicio}">
+                            <f:convertDateTime type="date" pattern="dd/MM/yyyy 'a las' HH:mm"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha de cierre"/>                                
+                        </f:facet>
+                        <h:outputText value="#{est.fechafinal}">
+                            <f:convertDateTime type="date" pattern="dd/MM/yyyy 'a las' HH:mm"/>
+                        </h:outputText>
+                    </h:column>
+                </b:dataTable>
+            </h:form>
+        </b:modal>
+        <b:modal title="Actividades" styleClass="responsiveModalPseudoClass"
+                 id="responsiveModal2">
+            <h:form id="datosbeneficiados2">
+                <b:dataTable styleClass="table table-striped table-bordered" value="#{departamentoBean.actividadesDepartamento}" var="act" rendered="#{departamentoBean.actividadesDepartamento.size()>0}" responsive="true" scrollHorizontally="true" print="true" excel="true" pdf="true" copy="true">
+                    <b:dataTableColumn value="#{act.detalleactividad.titulo}" label="Titulo"/>
+                    <b:dataTableColumn value="#{act.detalleactividad.detalle}" label="dddd"/>
+                </b:dataTable>
+            </h:form>
+        </b:modal>
+
+        <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');               
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
+
+
+
+    </ui:define>
+</ui:composition>

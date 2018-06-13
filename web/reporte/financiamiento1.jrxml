@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="881ecc8f-9bbd-4d03-9d5f-452cb6798813">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="PieChartDataset" uuid="1a4063a9-282d-4d06-8057-7e2e81a345e4"/>
+	<queryString>
+		<![CDATA[SELECT
+     financiamiento.`financiamiento` AS financiamiento_financiamiento,
+     financiamiento.`fechaIngreso` AS financiamiento_fechaIngreso,
+     financiamiento.`Detalles` AS financiamiento_Detalles,
+     proyectos.`nombre` AS proyectos_nombre,
+     sociedad.`nombre` AS sociedad_nombre,
+     categoria.`nombre` AS categoria_nombre,
+     municipio.`nombre` AS municipio_nombre
+FROM
+     `proyectos` proyectos INNER JOIN `financiamiento` financiamiento ON proyectos.`idproyecto` = financiamiento.`proyecto`
+     INNER JOIN `sociedad` sociedad ON financiamiento.`sociedadN` = sociedad.`id`
+     INNER JOIN `categoria` categoria ON proyectos.`categoria` = categoria.`idcategoria`
+     INNER JOIN `municipio` municipio ON proyectos.`seccionales` = municipio.`idmunicipio`]]>
+	</queryString>
+	<field name="financiamiento_financiamiento" class="java.lang.Double"/>
+	<field name="financiamiento_Detalles" class="java.lang.String"/>
+	<field name="proyectos_nombre" class="java.lang.String"/>
+	<field name="sociedad_nombre" class="java.lang.String"/>
+	<field name="categoria_nombre" class="java.lang.String"/>
+	<field name="municipio_nombre" class="java.lang.String"/>
+	<field name="financiamiento_fechaIngreso" class="java.lang.String"/>
+	<group name="proyectos_nombre">
+		<groupExpression><![CDATA[$F{proyectos_nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<frame>
+					<reportElement mode="Opaque" x="229" y="7" width="326" height="24" forecolor="#B89F7D" backcolor="#70A9C6" uuid="574930fc-c91c-42b8-bde6-be1b839c24a9"/>
+					<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="1" width="263" height="23" forecolor="#FFFFFF" uuid="31524c78-2ce2-42cc-84db-202afb781ad5"/>
+						<textElement>
+							<font fontName="Arial" isBold="false" pdfFontName="Helvetica"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{proyectos_nombre}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="-20" y="65" width="229" height="250" uuid="34459826-3b1e-4d31-8f6d-325ca5db3dd0">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA["flower1.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="-20" y="-20" width="229" height="250" uuid="4798b487-8e8b-48e1-a34a-3c1f9bfa091e">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} > 1]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA["flower1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="318" y="394" width="239" height="181" backcolor="#FFFFCC" uuid="0d9b612e-0f68-423e-a2e2-0a30d33d28eb">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4">
+					<pen lineWidth="1.0" lineColor="#CC9900"/>
+					<topPen lineWidth="1.0" lineColor="#CC9900"/>
+					<leftPen lineWidth="1.0" lineColor="#CC9900"/>
+					<bottomPen lineWidth="1.0" lineColor="#CC9900"/>
+					<rightPen lineWidth="1.0" lineColor="#CC9900"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Each chart is populated on each page.
+The 3 pie charts are currently using an empty datasource and the values are
+generated using a random generator.
+
+This rectangle element is not printed (see the print when expression of this
+element)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="201" y="431" width="117" height="1" uuid="46d1eb14-9634-4cb9-8998-3e4b58a03cdf">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="3.0" lineStyle="Dotted" lineColor="#996600"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="275" y="-10" width="240" height="181" backcolor="#FFFFCC" uuid="fbc19b4b-fc39-428e-987e-27ddcfc6bf40">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4">
+					<pen lineWidth="1.0" lineColor="#CC9900"/>
+					<topPen lineWidth="1.0" lineColor="#CC9900"/>
+					<leftPen lineWidth="1.0" lineColor="#CC9900"/>
+					<bottomPen lineWidth="1.0" lineColor="#CC9900"/>
+					<rightPen lineWidth="1.0" lineColor="#CC9900"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Flowers: there are two flowers, the first one is printed only starting from the second page, the other one only in the first page.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="72" y="37" width="204" height="1" uuid="ed03b9fa-2c70-4ee6-9826-3493ca2fb4f0">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="3.0" lineStyle="Dotted" lineColor="#996600"/>
+				</graphicElement>
+			</line>
+			<pieChart>
+				<chart>
+					<reportElement x="4" y="328" width="141" height="103" uuid="eddc4646-1fd0-4498-9aa1-27ea865b36fc"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{proyectos_nombre}]]></keyExpression>
+					<valueExpression><![CDATA[$F{financiamiento_financiamiento}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="336" y="65" width="217" height="29" uuid="f77a7287-ec73-4ff9-98ff-aaf518466830"/>
+				<textElement textAlignment="Right">
+					<font size="22" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Flower SubTitle]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="0" width="597" height="65" forecolor="#006699" backcolor="#006699" uuid="92ecfa8a-3ed6-4d3c-8311-c3dfb644f52e"/>
+				<staticText>
+					<reportElement style="Title" x="231" y="0" width="346" height="65" uuid="33c5ae4c-391a-470e-9aa6-be5ab15af166"/>
+					<textElement textAlignment="Right">
+						<font size="54" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Flower Title]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<frame>
+				<reportElement x="227" y="0" width="328" height="20" uuid="8a5ed27b-aca8-4213-8523-ad4a31d422c0"/>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="0" y="0" width="54" height="20" forecolor="#000000" uuid="4de06db8-2770-4b2a-89f4-e88b3662fb83"/>
+					<textElement>
+						<font fontName="Arial" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[financiamiento_financiamiento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="54" y="0" width="54" height="20" forecolor="#000000" uuid="786fc26c-1e8b-43c8-b5bd-ad4b725900db"/>
+					<textElement>
+						<font fontName="Arial" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[financiamiento_fechaIngreso]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="108" y="0" width="54" height="20" forecolor="#000000" uuid="80947ff9-d6b8-4afc-8973-0674103360b9"/>
+					<textElement>
+						<font fontName="Arial" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[financiamiento_Detalles]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="162" y="0" width="54" height="20" forecolor="#000000" uuid="347888d7-a96a-4baf-914f-88de78f91875"/>
+					<textElement>
+						<font fontName="Arial" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[sociedad_nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="216" y="0" width="54" height="20" forecolor="#000000" uuid="84768321-5845-4d8c-84e7-bf382bfe2da1"/>
+					<textElement>
+						<font fontName="Arial" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[categoria_nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" positionType="Float" x="270" y="0" width="54" height="20" forecolor="#000000" uuid="a3d22617-7e44-411d-9c52-3310674dcac8"/>
+					<textElement>
+						<font fontName="Arial" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[lugar_nombre]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="227" y="22" width="326" height="1" uuid="53f741b8-0fff-4350-9be2-a8e48d494b74"/>
+			</line>
+			<frame>
+				<reportElement x="227" y="0" width="328" height="20" uuid="2de7fac1-2fd2-44d3-89c3-6bfba6295bda"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="54" height="18" uuid="18b21cb0-ce1b-4ad7-a940-b5e283a6efe1"/>
+					<textElement>
+						<font fontName="Arial" size="14" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{financiamiento_financiamiento}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="108" y="0" width="54" height="18" uuid="1b59dd77-3d6c-4ac0-a88e-c248e29646e8"/>
+					<textElement>
+						<font fontName="Arial" size="14" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{financiamiento_Detalles}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="162" y="0" width="54" height="18" uuid="471dbef5-b8cc-417a-8b98-c3c8585ce454"/>
+					<textElement>
+						<font fontName="Arial" size="14" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sociedad_nombre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="216" y="0" width="54" height="18" uuid="4b474c91-fd70-4aa2-84a4-a4faaec46aef"/>
+					<textElement>
+						<font fontName="Arial" size="14" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{categoria_nombre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" x="270" y="0" width="54" height="18" uuid="224c10fd-0795-4de8-aa23-cef319d6cd3c"/>
+					<textElement>
+						<font fontName="Arial" size="14" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{municipio_nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="48" y="0" width="43" height="18" uuid="230a64ce-8ee8-44bd-93c3-2c6cfd6b802b"/>
+					<textFieldExpression><![CDATA[$F{financiamiento_fechaIngreso}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="25177e07-66be-44d3-81f6-f8c9b209a7e6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="13" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="2" y="0" width="555" height="13" forecolor="#D0B48E" backcolor="#006699" uuid="d6563b66-6125-4f76-b491-74a22b926781"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="0" width="40" height="13" forecolor="#FFFFFF" uuid="18c91b40-73c2-4228-ac9c-90e32b913c0c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="62" height="12" forecolor="#FFFFFF" uuid="68d8f67d-6540-4464-8b96-ab30401fdee5"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="0" width="197" height="13" forecolor="#FFFFFF" uuid="a1c65256-d02d-485f-a9fc-002ead30efab"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

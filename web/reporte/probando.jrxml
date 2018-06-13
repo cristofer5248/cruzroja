@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" columnCount="10" printOrder="Horizontal" pageWidth="1000" pageHeight="595" orientation="Landscape" columnWidth="60" columnSpacing="40" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7786d262-7b57-44ec-b356-3533e4e4cc75">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     actividadesdetalles.`titulo` AS actividadesdetalles_titulo,
+     datosbeneficiados.`nombres` AS datosbeneficiados_nombres,
+     datosbeneficiados.`apellidos` AS datosbeneficiados_apellidos,
+     genero.`nombre` AS genero_nombre,
+     proyectos.`nombre` AS proyectos_nombre,
+     datosbeneficiados.`idusuario` AS datosbeneficiados_idusuario
+FROM
+     `actividadesdetalles` actividadesdetalles INNER JOIN `actividades` actividades ON actividadesdetalles.`idactividadesdetalles` = actividades.`detalleactividad`
+     INNER JOIN `beneficiados` beneficiados ON actividades.`idactividad` = beneficiados.`idproyecto`
+     INNER JOIN `lugarproyecto` lugarproyecto ON actividades.`lugarproyectoPadre` = lugarproyecto.`idl`
+     INNER JOIN `proyectos` proyectos ON lugarproyecto.`idlp` = proyectos.`idproyecto`
+     INNER JOIN `datosbeneficiados` datosbeneficiados ON beneficiados.`idbeneficiado` = datosbeneficiados.`idusuario`
+     INNER JOIN `genero` genero ON datosbeneficiados.`genero` = genero.`idg` ORDER BY datosbeneficiados.`idusuario`]]>
+	</queryString>
+	<field name="actividadesdetalles_titulo" class="java.lang.String"/>
+	<field name="datosbeneficiados_nombres" class="java.lang.String"/>
+	<field name="datosbeneficiados_apellidos" class="java.lang.String"/>
+	<field name="genero_nombre" class="java.lang.String"/>
+	<field name="proyectos_nombre" class="java.lang.String"/>
+	<field name="datosbeneficiados_idusuario" class="java.lang.String"/>
+	<variable name="datosbeneficiados_idusuario_1" class="java.lang.Integer" resetType="Group" resetGroup="datosbeneficiados_idusuario" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{datosbeneficiados_idusuario}]]></variableExpression>
+	</variable>
+	<variable name="actividadesdetalles_titulo_1" class="java.lang.Integer" resetType="Group" resetGroup="datosbeneficiados_idusuario" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{actividadesdetalles_titulo}]]></variableExpression>
+	</variable>
+	<group name="datosbeneficiados_idusuario">
+		<groupExpression><![CDATA[$F{datosbeneficiados_idusuario}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<textField>
+					<reportElement x="0" y="0" width="52" height="24" forecolor="#333333" uuid="d18598ce-7152-4619-bdfb-d27f7288c543"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{datosbeneficiados_idusuario}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="52" y="0" width="470" height="24" uuid="bb4f73c8-2ddb-4d1e-ad03-6a3bab22fccc"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{datosbeneficiados_nombres} +" "+ $F{datosbeneficiados_apellidos}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="datosbeneficiados_idusuario">
+					<reportElement x="859" y="4" width="100" height="20" uuid="da00ff4c-a8b1-487f-a81a-b57787ba8f15"/>
+					<textFieldExpression><![CDATA[$V{actividadesdetalles_titulo_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="748" y="0" width="100" height="24" uuid="61bac634-3d0f-48ab-a150-59534cb32735"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="648" y="4" width="100" height="20" uuid="54b64437-c1ad-4448-80c8-43f4cf3b6570"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{genero_nombre}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="30" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="50"/>
+	</pageHeader>
+	<detail>
+		<band height="23" splitType="Prevent">
+			<textField>
+				<reportElement x="0" y="0" width="152" height="23" uuid="b55991f7-4cac-43af-b4ca-69ddf073fa5c"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{actividadesdetalles_titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

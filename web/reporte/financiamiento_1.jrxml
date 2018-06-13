@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="63f82bf1-64ba-460e-a369-d5acc72e21d6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     financiamiento.`financiamiento` AS financiamiento_financiamiento,
+     financiamiento.`fechaIngreso` AS financiamiento_fechaIngreso,
+     financiamiento.`Detalles` AS financiamiento_Detalles,
+     proyectos.`nombre` AS proyectos_nombre,
+     sociedad.`nombre` AS sociedad_nombre,
+     categoria.`nombre` AS categoria_nombre,
+     municipio.`nombre` AS municipio_nombre
+FROM
+     `proyectos` proyectos INNER JOIN `financiamiento` financiamiento ON proyectos.`idproyecto` = financiamiento.`proyecto`
+     INNER JOIN `sociedad` sociedad ON financiamiento.`sociedadN` = sociedad.`id`
+     INNER JOIN `categoria` categoria ON proyectos.`categoria` = categoria.`idcategoria`
+     INNER JOIN `municipio` municipio ON proyectos.`seccionales` = municipio.`idmunicipio`]]>
+	</queryString>
+	<field name="financiamiento_financiamiento" class="java.lang.Double"/>
+	<field name="financiamiento_Detalles" class="java.lang.String"/>
+	<field name="proyectos_nombre" class="java.lang.String"/>
+	<field name="sociedad_nombre" class="java.lang.String"/>
+	<field name="categoria_nombre" class="java.lang.String"/>
+	<field name="municipio_nombre" class="java.lang.String"/>
+	<field name="financiamiento_fechaIngreso" class="java.lang.String"/>
+	<field name="fechainicio" class="java.lang.String"/>
+	<field name="fechafinal" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<group name="proyectos_nombre">
+		<groupExpression><![CDATA[$F{proyectos_nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" x="49" y="13" width="506" height="24" forecolor="#333333" uuid="4c073275-e1f4-445a-9457-c21e1880737a"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{proyectos_nombre}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#FF3333" backcolor="#FF0033" uuid="f15115c5-8888-44c0-9929-118530970b57"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="323" y="0" width="197" height="70" uuid="f15a65bb-3903-4d78-aaa6-7733e2f7637d"/>
+				<imageExpression><![CDATA["C:\\logo\\003banner.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="216" y="0" width="197" height="70" uuid="d1873fff-76bc-4caa-ae28-4dcf3d64e4be"/>
+				<imageExpression><![CDATA["C:\\logo\\003banner.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="109" y="0" width="197" height="70" uuid="b87b8040-0647-47c6-9770-38b4c3e43345"/>
+				<imageExpression><![CDATA["C:\\logo\\003banner.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="0" width="197" height="70" uuid="c3e5058f-5344-4da3-b775-6996b598a730"/>
+				<imageExpression><![CDATA["C:\\logo\\003banner.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="135" y="0" width="203" height="33" forecolor="#000000" uuid="c568a308-8820-4ee6-b36b-fd4f9c2464f2"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Berlin Sans FB Demi"/>
+				</textElement>
+				<text><![CDATA[Financiamiento]]></text>
+			</staticText>
+			<image>
+				<reportElement x="487" y="0" width="68" height="66" uuid="eb04d4f8-ce89-484c-a1b9-7fe1be73c690"/>
+				<imageExpression><![CDATA["C:\\logo\\003baner2.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="44" width="555" height="1" uuid="9ffb64e5-e38b-475f-8330-114f199fca7e"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="181" y="27" width="105" height="15" forecolor="#990000" uuid="95d6ef66-1898-4c7d-b346-2d6f726120eb"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Fecha de ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="470" y="27" width="92" height="15" forecolor="#990000" uuid="aee5f16d-f302-42cc-9200-d57fed0d1b52"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Financiamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="102" y="27" width="92" height="15" forecolor="#990000" uuid="f0eb1088-48e6-411a-b591-ac6c0a64fc9f"/>
+				<text><![CDATA[Detalles]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="7" y="29" width="92" height="15" forecolor="#990000" uuid="e682fc31-1283-49f0-a7a4-b7d9d1fdb904"/>
+				<text><![CDATA[Sociedad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="286" y="27" width="92" height="15" forecolor="#990000" uuid="12871c3b-038b-44fa-a319-6b928cc24a08"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Area misional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="378" y="27" width="92" height="15" forecolor="#990000" uuid="8d727629-e774-47ba-9fa1-0106babeaae8"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Ubicacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="0" width="55" height="20" uuid="46356514-6793-49cf-8238-2a204844bae5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="202" y="0" width="100" height="20" uuid="fcba02b7-0d5f-411a-b777-d5ac70823fe1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechainicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="100" height="20" uuid="9be13cdb-08b1-4091-9dcc-a9f69fa5a572"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechafinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="323" y="0" width="36" height="20" uuid="4fdda1ce-44c0-4ac5-aac7-bbd7fb641282"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[hasta:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="36" width="555" height="1" uuid="c2e6e2cb-c0ea-46d7-8e80-01df86e68409"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="487" y="0" width="68" height="36" forecolor="#339900" uuid="67583c9e-757c-49b6-858e-b4b290132688"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{financiamiento_financiamiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="88" y="0" width="92" height="36" uuid="e28dfa72-f895-43c5-9479-abc663fe0751"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{financiamiento_Detalles}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="7" y="2" width="79" height="36" uuid="248d4721-ca86-406d-92c5-22973bc0a80d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sociedad_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="286" y="0" width="92" height="36" uuid="3df34d18-04d3-4e0f-ab27-61709832ba52"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoria_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="378" y="0" width="92" height="36" uuid="818b4445-53f7-49b1-bd79-a01b01a382dd"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{municipio_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="0" width="100" height="36" uuid="8fc23130-99e3-4a98-8b6d-84214ef4bc04"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{financiamiento_fechaIngreso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="468" y="9" width="19" height="20" forecolor="#009900" uuid="edce001c-b58a-4dea-8590-38b524655cd8"/>
+				<text><![CDATA[$]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="130" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="38b49946-839b-4ace-be1f-4e91e82ce960"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<pie3DChart>
+				<chart>
+					<reportElement x="0" y="4" width="378" height="126" uuid="530db925-76b2-4053-bc0f-c3de5a815d6a"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{proyectos_nombre}]]></keyExpression>
+					<valueExpression><![CDATA[$F{financiamiento_financiamiento}]]></valueExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+			<staticText>
+				<reportElement x="450" y="19" width="70" height="32" uuid="fe62f13a-0038-4b10-ac1e-381addfbfed7"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Berlin Sans FB Demi" size="24"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="401" y="76" width="152" height="37" forecolor="#00CC00" uuid="6a57d48b-0e68-473a-95d6-5e692a413b18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="378" y="79" width="13" height="31" forecolor="#009900" uuid="4444647b-98a8-4c5c-b92a-8d580d1919ad"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[$]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="e556cbba-6e31-4b36-96c1-a995cf5ffd20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="d646a32d-814d-4093-a3db-f30726636ca2"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="6cc34d9a-993b-456a-b8fc-6611760582fe"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="147" y="0" width="270" height="20" uuid="ed002a82-54bd-4880-ad9e-1d0a0b313cd9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Developer: Christopher Mail: cristofr5248@gmail.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

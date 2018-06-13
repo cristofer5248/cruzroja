@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <link rel="icon" href="../resources/img/icono.png"></link>
+        <h:outputStylesheet name="css/alertify.core.css" />
+        <h:outputStylesheet name="css/alertify.default.css" />
+        <h:outputStylesheet name="css/style3dlogin.css" />
+        <h:outputStylesheet name="css/stylegrvity.css" />
+        <h:outputScript name="js/alertify.js"/>
+        <h:outputScript name="js/indexgravity.js"/>
+        <h:outputScript name="js/indexlogin3d.js"/>
+
+        <title>Cruz Roja Salvadoreña</title>
+        <meta name="author" content="Christopher Elias Maldonado Martinez"></meta>
+        <style type="text/css">
+            .form-signin {
+                margin: 0 auto;
+                max-width: 330px;
+                padding: 15px;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <b:container>
+            <div class="background"></div>
+            <div class="title">
+                <h:form>
+                    <div class="form" id="form">
+                        <div class="field email">
+                            <div class="icon"></div>
+
+                            <b:inputText class="input" id="email" placeholder="Usuario" value="#{login.usuario}" />
+                        </div>
+                        <div class="field password">
+                            <div class="icon"></div>
+                            <b:inputText class="input" id="password" placeholder="Password" type="password" value="#{login.pass}"/>
+                        </div>
+                        <h:commandButton class="button" id="submit" value="Sign In" action="#{login.iniciarsesion()}">
+                            <div class="side-top-bottom"></div>
+                            <div class="side-left-right"></div>
+                        </h:commandButton><small>Cruz Roja Salvadoreña</small>
+                    </div>
+                </h:form>
+            </div>
+
+        </b:container>
+               
+        <h:outputScript>
+            <c:set var="message" value='${param.error}' />
+
+            <c:if test = "${message!=null}">
+                alertify
+                .alert("Acceso no permitido, Inicia sesion primero.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+        </h:outputScript>
+    </h:body>
+</html>

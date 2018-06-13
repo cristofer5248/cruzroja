@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:b="http://bootsfaces.net/ui"
+    template="./WEB-INF/plantillaboottec.xhtml"
+
+
+    xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="title">
+        <title> Actividades</title>
+    </ui:define>
+
+    <ui:define name="contenido">      
+        <b:panel title=">Abrir registro de actividades" look="success" collapsed="true" iconAwesome="fa-briefcase" >
+
+            <b:form id="miFormulario">
+                <h:panelGroup layout="block" styleClass="alert alert-danger" 
+                              rendered="#{not empty facesContext.messageList}">
+                    <h:messages  />
+                </h:panelGroup>
+                <b:panelGrid columns="4" styleClass="table">
+                    <h:outputLabel for="titulo" value="Titulo"/>
+                    <b:inputText id="nombre" value="#{actividadesDetallesBean.actividadesdetalles.titulo}" 
+                                 required="true" maxlength="40"
+                                 requiredMessage="Debes ingresar el titulo">
+                    </b:inputText>
+
+                    <h:outputLabel for="detalle" value="Detalle"/>
+                    <b:inputTextarea placeholder="Una breve descripcion" value="#{actividadesDetallesBean.actividadesdetalles.detalle}"> 
+                    </b:inputTextarea>
+                    <h:outputLabel for="id" value="ID:"/>
+                    <b:inputText id="idauto" value="#{actividadesDetallesBean.actividadesdetalles.idactividadesdetalles}"
+                                 maxlength="6" validatorMessage="ID no valido"                                         
+                                 >
+                    </b:inputText>
+
+                </b:panelGrid>
+                <b:commandButton value="Auto-generar ID" look="warning" action="#{actividadesDetallesBean.generarid()}"  style="margin-right:10px">
+                    <f:ajax execute="nombre" render="idauto"/>
+                </b:commandButton>                           
+                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{actividadesDetallesBean.guardar()}" style="margin-right:10px">
+                    <f:param value="T" name="tipo"/> 
+                </b:commandButton>
+                <b:commandButton type="reset" value="Limpiar" look="danger"/>
+            </b:form>
+        </b:panel>
+
+        <p:dialog header="Integrar actividad a un proyecto" widgetVar="dlg3" modal="true" height="310" >
+
+
+            <b:form id="miformulario2">
+                <b:carousel id="wizard" styleClass="wizardPseudoClass"
+                            style="width:400px; height:300px; padding-top:10px"
+                            startAnimation="false"
+                            showIndicators="false"
+                            wrap="false">
+
+                    <b:carouselItem style="width:400px; height:230px">
+
+                        <b:panel title="Ubicacion" look="primary" collapsible="false">                           
+                            <b:formGroup>
+                                <b:selectOneMenu value="#{actividadesBean.idlugar}" label="Ubicacion">
+                                    <p:ajax event="change" update=":miformulario2:selectproyecto" />
+
+                                    <f:selectItems value="#{actividadesBean.listaLugar}" var="lugar" itemLabel="#{lugar.nombre}" itemValue="#{lugar.idlugar}">
+                                    </f:selectItems>
+                                </b:selectOneMenu>
+
+                                <b:selectOneMenu id="selectproyecto" value="#{actividadesBean.proyectoid}" label="Proyecto">
+
+                                    <f:selectItems value="#{actividadesBean.retornarListaLugarproyectoPadreParaTecnico()}" var="pro" itemLabel="#{pro.idlp.nombre}" itemValue="#{pro.idl}">
+                                    </f:selectItems>
+                                </b:selectOneMenu>
+                            </b:formGroup>
+                            <h:outputLabel value="No hay proyectos en ese lugar!" rendered="#{actividadesBean.skip3 != false}" style="color: red;"/>
+                        </b:panel>
+                    </b:carouselItem>
+                    <b:carouselItem style="width:400px;height:230px">
+                        <b:panel title="Visualizacion de datos" look="primary" collapsible="false">
+                            <b:commandButton ajax="true" update=":miformulario2:datoswe" actionListener="#{actividadesBean.recolectardatos()}" value="Ver datos" look="primary"/>
+                            <h:outputLabel id="datoswe" value="#{actividadesBean.datoscompletos}" />
+                            <b:commandButton value="Guardar" action="#{actividadesBean.integraractividad}" look="success">
+                                <f:param value="T" name="tipo"></f:param>
+                            </b:commandButton>
+                        </b:panel>
+                    </b:carouselItem>
+                    <b:carouselControl direction="right" >
+                        <b:button value="Anterior"
+                                  onclick="$('.wizardPseudoClass').carousel('prev');$('.wizardPseudoClass').carousel('pause');"
+                                  look="info" />
+                    </b:carouselControl>
+                    <b:carouselControl direction="left">
+                        <b:button value="Siguiente" style="position:absolute;right:0px"
+                                  onclick="$('.wizardPseudoClass').carousel('next');$('.wizardPseudoClass').carousel('pause');"
+                                  look="success">
+
+                        </b:button>
+                    </b:carouselControl>
+                </b:carousel>
+            </b:form>
+
+        </p:dialog>
+
+        <b:row>
+            <b:form id="tablaactivades">
+                <b:dataTable styleClass="table table-striped table-bordered" value="#{actividadesDetallesBean.listarActividadesDet()}" var="est" rendered="#{actividadesDetallesBean.listarActividadesDet().size()>0}" pdf="true" excel="true" print="true" columnVisibility="true">
+                    <f:facet name="header">
+
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Detalle</th>                               
+                        </tr>
+                    </f:facet>
+                    <b:dataTableColumn value="#{est.titulo}"/>       
+                    <b:dataTableColumn value="#{est.detalle}" />
+                    <h:column>   
+                        <p:commandButton icon="ui-icon-disk" value="Integrar" actionListener="#{actividadesBean.llenarIntegraractividad()}" onclick="PF('dlg3').show();" style="margin-top:10px; background: none; ">
+                            <f:param name="codigo" value="#{est.idactividadesdetalles}"/>
+                        </p:commandButton>
+                        <b:commandButton value="Proyectos" ajax="true" icon-awesome="fa-search" look="info" update="proyectosASOactividades" action="#{actividadesBean.listarActividadesXIddetalleActividad()}"
+                                         oncomplete="$('#responsiveModal3').modal('show')" style="margin-left: 10px;" >
+                            <f:param name="codigo" value="#{est.idactividadesdetalles}"/>
+                        </b:commandButton>
+                        <b:commandButton value="PDF proyectos" style="margin-left:10px" iconAwesome="fa-file-pdf-o" look="warning" 
+                                         actionListener="#{actividadesBean.pdfproyectos}">     
+                            <f:param name="codigo" value="#{est.idactividadesdetalles}"/>
+                        </b:commandButton>
+                    </h:column>
+
+                </b:dataTable>
+            </b:form>
+        </b:row>
+        <b:modal title="Proyectos" styleClass="responsiveModalPseudoClass"
+                 id="responsiveModal3">
+            <h:form id="proyectosASOactividades">
+                <b:dataTable styleClass="table table-striped table-bordered" value="#{actividadesBean.actividadesmodal}" var="est" rendered="#{actividadesBean.actividadesmodal.size()>0}" responsive="true" scrollHorizontally="true" print="true" excel="true" pdf="true" copy="true">
+                    <b:dataTableColumn value="#{est.lugarproyectoPadre.idlp.nombre}" label="Nombre"/>
+                    <b:dataTableColumn value="#{est.lugarproyectoPadre.idlugar.nombre}" label="Departamento"/>                  
+                    <b:dataTableColumn value="#{est.lugarproyectoPadre.idlugar.municipio.nombre}" label="Municipio"/>                  
+                    <b:dataTableColumn value="#{est.lugarproyectoPadre.idlp.categoria.nombre}" label="Categoria"/>   
+                </b:dataTable>
+            </h:form>
+        </b:modal>
+        <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');               
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
+
+
+
+    </ui:define>
+</ui:composition>

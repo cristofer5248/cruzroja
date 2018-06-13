@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:b="http://bootsfaces.net/ui"
+    template="./WEB-INF/plantillaboottec.xhtml"
+    >
+
+    <ui:define name="title">
+        <title> Sociedades</title>
+    </ui:define>
+
+    <ui:define name="contenido">      
+        <b:panel title=">Abrir registro de sociedades" look="success" collapsed="true" iconAwesome="fa-briefcase">
+
+            <b:form id="miFormulario">
+                <h:panelGroup layout="block" styleClass="alert alert-danger" 
+                              rendered="#{not empty facesContext.messageList}">
+                    <h:messages  />
+                </h:panelGroup>
+                <b:panelGrid columns="4" styleClass="table">
+                    <h:outputLabel for="nombre" value="Nombre:"/>
+                    <b:inputText id="nombre" styleClass="form-control" 
+                                 value="#{sociedadBean.sociedad.nombre}" 
+                                 required="true" maxlength="15"
+                                 requiredMessage="Debes ingresar el nombre">
+                    </b:inputText>
+                    
+                    <h:outputLabel for="iniciales" value="Iniciales:"/>
+                    <b:inputText id="iniciales" styleClass="form-control" 
+                                 value="#{sociedadBean.sociedad.iniciales}" 
+                                 required="true" maxlength="15"
+                                 requiredMessage="Debes ingresar el nombre">
+                    </b:inputText>
+                    
+                    <h:outputLabel for="id" value="ID:"/>
+                    <b:inputText id="idauto" styleClass="form-control" 
+                                 value="#{sociedadBean.sociedad.id}"
+                                 maxlength="6" validatorMessage="ID no valido"                                         
+                                 >
+                    </b:inputText>
+                </b:panelGrid>                           
+                <b:commandButton  value="Guardar" look="success" action="#{sociedadBean.guardarUsuario()}" style="margin-right:10px"/>
+                <b:commandButton type="reset" value="Limpiar" look="danger"/>
+            </b:form>
+        </b:panel>
+
+
+        <b:row>
+            <b:form >
+                <b:dataTable styleClass="table table-striped table-bordered" value="#{sociedadBean.listaSociedad}" var="est" rendered="#{sociedadBean.listaSociedad.size()>0}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="ID"/>
+                        </f:facet>
+                        <h:outputText value="#{est.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{est.nombre}"/>                          
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Iniciales"/>
+                        </f:facet>
+                        <h:outputText value="#{est.iniciales}"/>
+                    </h:column>                     
+                </b:dataTable>
+            </b:form>
+        </b:row>
+
+        <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');               
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
+
+
+
+    </ui:define>
+</ui:composition>

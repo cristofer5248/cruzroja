@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:b="http://bootsfaces.net/ui"
+    template="./WEB-INF/plantillaboot.xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    >
+
+    <ui:define name="title">
+        <title> Lugares</title>
+    </ui:define>
+
+    <ui:define name="contenido">   
+
+        <b:panel title=">Click aqui para establecer la localizacion de un proyecto" look="success" collapsed="true" iconAwesome="fa-briefcase">
+
+            <b:form id="miFormulario">
+                <h:panelGroup layout="block" styleClass="alert alert-danger" 
+                              rendered="#{not empty facesContext.messageList}">
+                    <h:messages  />
+                </h:panelGroup>
+                <b:panelGrid columns="4" styleClass="table">
+                    <h:outputLabel for="fechadeinicio" value="Fecha de inicio"/>
+                    <b:dateTimePicker value="#{lugarproyectoBean.lugarproyecto.fechainicio}" format="MM/DD/YYYY"/>
+                    <h:outputLabel for="fechafinal" value="Fecha final"/>
+                    <b:dateTimePicker value="#{lugarproyectoBean.lugarproyecto.fechafinal}" format="MM/DD/YYYY"/>
+                    <h:outputLabel for="lugar" value="Localizacion"/>
+                    <p:selectOneMenu id="advanced" value="#{lugarproyectoBean.lugarid}" panelStyle="width:200px"
+                                     effect="fade" var="t" style="width:182px" filter="true" filterMatchMode="startsWith">
+                        <f:selectItems value="#{lugarBean.listaLugar}" var="lugar" itemLabel="#{lugar.nombre}" itemValue="#{lugar.idlugar}" />
+                        <p:ajax event="blur"/>
+                        <b:column style="width:15%">
+                            <h:outputText styleClass="ui-theme ui-theme-#{t.name}" />
+                        </b:column>
+                        <p:column>
+                            <h:outputText value="#{t.displayName}" />
+                        </p:column>
+                    </p:selectOneMenu>
+                    <h:outputLabel for="proyecto" value="Proyecto"/>
+                    <p:selectOneMenu id="advanced2" value="#{lugarproyectoBean.pruebawe}" panelStyle="width:180px"
+                                     effect="fade" var="t" style="width:182px" filter="true" filterMatchMode="startsWith">
+                        <f:selectItems value="#{proyectosBean.listaProyectos}" var="theme" itemLabel="#{theme.nombre}" itemValue="#{theme.idproyecto}" />
+                        <p:ajax event="blur"/>
+                        <p:column style="width:10%">
+                            <h:outputText styleClass="ui-theme ui-theme-#{t.name}" />
+                        </p:column>
+
+                        <p:column>
+                            <h:outputText value="#{t.displayName}" />
+                        </p:column>
+                    </p:selectOneMenu>
+
+                    <h:outputLabel for="encargado" value="Encargado:"/>
+                    <b:selectOneMenu value="#{lugarproyectoBean.encargado}">
+                        <f:selectItems value="#{usuariosBean.soloEncargados}" var="usu"
+                                       itemLabel="#{usu.nombres}" itemValue="#{usu.idusuario}" />
+                    </b:selectOneMenu>
+
+                    <h:outputLabel for="carnet" value="ID:"/>
+                    <b:inputText id="idauto"
+                                 value="#{lugarproyectoBean.lugarproyecto.idl}" 
+                                 required="true" 
+                                 requiredMessage="Debes ingresar un ID o auto-generarlo" 
+                                 validatorMessage="Formato de ID no valido, 6 letras o numeros">
+                        <f:validateRegex pattern="[A-Z0-9]{6}"/>
+                    </b:inputText>
+
+                </b:panelGrid>
+                <b:commandButton value="Auto-generar ID" look="warning" action="#{lugarproyectoBean.generarId()}"  style="margin-right:10px">
+                    <f:ajax render="idauto"/>
+                </b:commandButton> 
+                <b:commandButton  value="Guardar/Actualizar"  look="success" action="#{lugarproyectoBean.guardarLugarproyecto()}" style="margin-right:10px">
+                </b:commandButton>
+                <b:commandButton type="reset" value="Limpiar" look="danger"/>
+            </b:form>
+        </b:panel>
+
+        <center>
+            <h:form id="filtro">
+                <p:outputLabel value="Fecha de inicio" />
+                <p:calendar id="mask" value="#{lugarproyectoBean.fecha1}" pattern="yyyy-MM-dd" mask="true" >
+                </p:calendar>
+                <p:outputLabel style="margin-left: 5px;" value="Fecha final" />
+                <p:calendar id="mask2" value="#{lugarproyectoBean.fecha2}" pattern="yyyy-MM-dd" mask="true">
+                </p:calendar>               
+                <p:commandButton style="margin-left: 5px; background:none;" value="filtrar" icon="fa fa-fw fa-filter" update="datosdelugaresproyectos">
+
+                </p:commandButton>
+                <b:commandButton value="PDF" style="margin-left: 5px;" iconAwesome="fa-file-pdf-o" look="danger"
+                                 actionListener="#{lugarproyectoBean.pdfproyectos}"> 
+                </b:commandButton>
+            </h:form>
+        </center>
+
+
+        <b:modal title="Sus actividades" styleClass="modalPseudoClass2"
+                 id="responsiveModal">
+            <h:form id="actividadestable2">
+                <p:dataTable id="actividadestable" value="#{actividadesBean.listarActividadesXproyecto}" var="activi">
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{activi.detalleactividad.titulo}"/>                    
+                    </p:column>
+                    <p:column headerText="Objetivos">
+                        <h:outputText value="#{activi.lugarproyectoPadre.idlp.objetivos}"/>
+                    </p:column>
+                    <p:column headerText="Hipotesis">
+                        <h:outputText value="#{activi.lugarproyectoPadre.idlp.hipotesis}"/>
+                    </p:column>
+                </p:dataTable>
+
+                <h:commandLink>
+                    <p:graphicImage name="img/excel.png" />
+                    <p:dataExporter type="xls" target="actividadestable" fileName="Beneficiados" pageOnly="true"/>
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="img/pdf.png" />
+                    <p:dataExporter type="pdf" target="actividadestable" fileName="Beneficiados" pageOnly="true" options="#{lugarproyectoBean.pdfOpt}" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="img/csv.png" />
+                    <p:dataExporter type="csv" target="actividadestable" fileName="Beneficiados" pageOnly="true" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage name="img/xml.png" />
+                    <p:dataExporter type="xml" target="actividadestable" fileName="Beneficiados" pageOnly="true" />
+                </h:commandLink>
+            </h:form>
+        </b:modal>
+
+        <b:row>
+            <b:form id="datosdelugaresproyectos">
+                <b:dataTable styleClass="table table-striped table-bordered" value="#{lugarproyectoBean.listalugarProyecto()}" var="est" rendered="#{lugarproyectoBean.listalugarProyecto.size()>0}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Nombre del proyecto"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idlp.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Encargado"/>
+                        </f:facet>
+                        <h:outputText value="#{est.encargadoproyecto.nombres}"/>
+                    </h:column>                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Departamento"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idlugar.departamento.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Municipio"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idlugar.municipio.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Localizacion"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idlugar.nombre}"/>
+
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Area misional"/>
+                        </f:facet>
+                        <h:outputText value="#{est.idlp.categoria.nombre}"/>                          
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Encargado"/>
+                        </f:facet>
+                        <h:outputText value="#{est.encargadoproyecto.nombres}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha de inicio"/>                                
+                        </f:facet>
+                        <h:outputText value="#{est.fechainicio}">
+                            <f:convertDateTime type="date" pattern="dd/MM/yyyy 'a las' HH:mm"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha de cierre"/>                                
+                        </f:facet>
+                        <h:outputText value="#{est.fechafinal}">
+                            <f:convertDateTime type="date" pattern="dd/MM/yyyy 'a las' HH:mm"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Operaciones"/>
+                        </f:facet>
+                        <p:commandButton icon="ui-icon-disk" value="Actividades" actionListener="#{actividadesBean.llenarproyectoid()}" update="actividadestable2" onclick="$('.modalPseudoClass2').modal()">
+                            <f:param name="codigo" value="#{est.idl}"/>
+                        </p:commandButton>
+                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"  style="margin-right:10px"
+                                         action="#{lugarproyectoBean.eliminarLugarproyecto()}" onclick="return confirmarEliminacion();">
+                            <f:param name="codigo" value="#{est.idl}"/>
+                        </h:commandButton>                        
+                    </h:column>                      
+                </b:dataTable>
+            </b:form>
+        </b:row>
+
+        <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');               
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este registro?");
+            }
+            function CheckAdd(){
+            return alertify.confirm('Cancel button is focused by default.').set('defaultFocus', 'cancel'); 
+
+
+            }
+        </h:outputScript>
+
+
+
+    </ui:define>
+</ui:composition>

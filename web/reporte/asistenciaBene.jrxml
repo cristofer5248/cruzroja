@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="2000" pageHeight="595" orientation="Landscape" columnWidth="1960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="08e4b89c-9eb2-4609-8858-449dacae2202">
+	<property name="ireport.zoom" value="1.0000000000000007"/>
+	<property name="ireport.x" value="398"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<queryString>
+		<![CDATA[SELECT
+     actividadesdetalles.`titulo` AS actividadesdetalles_titulo,
+     datosbeneficiados.`nombres` AS datosbeneficiados_nombres,
+     datosbeneficiados.`apellidos` AS datosbeneficiados_apellidos,
+     genero.`nombre` AS genero_nombre,
+     proyectos.`nombre` AS proyectos_nombre,
+     datosbeneficiados.`idusuario` AS datosbeneficiados_idusuario,
+     datosbeneficiados.`edad` AS datosbeneficiados_edad
+FROM
+     `actividadesdetalles` actividadesdetalles INNER JOIN `actividades` actividades ON actividadesdetalles.`idactividadesdetalles` = actividades.`detalleactividad`
+     INNER JOIN `beneficiados` beneficiados ON actividades.`idactividad` = beneficiados.`idproyecto`
+     INNER JOIN `lugarproyecto` lugarproyecto ON actividades.`lugarproyectoPadre` = lugarproyecto.`idl`
+     INNER JOIN `proyectos` proyectos ON lugarproyecto.`idlp` = proyectos.`idproyecto`
+     INNER JOIN `datosbeneficiados` datosbeneficiados ON beneficiados.`idbeneficiado` = datosbeneficiados.`idusuario`
+     INNER JOIN `genero` genero ON datosbeneficiados.`genero` = genero.`idg`
+ORDER BY
+     datosbeneficiados.`idusuario` ASC]]>
+	</queryString>
+	<field name="actividadesdetalles_titulo" class="java.lang.String"/>
+	<field name="datosbeneficiados_nombres" class="java.lang.String"/>
+	<field name="datosbeneficiados_apellidos" class="java.lang.String"/>
+	<field name="genero_nombre" class="java.lang.String"/>
+	<field name="proyectos_nombre" class="java.lang.String"/>
+	<field name="datosbeneficiados_idusuario" class="java.lang.String"/>
+	<field name="datosbeneficiados_edad" class="java.lang.String"/>
+	<field name="totalcount" class="java.lang.String"/>
+	<group name="idusuario">
+		<groupExpression><![CDATA[$F{datosbeneficiados_idusuario}]]></groupExpression>
+		<groupHeader>
+			<band height="28">
+				<textField>
+					<reportElement x="348" y="0" width="217" height="27" uuid="c1941a27-7e22-480d-9213-f22bd025406a"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{datosbeneficiados_nombres}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="565" y="0" width="137" height="27" uuid="d9a57351-1797-4831-8ca1-4e3e7063215e"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{genero_nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="702" y="0" width="100" height="27" uuid="0f42c565-ccfc-4fbb-befa-a7175fa9a99b"/>
+					<box rightPadding="2">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{datosbeneficiados_edad}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="248" y="0" width="100" height="28" uuid="28fda264-3243-4827-aae8-ef14a9081953"/>
+					<box leftPadding="3">
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{datosbeneficiados_idusuario}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="99" splitType="Stretch">
+			<image>
+				<reportElement x="20" y="0" width="76" height="96" uuid="b6fa5cd8-3add-462f-be12-c62d8664ac9e"/>
+				<imageExpression><![CDATA["C:\\logo\\logo_2.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="122" y="0" width="266" height="56" forecolor="#993300" uuid="f9c4f19e-b5af-4080-81cf-12f52872280e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="40" isItalic="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[ASISTENCIA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="434" y="12" width="855" height="86" forecolor="#CC3300" uuid="5867629f-9063-423c-b384-07033ec3244e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Proyecto:  " + $F{proyectos_nombre}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="97" width="1960" height="1" uuid="54ba5064-39b5-499d-b19f-9af49ca89dcf"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="565" y="0" width="137" height="25" uuid="865051ea-78f5-47e5-b569-4b5b7e4f8abf"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Genero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="0" width="217" height="25" uuid="8e3c6370-ba03-4248-a50c-c2cbb3716645"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombres y Apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="702" y="0" width="100" height="25" uuid="5d9be8be-9a0d-4516-91e3-bf93a5094f85"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Edad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="0" width="100" height="25" uuid="b5f6c413-d427-4f69-9d26-4b548505b830"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="802" y="0" width="100" height="25" forecolor="#FF0000" uuid="a4013a0a-018b-4d71-8ab9-3a72eeb0727e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="902" y="0" width="100" height="25" uuid="a1d0da6f-b1f9-4298-a343-5de9220ec025"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalcount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="82" splitType="Stretch">
+			<crosstab>
+				<reportElement x="-1" y="21" width="1960" height="57" uuid="a8dac27a-fbfb-493c-8fd5-58b3d964c2ef"/>
+				<rowGroup name="datosbeneficiados_idusuario" width="70" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{datosbeneficiados_idusuario}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#FFE4C4" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="a5d62fb4-1380-4e4a-8cdc-411b7416d2cd"/>
+								<textFieldExpression><![CDATA[$V{datosbeneficiados_idusuario}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#FFE2BF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="25" uuid="a32b63ba-db45-49b5-954e-0e0b5ad64653"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total datosbeneficiados_idusuario]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="actividadesdetalles_titulo" height="30" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{actividadesdetalles_titulo}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#FFE4C4" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="e60e268b-f79c-4b00-9c84-a7f854036f54"/>
+								<textFieldExpression><![CDATA[$V{actividadesdetalles_titulo}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#FFE2BF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="30" uuid="c0147e66-f3c1-464c-9aa0-5ba42ad5e505"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total actividadesdetalles_titulo]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="datosbeneficiados_idusuarioMeasure" class="java.lang.Integer" calculation="Count">
+					<measureExpression><![CDATA[$F{datosbeneficiados_idusuario}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="c2376f83-f880-4379-adb2-049f6d43532b"/>
+							<textFieldExpression><![CDATA[$V{datosbeneficiados_idusuarioMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="datosbeneficiados_idusuario">
+					<cellContents backcolor="#FFE2BF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="54d009fd-de53-4ea8-afb5-838d67270fef"/>
+							<textFieldExpression><![CDATA[$V{datosbeneficiados_idusuarioMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="actividadesdetalles_titulo">
+					<cellContents backcolor="#FFE2BF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="d02a2a2a-07bd-4467-9845-3116413da263"/>
+							<textFieldExpression><![CDATA[$V{datosbeneficiados_idusuarioMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="datosbeneficiados_idusuario" columnTotalGroup="actividadesdetalles_titulo">
+					<cellContents backcolor="#FFE2BF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="c1345464-2b9c-4f79-939a-b52f49941477"/>
+							<textFieldExpression><![CDATA[$V{datosbeneficiados_idusuarioMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+			<line>
+				<reportElement x="0" y="0" width="1960" height="1" uuid="5d3d5670-dfb1-4275-9299-5e486e86977e"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

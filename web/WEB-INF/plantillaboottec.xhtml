@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="css/alertify.core.css" />
+        <h:outputStylesheet name="css/alertify.default.css" />
+        <h:outputScript name="js/alertify.js"/>        
+        <link rel="icon" href="../resources/img/icono.png"></link>
+        <h:outputStylesheet name="css/bootstrap.min.css" /> 
+        <h:outputStylesheet name="css/globalcss.css" /> 
+        <f:event type="preRenderView" listener="#{verificarsesion.verificarsession2()}"/>
+        <ui:insert name="title">
+
+        </ui:insert>    
+
+
+    </h:head>
+
+    <h:body>
+        <p:growl id="growl" showDetail="true" sticky="true" />
+        <ui:insert name="menu">
+            <b:navBar brandHref="principalTec.xhtml" brand-img="../resources/img/logo.png" inverse="true" style="background-color: #6b0a0a">
+                <b:navbarLinks>
+
+                    <b:dropMenu value="Personas" icon-awesome="fa-user">
+
+                        <b:navLink value="Beneficiados" outcome="registroBeneficiadoTec" icon-awesome="fa-users"></b:navLink>
+                    </b:dropMenu>
+                    <b:dropMenu value="Datos" icon-awesome="fa-table">
+                        <b:navLink value="Estadisticas" outcome="EstadisticasTec" icon-awesome="fa-dollar"></b:navLink>
+                        
+                        <b:navLink value="Sociedad" outcome="sociedadTec" icon-awesome="fa-institution"></b:navLink>                                    
+                    </b:dropMenu>
+
+                    <b:dropMenu value="Proyectos" icon-awesome="fa-ambulance">
+                        <b:navLink value="Todos los proyetos" outcome="proyectosTec" icon-awesome="fa-align-justify"></b:navLink>
+                        <b:navLink value="Todas las Actividades" outcome="ActividadesTec" icon-awesome="fa-child"></b:navLink>                        
+                        <b:dropMenu value="Localizaciones" icon-awesome="fa-sitemap">
+                            <b:navLink value="Todas las localizaciones" outcome="registroLugarTec" icon-awesome="fa-sitemap"></b:navLink>
+                            <b:navLink value="Localizacion de proyectos" outcome="lugarproyectoTec" icon-awesome="fa-thumb-tack"></b:navLink>
+                            <b:navLink value="Departamentos" outcome="departamentosTec" icon-awesome="fa-globe"></b:navLink>
+                        </b:dropMenu>
+                        <b:navLink value="Area Misional"  outcome="areamisionalTec" icon-awesome="fa-list-ol"></b:navLink>
+                    </b:dropMenu>
+                </b:navbarLinks>
+
+                <b:navbarLinks pull="right">
+                    <b:dropMenu icon="globe" value="Tecnico: #{verificarsesion.mensaje}">
+                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink><br></br>
+                        <b:form>
+                            <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
+                            </b:navCommandLink>
+                        </b:form>
+                    </b:dropMenu>
+                </b:navbarLinks>
+
+
+
+            </b:navBar>
+        </ui:insert>
+
+        <div class="container"> 
+            <div class="row">
+                <div class="col-md-2 col-sm-2 hidden-xs">
+                    <ui:insert name="sidebar">
+                        <!--   <b:panel look="primary" title="Sidebar" >
+                               <b:listLinks>
+                                   <b:navLink header="BootsFaces" />
+                                   <b:navLink href="http://www.bootsfaces.net" value="BootsFaces"
+                                              icon="globe" iconAlign="right"/>
+                                   <b:navLink outcome="index" value="Blog Original"
+                                              icon="folder-open" iconAlign="right"/>
+                               </b:listLinks>
+   
+                           </b:panel> -->
+                    </ui:insert>
+                </div>
+                <div class="col-md-12 col-sm-9" >
+                    <ui:insert name="contenido" >
+                        CONTENIDO POR DEFECTO
+                    </ui:insert>
+                </div>    
+
+            </div>
+        </div>
+    </h:body>
+    <div class="footer" style="background-color: #6b0a0a">
+        <p:panelGrid columns="2" columnClasses="ui-grid-col-7,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+            <b:container>
+
+                <p><strong><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">©2018 Cruz Roja Salvadoreña </a></strong></p>                    
+                <p><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">Developers: UDB</a></p>
+<!--                <p><a href="mailto:cristofr5248@gmail.com" target="_top" >cristofr5248@gmail.com</a></p>-->
+            </b:container>
+            <b:container>
+                <a ref="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=2&amp;cat=19"><img src="../resources/img/logo2.png" style="padding-left: 50%;" alt="Ùnete a la Cruz Roja Salvadoreña" /></a>
+            </b:container>
+
+
+        </p:panelGrid>      
+
+
+
+    </div>
+</html>
+

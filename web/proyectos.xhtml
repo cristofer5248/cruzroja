@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:b="http://bootsfaces.net/ui"
+    template="./WEB-INF/plantillaboot.xhtml"
+    
+    >
+    
+
+    <ui:define name="title">
+        <title> Proyectos</title>
+    </ui:define>
+
+    <ui:define name="contenido">      
+        <b:panel title=">Abrir registro de proyectos" look="success" collapsed="true" iconAwesome="fa-briefcase">
+
+            <b:form id="miFormulario">
+                <h:panelGroup layout="block" styleClass="alert alert-danger" 
+                              rendered="#{not empty facesContext.messageList}">
+                    <h:messages  />
+                </h:panelGroup>
+                <b:panelGrid columns="4" styleClass="table">
+                    <h:outputLabel for="nombre" value="Nombre:"/>
+                    <b:inputText id="nombre" value="#{proyectosBean.proyecto.nombre}" 
+                                 required="true" maxlength="40"
+                                 requiredMessage="Debes ingresar el nombre">
+                    </b:inputText>
+
+                    <h:outputLabel for="encargado" value="Encargado:"/>
+                    <b:selectOneMenu value="#{proyectosBean.proyecto.encargado.idusuario}">
+                        <f:selectItems value="#{usuariosBean.soloEncargados}" var="usu"
+                                       itemLabel="#{usu.nombres}" itemValue="#{usu.idusuario}" />
+                    </b:selectOneMenu>
+
+                    <h:outputLabel for="areamisional" value="Area misional:"/>
+                    <b:selectOneMenu value="#{proyectosBean.proyecto.categoria.idcategoria}">
+                        <f:selectItems value="#{categoriaBean.listaCategoria}" var="cate"
+                                       itemLabel="#{cate.nombre}" itemValue="#{cate.idcategoria}" />
+                    </b:selectOneMenu>
+
+                    <h:outputLabel for="sociedad" value="Sociedad:"/>
+                    <b:selectOneMenu value="#{proyectosBean.proyecto.sociedadN.id}">
+                        <f:selectItems value="#{sociedadBean.listaSociedad}" var="soci"
+                                       itemLabel="#{soci.nombre}" itemValue="#{soci.id}" />
+                    </b:selectOneMenu>
+
+                    <h:outputLabel for="departamento" value="Departamento:"/>
+                    <b:selectOneMenu value="#{proyectosBean.departamento}">
+                        <f:ajax event="change" listener="#{proyectosBean.handleValueChange()}" render="muni2"/>                           
+                        <f:selectItems value="#{departamentoBean.listaDepartamento}" var="depar"
+                                       itemLabel="#{depar.nombre}" itemValue="#{depar.iddepartamento}" />
+                    </b:selectOneMenu>
+
+                    <h:outputLabel for="municipio" value="Cede:"/>
+                    <b:selectOneMenu  value="#{proyectosBean.proyecto.seccionales.idmunicipio}" id="muni2">                                                             
+                        <f:selectItems value="#{proyectosBean.muni}" var="muni"
+                                       itemLabel="#{muni.nombre}" itemValue="#{muni.idmunicipio}" />
+                    </b:selectOneMenu>
+
+                    <h:outputLabel for="id" value="ID:"/>
+                    <b:inputText id="idauto" value="#{proyectosBean.proyecto.idproyecto}"
+                                 maxlength="6" validatorMessage="ID no valido"                                         
+                                 >
+                    </b:inputText>
+                    <h:outputLabel for="Descripcion" value="Descripcion"/>
+                    <b:inputTextarea placeholder="Una breve descripcion" value="#{proyectosBean.proyecto.des}"> 
+                    </b:inputTextarea>
+
+                </b:panelGrid>
+                <b:commandButton value="Auto-generar ID" look="warning" action="#{proyectosBean.genearid()}"  style="margin-right:10px">
+                    <f:ajax execute="nombre" render="idauto"/>
+                </b:commandButton>                           
+                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{proyectosBean.guardarLugar()}" style="margin-right:10px"/>
+                <b:commandButton type="reset" value="Limpiar" look="danger"/>
+            </b:form>
+        </b:panel>
+
+
+        <b:row>
+            <b:form >
+                <b:dataTable styleClass="table table-striped table-bordered" value="#{proyectosBean.listaProyectos}" var="est" rendered="#{lugarBean.listaLugar.size()>0}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{est.nombre}"/>                          
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Descripcion"/>
+                        </f:facet>
+                        <h:outputText value="#{est.des}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Area"/>
+                        </f:facet>
+                        <h:outputText value="#{est.categoria.nombre}"/>
+                    </h:column>
+                    <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Encargado"/>
+                    </f:facet>
+                    <h:outputText value="#{est.encargado.nombres}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Sociedad"/>
+                        </f:facet>
+                        <h:outputText value="#{est.sociedadN.nombre}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Cede principal"/>
+                        </f:facet>
+                        <h:outputText value="#{est.seccionales.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Operaciones"/>
+                        </f:facet>
+                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"  style="margin-right:10px"
+                                         action="#{proyectosBean.eliminarLugar()}" onclick="return confirmarEliminacion();">
+                            <f:param name="codigo" value="#{est.idproyecto}"/>
+
+                        </h:commandButton>
+                        <h:commandButton value="Modificar" styleClass="btn btn-primary"   
+                                         action="#{proyectosBean.obtenerProyecto()}">
+                            <f:param name="codigo" value="#{est.idproyecto}"/>
+                        </h:commandButton>
+
+                    </h:column>                      
+                </b:dataTable>
+            </b:form>
+        </b:row>
+
+        <h:outputScript>
+            <c:if test = "#{not empty flash.exito}" >
+                alertify.success('#{flash.exito}');               
+            </c:if>
+            function confirmarEliminacion(){
+            return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+        </h:outputScript>
+
+
+
+    </ui:define>
+</ui:composition>
