@@ -61,7 +61,7 @@ FROM
 			</staticText>
 			<image>
 				<reportElement x="0" y="0" width="271" height="70" uuid="5c69e3f9-198b-49cc-aa37-f51bd84e49ae"/>
-				<imageExpression><![CDATA["C:\\logo\\logo_1.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["logo_1.jpg"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement style="SubTitle" x="284" y="22" width="271" height="24" forecolor="#FF0000" uuid="83ba0a72-ccf5-4cc6-bdbe-50a42308b58c"/>

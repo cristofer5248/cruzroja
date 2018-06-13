@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="63f82bf1-64ba-460e-a369-d5acc72e21d6">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="109"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -62,16 +62,16 @@ FROM
 				<imageExpression><![CDATA["C:\\logo\\003banner.jpg"]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="216" y="0" width="197" height="70" uuid="d1873fff-76bc-4caa-ae28-4dcf3d64e4be"/>
-				<imageExpression><![CDATA["C:\\logo\\003banner.jpg"]]></imageExpression>
+				<reportElement x="216" y="0" width="234" height="68" uuid="d1873fff-76bc-4caa-ae28-4dcf3d64e4be"/>
+				<imageExpression><![CDATA["003banner.jpg"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="109" y="0" width="197" height="70" uuid="b87b8040-0647-47c6-9770-38b4c3e43345"/>
-				<imageExpression><![CDATA["C:\\logo\\003banner.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["003banner.jpg"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="0" y="0" width="197" height="70" uuid="c3e5058f-5344-4da3-b775-6996b598a730"/>
-				<imageExpression><![CDATA["C:\\logo\\003banner.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["003banner.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="135" y="0" width="203" height="33" forecolor="#000000" uuid="c568a308-8820-4ee6-b36b-fd4f9c2464f2"/>
@@ -81,8 +81,8 @@ FROM
 				<text><![CDATA[Financiamiento]]></text>
 			</staticText>
 			<image>
-				<reportElement x="487" y="0" width="68" height="66" uuid="eb04d4f8-ce89-484c-a1b9-7fe1be73c690"/>
-				<imageExpression><![CDATA["C:\\logo\\003baner2.jpg"]]></imageExpression>
+				<reportElement x="418" y="1" width="68" height="66" uuid="eb04d4f8-ce89-484c-a1b9-7fe1be73c690"/>
+				<imageExpression><![CDATA["003baner2.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -281,13 +281,6 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="147" y="0" width="270" height="20" uuid="ed002a82-54bd-4880-ad9e-1d0a0b313cd9"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Developer: Christopher Mail: cristofr5248@gmail.com]]></text>
-			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

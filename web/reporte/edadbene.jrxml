@@ -69,7 +69,7 @@ FROM
 				</textField>
 				<image>
 					<reportElement x="20" y="20" width="276" height="76" uuid="3e9c4b8a-d6ce-4e84-9ac9-9f68a93351d3"/>
-					<imageExpression><![CDATA["C:\\logo\\logo_1.jpg"]]></imageExpression>
+					<imageExpression><![CDATA["logo_1.jpg"]]></imageExpression>
 				</image>
 				<textField>
 					<reportElement x="483" y="84" width="92" height="32" forecolor="#FFFFFF" uuid="6ab79a89-9264-4853-bc6e-7ba2e544dca1"/>
@@ -193,10 +193,6 @@ FROM
 				<reportElement x="0" y="4" width="100" height="13" uuid="e3803f87-3557-4fab-8ca3-8a6571ceb6e9"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="166" y="4" width="170" height="13" uuid="99847c4d-3285-492a-b5df-9702ac16b0f0"/>
-				<text><![CDATA[Contacto: cristofr5248@gmail.com]]></text>
-			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

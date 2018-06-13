@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="2000" pageHeight="595" orientation="Landscape" columnWidth="1960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="08e4b89c-9eb2-4609-8858-449dacae2202">
 	<property name="ireport.zoom" value="1.0000000000000007"/>
-	<property name="ireport.x" value="398"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<queryString>
@@ -95,7 +95,7 @@ ORDER BY
 		<band height="99" splitType="Stretch">
 			<image>
 				<reportElement x="20" y="0" width="76" height="96" uuid="b6fa5cd8-3add-462f-be12-c62d8664ac9e"/>
-				<imageExpression><![CDATA["C:\\logo\\logo_2.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["logo_2dentro.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="122" y="0" width="266" height="56" forecolor="#993300" uuid="f9c4f19e-b5af-4080-81cf-12f52872280e"/>
