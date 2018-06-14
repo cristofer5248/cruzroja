@@ -44,14 +44,15 @@
                             <b:navLink value="Localizacion de proyectos" outcome="lugarproyecto" icon-awesome="fa-thumb-tack"></b:navLink>
                             <b:navLink value="Departamentos" outcome="departamentos" icon-awesome="fa-globe"></b:navLink>
                         </b:dropMenu>
-                        
+
                         <b:navLink value="Area Misional"  outcome="areamisional" icon-awesome="fa-list-ol"></b:navLink>
                     </b:dropMenu>
                 </b:navbarLinks>
 
                 <b:navbarLinks pull="right">
                     <b:dropMenu icon="globe" value="Cordinador: #{verificarsesion.mensaje}">
-                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink><br></br>
+                        <!--                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>-->
+                        <br></br>
                         <b:form>
                             <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
                             </b:navCommandLink>
@@ -95,7 +96,7 @@
 
                 <p><strong><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">©2018 Cruz Roja Salvadoreña </a></strong></p>                    
                 <p><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">Developer: UDB</a></p>
-<!--                <p><a href="mailto:cristofr5248@gmail.com" target="_top" >cristofr5248@gmail.com</a></p>-->
+                <!--                <p><a href="mailto:cristofr5248@gmail.com" target="_top" >cristofr5248@gmail.com</a></p>-->
             </b:container>
             <b:container>
                 <a ref="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=2&amp;cat=19"><img src="../resources/img/logo2.png" style="padding-left: 50%;" alt="Ùnete a la Cruz Roja Salvadoreña" /></a>
