@@ -72,30 +72,38 @@ public class BeneficiadoBeans {
 
     }
 
-    public String guardarBeneficiado() {
+    public void guardarBeneficiado() {
         String codigo = JsfUtil.getRequest().getParameter("tipo");
         System.out.print("codigoooo " + codigo);
         if (modelo.insertarEstudiante(beneficiado) != 1) {
             modelo.modificarBeneficiado(beneficiado);
             JsfUtil.setFlashMessage("exito", "El dato del beneficiado fue actualizado");
             if (codigo == "T") {
-                return "registroBeneficiadoTec?faces-redirect=true";
+
             }
-            return "registroBeneficiado?faces-redirect=true";
+
         } else {
             JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
             //Forzando la redirección en el cliente
             if (codigo == "T") {
-                return "registroBeneficiadoTec?faces-redirect=true";
+
             }
-            return "registroBeneficiado?faces-redirect=true";
+
         }
 
     }
 
     public void genearid() {
         String dia = Integer.toString(c1.get(Calendar.DATE));
-        idgenerado = beneficiado.getNombres().substring(0, 3).toUpperCase().concat(dia);
+        String mes = Integer.toString(c1.get(Calendar.MONTH));
+        int dianumero = Integer.parseInt(dia);
+        int mesnumero = Integer.parseInt(mes);
+        if (dianumero < 10 && mesnumero<10) {
+            mes= "0"+String.valueOf(mesnumero);
+        }
+        
+        idgenerado = beneficiado.getNombres().substring(0, 3).toUpperCase().concat(dia).concat(mes);
+        
         beneficiado.setIdusuario(idgenerado);
     }
 
