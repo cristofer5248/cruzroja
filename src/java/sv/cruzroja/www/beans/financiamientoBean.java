@@ -8,6 +8,7 @@ package sv.cruzroja.www.beans;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +47,8 @@ public class financiamientoBean {
     private Date fecha2;
     private Boolean opcion1;
     private Boolean opcion2;
+    private String idgenerado;
+    Calendar c1 = Calendar.getInstance();
 
     /**
      * Creates a new instance of financiamiento
@@ -91,7 +94,7 @@ public class financiamientoBean {
 
     public String guardarFinanaciamiento() {
         if (opcion2 == true) {
-            financiamiento.setFinanciamiento(financiamiento.getFinanciamiento()*-1);
+            financiamiento.setFinanciamiento(financiamiento.getFinanciamiento() * -1);
         }
         if (model.insertarFinanciamiento(financiamiento) != 1) {
             model.modificarFinanciamiento(financiamiento);
@@ -102,6 +105,20 @@ public class financiamientoBean {
 //Forzando la redirección en el cliente
             return "financiamiento?faces-redirect=true";
         }
+    }
+
+    public void genearid() {
+        String dia = Integer.toString(c1.get(Calendar.DATE));
+        String mes = Integer.toString(c1.get(Calendar.MONTH));
+        int dianumero = Integer.parseInt(dia);
+        int mesnumero = Integer.parseInt(mes);
+        if (dianumero < 10 && mesnumero < 10) {
+            mes = "0" + String.valueOf(mesnumero);
+        }
+
+        setIdgenerado(financiamiento.getProyecto().getIdproyecto().substring(0, 2).toUpperCase().concat(dia).concat(mes));
+
+        financiamiento.setIdp(getIdgenerado());
     }
 
     /**
@@ -223,6 +240,20 @@ public class financiamientoBean {
      */
     public void setOpcion2(Boolean opcion2) {
         this.opcion2 = opcion2;
+    }
+
+    /**
+     * @return the idgenerado
+     */
+    public String getIdgenerado() {
+        return idgenerado;
+    }
+
+    /**
+     * @param idgenerado the idgenerado to set
+     */
+    public void setIdgenerado(String idgenerado) {
+        this.idgenerado = idgenerado;
     }
 
 }

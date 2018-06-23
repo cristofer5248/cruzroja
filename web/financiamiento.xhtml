@@ -43,12 +43,12 @@
                         <b:selectBooleanCheckbox value="#{financiamientoBean.opcion1}" caption="Donacion" id="opcion1" onchange="scriptcheck1();" />
                         <b:selectBooleanCheckbox value="#{financiamientoBean.opcion2}" caption="Gasto interno" id="opcion2" onchange="scriptcheck2();"/>
                     </b:panel>                    
-                    <p:inputNumber id="financiamiento"
+                    <p:inputNumber id="input4" decimalPlaces="2"
                                    value="#{financiamientoBean.financiamiento.financiamiento}" 
                                    required="true" 
                                    requiredMessage="Debes ingresar una cantidad"
-                                   minValue="10"
                                    >
+
                     </p:inputNumber>
                     <h:outputLabel for="des" value="Detalles"/>
                     <b:inputTextarea id="des" value="#{financiamientoBean.financiamiento.detalles}" required="true" requiredMessage="Por favor ingresa una descripcion detallada sobre el financiamiento"
@@ -63,13 +63,16 @@
                 </b:panelGrid>
                 <p:dialog header="Effects" widgetVar="dlg2" showEffect="explode" hideEffect="bounce" height="100">
                     <b><h:outputText value="Financiamiento:" /></b><br></br>
-                    <h:outputText value="- La opcion 'ABONO' toma en cuenta el registro como una donacion de una empresa, sociedad o persona." style="color: green;" /><br></br>
+                    <h:outputText value="- La opcion 'DONACION' toma en cuenta el registro como una donacion de una empresa, sociedad o persona." style="color: green;" /><br></br>
                     <h:outputText value="- La opcion 'GASTO' toma en cuenta el registro como un gasto que Cruz roja realizo en algun proyecto." style="color: red;" />
                 </p:dialog>
                 <p:commandButton value="Ayuda" icon="fa fa-fw fa-question" onclick="PF('dlg2').show();"  style="margin-right:10px; color: black; background-color: #42bff4;">
 
                 </p:commandButton>                           
-                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{financiamientoBean.guardarFinanaciamiento()}" style="margin-right:10px"/>
+                <b:commandButton value="Auto-generar ID" look="warning" action="#{financiamientoBean.genearid()}"  style="margin-right:10px">
+                    <f:ajax execute="pro" render="idauto"/>
+                </b:commandButton>                           
+                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{financiamientoBean.guardarFinanaciamiento()}" style="margin-right:10px" onclick="return confirmarGuardar();"/>
                 <b:commandButton type="reset" value="Limpiar" look="danger"/>
             </b:form>
         </b:panel>
@@ -188,7 +191,10 @@
                 alertify.success('#{flash.exito}');               
             </c:if>
             function confirmarEliminacion(){
-            return confirm("¿Está seguro que desea eliminar este estudiante");
+            return confirm("¿Está seguro que desea eliminar este dato");
+            }
+            function confirmarGuardar(){
+            return confirm("¿Está seguro de la informacion?");
             }
         </h:outputScript>
 
