@@ -35,7 +35,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "BeneficiadosEntity.findByIdbeneYactividad", query = "SELECT b FROM BeneficiadosEntity b where b.idbeneficiado.idusuario = :idusu AND b.idproyecto.idactividad=:idactividad "),
     @NamedQuery(name = "BeneficiadosEntity.findByTotalXarea", query = "SELECT b FROM BeneficiadosEntity b where b.idproyecto.lugarproyectoPadre.idlp.categoria.idcategoria = :idarea"),
     @NamedQuery(name = "BeneficiadosEntity.findByEdad", query = "SELECT b FROM BeneficiadosEntity b where b.idbeneficiado.edad >= :edad1 AND b.idbeneficiado.edad <=:edad2 and b.idproyecto.lugarproyectoPadre.idl = :idpro"),
-    @NamedQuery(name = "BeneficiadosEntity.findByEdadGroup", query = "SELECT b FROM BeneficiadosEntity b where b.idbeneficiado.edad >= :edad1 AND b.idbeneficiado.edad <=:edad2 and b.idproyecto.lugarproyectoPadre.idl = :idpro GROUP BY b.idbeneficiado.idusuario"),
+    @NamedQuery(name = "BeneficiadosEntity.findByEdadGroup", query = "SELECT b FROM BeneficiadosEntity b where b.idbeneficiado.edad >= :edad1 AND b.idbeneficiado.edad <=:edad2 and b.idproyecto.lugarproyectoPadre.idl = :idpro GROUP BY b.idbeneficiado.idusuario ORDER BY b.idbeneficiado.edad desc"),
     @NamedQuery(name = "BeneficiadosEntity.findByLugar", query = "SELECT b FROM BeneficiadosEntity b where b.idproyecto.lugarproyectoPadre.idl = :idlugar AND b.idbeneficiado.edad< :limite"),
     @NamedQuery(name = "BeneficiadosEntity.findByIdb", query = "SELECT b FROM BeneficiadosEntity b WHERE b.idb = :idb")})
 public class BeneficiadosEntity implements Serializable {

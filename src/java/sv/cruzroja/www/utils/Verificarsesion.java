@@ -56,7 +56,6 @@ public class Verificarsesion {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
             FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=true");
             JsfUtil.setErrorMessage(null, "Error interno");
         }
@@ -95,7 +94,7 @@ public class Verificarsesion {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            
             FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=true");
             JsfUtil.setErrorMessage(null, "Error interno");
         }
@@ -109,7 +108,7 @@ public class Verificarsesion {
             UsuariosEntity us = (UsuariosEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
             return us.getNombres();
         } catch (Exception e) {
-            e.printStackTrace();
+            
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error interno ", "Al obtener session"));
 
         }
