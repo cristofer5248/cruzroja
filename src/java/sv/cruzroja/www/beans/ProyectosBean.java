@@ -21,7 +21,6 @@ import sv.cruzroja.www.model.SociedadModel;
 import sv.cruzroja.www.model.MunicipioModel;
 import sv.cruzroja.www.utils.JsfUtil;
 import sv.cruzroja.www.model.DepartamentoModel;
-        
 
 /**
  *
@@ -96,7 +95,13 @@ public class ProyectosBean {
 
     public void genearid() {
         String dia = Integer.toString(c1.get(Calendar.DATE));
-        idgenerado = proyecto.getNombre().substring(0, 3).toUpperCase().concat(dia);
+        String mes = Integer.toString(c1.get(Calendar.MONTH));
+        int diaint = Integer.valueOf(dia);
+        int mesint = Integer.valueOf(dia);
+        if (diaint < 10 && mesint < 10) {
+            mes = "0" + mes;
+        }
+        idgenerado = proyecto.getNombre().substring(0, 3).toUpperCase().concat(dia).concat(mes);
         proyecto.setIdproyecto(idgenerado);
     }
 

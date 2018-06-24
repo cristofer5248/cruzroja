@@ -33,7 +33,7 @@
                     </b:inputText>
 
                     <h:outputLabel for="encargado" value="Encargado:"/>
-                    <b:selectOneMenu value="#{proyectosBean.proyecto.encargado.idusuario}">
+                    <b:selectOneMenu value="#{proyectosBean.proyecto.encargado.idusuario}" required="true" requiredMessage="Seleciona un encargado">
                         <f:selectItems value="#{usuariosBean.soloEncargados}" var="usu"
                                        itemLabel="#{usu.nombres}" itemValue="#{usu.idusuario}" />
                     </b:selectOneMenu>
@@ -64,12 +64,12 @@
                     </b:selectOneMenu>
 
                     <h:outputLabel for="id" value="ID:"/>
-                    <b:inputText id="idauto" value="#{proyectosBean.proyecto.idproyecto}"
+                    <b:inputText id="idauto" value="#{proyectosBean.proyecto.idproyecto}" required="true" requiredMessage="El ID es necesario"
                                  maxlength="6" validatorMessage="ID no valido"                                         
                                  >
                     </b:inputText>
                     <h:outputLabel for="Descripcion" value="Descripcion"/>
-                    <b:inputTextarea placeholder="Una breve descripcion" value="#{proyectosBean.proyecto.des}"> 
+                    <b:inputTextarea placeholder="Una breve descripcion" value="#{proyectosBean.proyecto.des}" required="true" requiredMessage="Ingresa un breve descripcion"  maxlength="200" > 
                     </b:inputTextarea>
 
                 </b:panelGrid>
