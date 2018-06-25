@@ -149,12 +149,37 @@
         <b:modal title="Proyectos" styleClass="responsiveModalPseudoClass"
                  id="responsiveModal3">
             <h:form id="proyectosASOactividades">
-                <b:dataTable styleClass="table table-striped table-bordered" value="#{actividadesBean.actividadesmodal}" var="est" rendered="#{actividadesBean.actividadesmodal.size()>0}" responsive="true" scrollHorizontally="true" print="true" excel="true" pdf="true" copy="true">
-                    <b:dataTableColumn value="#{est.lugarproyectoPadre.idlp.nombre}" label="Nombre"/>
-                    <b:dataTableColumn value="#{est.lugarproyectoPadre.idlugar.nombre}" label="Departamento"/>                  
-                    <b:dataTableColumn value="#{est.lugarproyectoPadre.idlugar.municipio.nombre}" label="Municipio"/>                  
-                    <b:dataTableColumn value="#{est.lugarproyectoPadre.idlp.categoria.nombre}" label="Categoria"/>   
-                </b:dataTable>
+                <p:dataTable id="tablaproyectos" value="#{actividadesBean.actividadesmodal}" var="est" rendered="#{actividadesBean.actividadesmodal.size()>0}" paginator="false">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre" />
+                        </f:facet>
+                        <h:outputText value="#{est.lugarproyectoPadre.idlp.nombre}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Departamento" />
+                        </f:facet>
+                        <h:outputText value="#{est.lugarproyectoPadre.idlugar.nombre}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Municipio" />
+                        </f:facet>
+                        <h:outputText value="#{est.lugarproyectoPadre.idlugar.municipio.nombre}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Categoria" />
+                        </f:facet>
+                        <h:outputText value="#{est.lugarproyectoPadre.idlp.categoria.nombre}" />
+                    </p:column>
+
+                </p:dataTable>
+                <h:commandLink>
+                    <p:graphicImage name="img/excel.png"  width="24"/>
+                    <p:dataExporter type="xls" target="tablaproyectos" fileName="proyectos" />
+                </h:commandLink>
             </h:form>
         </b:modal>
 
