@@ -146,7 +146,7 @@
 
         <b:row>
             <h:form id="datosbeneficiados">
-                <b:dataTable styleClass="table" value="#{beneficiadoBeans.listaEstudiantes}" var="est" rendered="#{beneficiadoBeans.listaEstudiantes.size()>0}"> 
+                <b:dataTable styleClass="table" value="#{beneficiadoBeans.listaEstudiantes}" var="est" rendered="#{beneficiadoBeans.listaEstudiantes.size()>0}" excel="true" pdf="true" print="true"> 
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Nombre"/>

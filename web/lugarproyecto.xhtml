@@ -138,7 +138,7 @@
 
         <b:row>
             <b:form id="datosdelugaresproyectos">
-                <b:dataTable styleClass="table table-striped table-bordered" value="#{lugarproyectoBean.listalugarProyecto()}" var="est" rendered="#{lugarproyectoBean.listalugarProyecto.size()>0}">
+                <b:dataTable  value="#{lugarproyectoBean.listalugarProyecto()}" var="est" rendered="#{lugarproyectoBean.listalugarProyecto.size()>0}" pdf="true" excel="true" paginated="true" columnVisibility="true">
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Nombre del proyecto"/>

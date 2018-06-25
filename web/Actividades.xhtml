@@ -110,16 +110,16 @@
         </p:dialog>
         <b:row>
             <b:form id="tablaactivades">
-                <b:dataTable styleClass="table table-striped table-bordered" value="#{actividadesDetallesBean.listarActividadesDet()}" var="est" rendered="#{actividadesDetallesBean.listarActividadesDet().size()>0}" pdf="true" excel="true" print="true" columnVisibility="true">
+                <b:dataTable value="#{actividadesDetallesBean.listarActividadesDet()}" var="est" rendered="#{actividadesDetallesBean.listarActividadesDet().size()>0}" pdf="true" excel="true" print="true" columnVisibility="true">
                     <f:facet name="header">
-
                         <tr>
                             <th>Titulo</th>
-                            <th>Detalle</th>                               
+                            <th>Detalle</th>
+                            <th>Operaciones</th>
                         </tr>
                     </f:facet>
                     <b:dataTableColumn value="#{est.titulo}"/>       
-                    <b:dataTableColumn value="#{est.detalle}" />
+                    <b:dataTableColumn value="#{est.detalle}"/>
                     <h:column>
                         <h:commandButton value="Eliminar" styleClass="btn btn-danger"  style="margin-right:10px"
                                          action="#{actividadesBean.eliminar()}" onclick="return confirmarEliminacion();">

@@ -22,7 +22,7 @@
 
         <b:row>
             <b:form >
-                <b:dataTable styleClass="table table-striped table-bordered" value="#{proyectosBean.listaProyectos}" var="est" rendered="#{lugarBean.listaLugar.size()>0}">
+                <b:dataTable value="#{proyectosBean.listaProyectos}" var="est" rendered="#{lugarBean.listaLugar.size()>0}" pdf="true" excel="true">
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Nombre"/>

@@ -60,5 +60,22 @@ public class DepartamentoModel {
             return null;
         }
     }
+        public int insertardepartamento(DepartamentoEntity depa) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tran = em.getTransaction();
+        try {
+            tran.begin();//Iniciando transacción
+            em.persist(depa); //Guardando el objeto en la BD
+            tran.commit();//Confirmando la transacción
+            em.close();
+            return 1;
+
+        } catch (Exception e) {
+            System.out.printf("Error en activiadesmodel");
+            em.close();
+            e.getMessage();
+            return 0;
+        }
+    }
 
 }

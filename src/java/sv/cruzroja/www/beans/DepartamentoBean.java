@@ -66,6 +66,14 @@ public class DepartamentoBean {
         }
     }
 
+    public void guardar() {
+        try {
+            modelo.insertardepartamento(departamento);
+        } catch (Exception e) {
+        }
+
+    }
+
     public List<DepartamentoEntity> getListaDepartamento() {
         /* Notese que se llama al método listarEstudiantes
 para obtener la lista de objetos a partir de la bd */

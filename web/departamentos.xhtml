@@ -8,16 +8,31 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:b="http://bootsfaces.net/ui"
-    template="./WEB-INF/plantillaboot.xhtml">
+    template="./WEB-INF/plantillaboot.xhtml"
+    xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         <title> Departamentos</title>
     </ui:define>
 
+
     <ui:define name="contenido">      
+        <b:panel title=">Abrir registro de Departamentos" look="success" collapsed="true" iconAwesome="fa-briefcase">
+            <b:form id="miFormulario">
+                <b:panelGrid columns="4" styleClass="table">
+                    <h:outputLabel value="ID"/>
+                    <b:inputText value="#{departamentoBean.departamento.iddepartamento}"/>
+                    <h:outputLabel value="Nombre"/>
+                    <b:inputText value="#{departamentoBean.departamento.nombre}"/>
+                </b:panelGrid>
+                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{departamentoBean.guardar()}" style="margin-right:10px"/>
+                <b:commandButton type="reset" value="Limpiar" look="danger"/>
+            </b:form>
+
+        </b:panel>
         <b:row>
             <b:form >
-                <b:dataTable styleClass="table table-striped table-bordered" value="#{departamentoBean.listaDepartamento}" var="est" rendered="#{departamentoBean.listaDepartamento.size()>0}">
+                <b:dataTable value="#{departamentoBean.listaDepartamento}" var="est" rendered="#{departamentoBean.listaDepartamento.size()>0}" pdf="true" excel="true" paginated="true">
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Nombre"/>
