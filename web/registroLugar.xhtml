@@ -48,7 +48,15 @@
                         <f:selectItems value="#{lugarCategoriaBean.lugarcategoria}" var="catelugar"
                                        itemLabel="#{catelugar.nombre}" itemValue="#{catelugar.id}" />
                     </b:selectOneMenu>
-                    
+                    <h:outputLabel for="coordenadas" value="Coordenadas"/>
+
+                    <b:inputText id="coordenadas" styleClass="form-control" 
+                                 value="#{lugarBean.lugar.coordenadas}" 
+                                 required="true" maxlength="40"
+                                 requiredMessage="Debes ingresar el nombre">
+
+                    </b:inputText>
+
                     <h:outputLabel for="id" value="ID:"/>
                     <b:inputText id="idauto" styleClass="form-control" 
                                  value="#{lugarBean.lugar.idlugar}"
@@ -93,6 +101,13 @@
                             <h:outputLabel value="Municipio"/>
                         </f:facet>
                         <h:outputText value="#{est.municipio.nombre}"/>
+
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Coordenadas"/>
+                        </f:facet>
+                        <h:outputText value="#{est.coordenadas}"/>
 
                     </h:column>
                     <h:column>

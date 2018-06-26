@@ -27,8 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "lugar")
 @NamedQueries({
-    @NamedQuery(name = "LugarEntity.findAll", query = "SELECT l FROM LugarEntity l ORDER BY L.nombre ASC"),
-    @NamedQuery(name = "LugarEntity.findByIdlugar", query = "SELECT l FROM LugarEntity l WHERE l.idlugar = :idlugar"),
+    @NamedQuery(name = "LugarEntity.findAll", query = "SELECT l FROM LugarEntity l ORDER BY L.nombre ASC")
+    ,
+    @NamedQuery(name = "LugarEntity.findByIdlugar", query = "SELECT l FROM LugarEntity l WHERE l.idlugar = :idlugar")
+    ,
     @NamedQuery(name = "LugarEntity.findByNombre", query = "SELECT l FROM LugarEntity l WHERE l.nombre = :nombre")})
 public class LugarEntity implements Serializable {
 
@@ -37,7 +39,7 @@ public class LugarEntity implements Serializable {
     @Column(name = "idlugar", nullable = false, length = 5)
     private String idlugar;
     @Basic(optional = false)
-    @Column(name = "nombre", nullable = false, length = 15)
+    @Column(name = "nombre", nullable = false, length = 80)
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idlugar")
     private List<LugarproyectoEntity> lugarproyectoEntityList;
@@ -50,6 +52,8 @@ public class LugarEntity implements Serializable {
     @JoinColumn(name = "categoria", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private LugarcategoriaEntity categoria;
+    @Column(name = "coordenadas", length = 80)
+    private String coordenadas;
 
     public LugarEntity() {
     }
@@ -137,6 +141,12 @@ public class LugarEntity implements Serializable {
         return "sv.cruzroja.www.entities.LugarEntity[ idlugar=" + idlugar + " ]";
     }
 
- 
-    
+    public String getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(String coordenadas) {
+        this.coordenadas = coordenadas;
+    }
+
 }
