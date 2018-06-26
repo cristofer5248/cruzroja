@@ -34,6 +34,8 @@ public class LugarBean {
     private List<MunicipioEntity> muni = new ArrayList<MunicipioEntity>();
     Calendar c1 = Calendar.getInstance();
     private String idgenerado;
+    public int latitud;
+    public int longitud;
 
     /**
      * Creates a new instance of LugarBean
@@ -58,7 +60,7 @@ public class LugarBean {
     public List<LugarEntity> getListaLugar() {
         /* Notese que se llama al método listarEstudiantes
 para obtener la lista de objetos a partir de la bd */
-        
+
         return modelo.listarLugar();
     }
 
@@ -69,16 +71,23 @@ para obtener la lista de objetos a partir de la bd */
 
     }
 
-    public String guardarLugar() {
+    public void guardarLugar() {
+        try {
+            if (latitud != 0 && longitud != 0) {
+                
+                lugar.setCoordenadas("Latitud: "+getLatitud()+" Longitud: "+getLongitud());
+            }
 
-        if (modelo.insertarEstudiante(lugar) != 1) {
-            modelo.modificarLugar(lugar);
-            JsfUtil.setFlashMessage("exito", "Lugar actualizado");
-            return "registroLugar?faces-redirect=true";
-        } else {
-            JsfUtil.setFlashMessage("exito", "lugar registrado exitosamente");
+            if (modelo.insertarEstudiante(lugar) != 1) {
+                modelo.modificarLugar(lugar);
+                JsfUtil.setFlashMessage("exito", "Lugar actualizado");
+//            return "registroLugar?faces-redirect=true";
+            } else {
+                JsfUtil.setFlashMessage("exito", "lugar registrado exitosamente");
 //Forzando la redirección en el cliente
-            return "registroLugar?faces-redirect=true";
+//            return "registroLugar?faces-redirect=true";
+            }
+        } catch (Exception e) {
         }
     }
 
@@ -132,6 +141,34 @@ para obtener la lista de objetos a partir de la bd */
      */
     public void setIdgenerado(String idgenerado) {
         this.idgenerado = idgenerado;
+    }
+
+    /**
+     * @return the latitud
+     */
+    public int getLatitud() {
+        return latitud;
+    }
+
+    /**
+     * @param latitud the latitud to set
+     */
+    public void setLatitud(int latitud) {
+        this.latitud = latitud;
+    }
+
+    /**
+     * @return the longitud
+     */
+    public int getLongitud() {
+        return longitud;
+    }
+
+    /**
+     * @param longitud the longitud to set
+     */
+    public void setLongitud(int longitud) {
+        this.longitud = longitud;
     }
 
 }

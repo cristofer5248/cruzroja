@@ -36,7 +36,7 @@ public class LugarEntity implements Serializable {
 
     @Id
     @Basic(optional = false)
-    @Column(name = "idlugar", nullable = false, length = 5)
+    @Column(name = "idlugar", nullable = false, length = 6)
     private String idlugar;
     @Basic(optional = false)
     @Column(name = "nombre", nullable = false, length = 80)

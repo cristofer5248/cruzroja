@@ -33,7 +33,7 @@
                     </b:dropMenu>
                     <b:dropMenu value="Datos" icon-awesome="fa-table">
                         <b:navLink value="Estadisticas" outcome="EstadisticasTec" icon-awesome="fa-dollar"></b:navLink>
-                        
+
                         <b:navLink value="Sociedad" outcome="sociedadTec" icon-awesome="fa-institution"></b:navLink>                                    
                     </b:dropMenu>
 
@@ -51,7 +51,7 @@
 
                 <b:navbarLinks pull="right">
                     <b:dropMenu icon="globe" value="Tecnico: #{verificarsesion.mensaje}">
-<!--                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>-->
+                        <!--                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>-->
                         <br></br>
                         <b:form>
                             <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
@@ -90,13 +90,15 @@
             </div>
         </div>
     </h:body>
+    <script src=https://maps.googleapis.com/maps/api/js?key=AIzaSyDjQqaxI5-UQr7W-rcg0XP8V5hWu4dRUAM&callback=initMap"async defer>
+    </script>        
     <div class="footer" style="background-color: #6b0a0a">
         <p:panelGrid columns="2" columnClasses="ui-grid-col-7,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
             <b:container>
 
                 <p><strong><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">©2018 Cruz Roja Salvadoreña </a></strong></p>                    
                 <p><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">Developers: UDB</a></p>
-<!--                <p><a href="mailto:cristofr5248@gmail.com" target="_top" >cristofr5248@gmail.com</a></p>-->
+                <!--                <p><a href="mailto:cristofr5248@gmail.com" target="_top" >cristofr5248@gmail.com</a></p>-->
             </b:container>
             <b:container>
                 <a ref="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=2&amp;cat=19"><img src="../resources/img/logo2.png" style="padding-left: 50%;" alt="Ùnete a la Cruz Roja Salvadoreña" /></a>
