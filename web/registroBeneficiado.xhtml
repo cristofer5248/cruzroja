@@ -14,69 +14,7 @@
         <title> Beneficiados</title>
     </ui:define>
     <ui:define name="contenido">
-        <b:panel title=">Clic qui para el Registro de beneficiados" look="success" collapsed="true" iconAwesome="fa-briefcase" >
-            <b:form id="miFormulario">
-                <h:panelGroup layout="block" styleClass="alert alert-danger" 
-                              rendered="#{not empty facesContext.messageList}">
-                    <h:messages  />
-                </h:panelGroup>
-                <b:panelGrid columns="4" styleClass="table">
-                    <h:outputLabel for="nombre" value="Nombres:"/>
-                    <b:inputText id="nombre" styleClass="form-control" binding="#{nombreb}"
-                                 value="#{beneficiadoBeans.beneficiado.nombres}" 
-                                 required="true" 
-                                 requiredMessage="Debes ingresar el nombre"/>
-
-                    <h:outputLabel for="apellidos" value="Apellidos:"/>
-                    <b:inputText id="apellidos" styleClass="form-control" binding="#{apellidob}"
-                                 value="#{beneficiadoBeans.beneficiado.apellidos}" 
-                                 required="true" 
-                                 requiredMessage="Debes ingresar el apellido"/>
-
-                    <h:outputLabel for="genero" value="Genero:"/>
-                    <b:selectOneMenu value="#{beneficiadoBeans.beneficiado.genero.idg}" required="true" requiredMessage="Escoge un genero" class="form-control">
-                        <f:selectItem itemLabel="Seleccionar .." itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{generoBean.listaEstudiantes}" var="generof"
-                                       itemLabel="#{generof.nombre}" itemValue="#{generof.idg}" />
-                    </b:selectOneMenu>
-
-                    <h:outputLabel for="comunidad" value="Correo:"/>
-                    <b:inputText id="correo" styleClass="form-control" 
-                                 value="#{beneficiadoBeans.beneficiado.correo}" 
-                                 />
-                    <h:outputLabel for="edad" value="Edad:"/>
-                    <b:inputText id="edad" value="#{beneficiadoBeans.beneficiado.edad}" 
-                                 required="true" styleClass="form-control"
-                                 requiredMessage="Debes ingresar la edad" 
-                                 converterMessage="La edad debe ser númerica">
-
-                    </b:inputText>
-
-                    <h:outputLabel for="telefono" value="Telefono:"/>
-                    <b:inputText id="telefono" styleClass="form-control" 
-                                 value="#{beneficiadoBeans.beneficiado.telefono}" 
-                                 required="true" 
-                                 requiredMessage="Debes ingresar un numero de telefono o de un contacto"/>
-                    <h:outputLabel for="carnet" value="ID:"/>
-                    <b:inputText id="idauto"
-                                 value="#{beneficiadoBeans.beneficiado.idusuario}" 
-                                 required="true" 
-                                 requiredMessage="Debes ingresar un ID o auto-generarlo" 
-                                 validatorMessage="ID no valido">
-                        <f:validateRegex pattern="[A-Z]{3}[0-9]{3}"/>
-                    </b:inputText>
-                </b:panelGrid>
-                <b:commandButton value="Auto-generar ID" look="warning" action="#{beneficiadoBeans.genearid()}"  style="margin-right:10px">
-                    <f:ajax execute="nombre" render="idauto"/>
-                </b:commandButton>                           
-                <b:commandButton  value="Guardar/Actualizar" look="success" iconAwesome="fa-floppy-o" action="#{beneficiadoBeans.guardarBeneficiado()}" style="margin-right:10px">
-                    <f:param value="A" id="codigo"></f:param>
-                </b:commandButton>
-                <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
-
-            </b:form>
-
-        </b:panel>
+        
 
 
 
@@ -196,10 +134,7 @@
 
                             <f:param name="codigo" value="#{est.idusuario}"/>
                         </h:commandButton>
-                        <b:commandButton value="Modificar" look="primary" style="margin-right:10px" 
-                                         action="#{beneficiadoBeans.obtenerBeneficiado()}" >
-                            <f:param name="codigo" value="#{est.idusuario}"/>
-                        </b:commandButton>
+
                         <b:commandButton value="Proyectos" look="warning" style="margin-right:10px"   
                                          action="#{proyectosbeneficiadoBean.meterbeneficiadoid()}">
                             <f:param name="codigo" value="#{est.idusuario}"/>

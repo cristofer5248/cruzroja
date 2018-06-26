@@ -37,31 +37,43 @@ public class Login extends UsuariosBean {
     }
 
     public String iniciarsesion() {
-        UsuariosModel model = new UsuariosModel();
-        UsuariosEntity user;
-        user = null;
-        UsuariosEntity usernivel1;
-        user = model.iniciarsession(usuario, pass);
+        try {
 
-        if (user != null) {
-            if (user.getPass().equals(pass)) {
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", user);
-                usernivel1 = model.verificarnivel(usuario);
-                if (usernivel1 != null) {
-                    System.out.println("cabal no coincide un nivel 2 con un nivel 1 daaa");
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel", usernivel1);
-                } else {
-                    System.out.println("Aqui casual pasando por los if para el nivel2");
-                    usernivel1 = model.verificarnivel2(usuario);                    
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel2", usernivel1);
+            UsuariosModel model = new UsuariosModel();
+            UsuariosEntity user;
+            user = null;
+            UsuariosEntity usernivel1;
+            user = model.iniciarsession(usuario, pass);
+
+            if (user != null) {
+                if (user.getPass().equals(pass)) {
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", user);
+                    usernivel1 = model.verificarnivel(usuario);
+                    if (user.getTipousuario().getIdtipou() == 1) {
+                        System.out.println("Usuario nivel 1 iniciado");
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel", usernivel1);
+                        return "principalAd";
+                        
+                    }
+                    if (user.getTipousuario().getIdtipou() == 3) {
+                        System.out.println("Usuario nivel 3 iniciado");
+                        usernivel1 = model.verificarnivel3(usuario);
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel3", usernivel1);
+                        return "registroBeneficiadoJefes";
+                    }if (user.getTipousuario().getIdtipou() == 2) {
+                        System.out.println("Aqui casual pasando por los if para el nivel2");
+                        usernivel1 = model.verificarnivel2(usuario);
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel2", usernivel1);
+
+                        return "principalTec";
+                    }
+
                     
-                    return "principalTec";
                 }
-
-                return "principalAd";
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "El usuario no existe", "El usuario no existe"));
+                return null;
             }
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "El usuario no existe", "El usuario no existe"));
-            return null;
+        } catch (Exception e) {
         }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "El usuario no existe", "El usuario no existe"));
         return null;
@@ -82,8 +94,8 @@ public class Login extends UsuariosBean {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         Object session = externalContext.getSession(false);
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();        
-        
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+
         return "login?faces-redirect=true";
 
     }

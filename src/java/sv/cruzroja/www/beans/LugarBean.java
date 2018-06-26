@@ -74,8 +74,8 @@ para obtener la lista de objetos a partir de la bd */
     public void guardarLugar() {
         try {
             if (latitud != 0 && longitud != 0) {
-                
-                lugar.setCoordenadas("Latitud: "+getLatitud()+" Longitud: "+getLongitud());
+
+                lugar.setCoordenadas("Latitud: " + getLatitud() + " Longitud: " + getLongitud());
             }
 
             if (modelo.insertarEstudiante(lugar) != 1) {
@@ -107,7 +107,13 @@ para obtener la lista de objetos a partir de la bd */
 
     public void genearid() {
         String dia = Integer.toString(c1.get(Calendar.DATE));
-        idgenerado = lugar.getNombre().substring(0, 3).toUpperCase().concat(dia);
+        String mes = Integer.toString(c1.get(Calendar.MONTH));
+        int diaint = Integer.valueOf(dia);
+        int mesint = Integer.valueOf(mes);
+        if (diaint < 10 && mesint < 10) {
+            mes = "0" + mes;
+        }
+        idgenerado = lugar.getNombre().substring(0, 3).toUpperCase().concat(dia).concat(mes);
         lugar.setIdlugar(idgenerado);
     }
 

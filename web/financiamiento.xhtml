@@ -95,7 +95,7 @@
 
         <b:row>
             <b:form  id="tablafinanciamiento">
-                <b:dataTable styleClass="table table-striped table-bordered" pdf="true" excel="true" print="true" value="#{financiamientoBean.financiamientoList}" var="est" rendered="#{financiamientoBean.financiamientoList.size()>0}"
+                <b:dataTable pdf="true" excel="true" print="true" value="#{financiamientoBean.financiamientoList}" var="est" rendered="#{financiamientoBean.financiamientoList.size()>0}"
                              row-style-class="#{est.financiamiento}>100 ? 'background-color:red'">
 
                     <h:column>

@@ -115,7 +115,7 @@ public class Verificarsesion {
                 //System.out.println("Hasta aqui el estado es: " + us.getActivo().toString()+" en el metodo de veriicarusuario2");
                 if (us.getActivo() == false) {
                     nombre = us.getNombres();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido Tecnico", nombre));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", nombre));
                     UsuariosModel model = new UsuariosModel();
                     UsuariosEntity cambiaractivo = new UsuariosEntity();
                     cambiaractivo.setIdusuario(us.getIdusuario());

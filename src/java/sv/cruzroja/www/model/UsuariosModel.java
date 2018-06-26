@@ -120,6 +120,26 @@ public class UsuariosModel {
         return null;
     }
 
+    public UsuariosEntity verificarnivel3(String usuario) {
+        System.out.println("Entre al verificar nivel 2");
+        int nivel = 3;
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNamedQuery("UsuariosEntity.findByuserpassnivel").setParameter("idusuario", usuario).setParameter("nivel", nivel);
+            List<UsuariosEntity> listado = consulta.getResultList();
+            if (listado.size() == 0) {
+                
+                return listado.get(0);
+            } else {
+                
+                return listado.get(0);
+            }
+        } catch (Exception e) {
+            
+        }
+        return null;
+    }
+
     public UsuariosEntity obtenerUsuario(String carnet) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {

@@ -7,14 +7,14 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:b="http://bootsfaces.net/ui"
-                template="./WEB-INF/plantillaboottec.xhtml"
+                template="./WEB-INF/plantillabootjefe.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 >
     <ui:define name="title">
         <title> Beneficiados</title>
     </ui:define>
     <ui:define name="contenido">
-        <b:panel title=">Clic qui para el Registro de beneficiados" look="success" collapsed="true" iconAwesome="fa-briefcase">
+        <b:panel title=">Clic qui para el Registro de beneficiados" look="success" collapsed="true" iconAwesome="fa-briefcase" >
             <b:form id="miFormulario">
                 <h:panelGroup layout="block" styleClass="alert alert-danger" 
                               rendered="#{not empty facesContext.messageList}">
@@ -69,17 +69,14 @@
                 <b:commandButton value="Auto-generar ID" look="warning" action="#{beneficiadoBeans.genearid()}"  style="margin-right:10px">
                     <f:ajax execute="nombre" render="idauto"/>
                 </b:commandButton>                           
-                <b:commandButton  value="Guardar" look="success" iconAwesome="fa-floppy-o" action="#{beneficiadoBeans.guardarBeneficiado()}" style="margin-right:10px" onclick="return confirmarAgregar();">
-                    <f:param name="tipo" value="T"/>
+                <b:commandButton  value="Guardar/Actualizar" look="success" iconAwesome="fa-floppy-o" action="#{beneficiadoBeans.guardarBeneficiado()}" style="margin-right:10px">
+                    <f:param value="A" id="codigo"></f:param>
                 </b:commandButton>
-                <b:commandButton type="reset" value="Limpiar" look="danger"/>
+                <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+
             </b:form>
 
         </b:panel>
-
-
-
-
 
         <p:dialog header="Unir un beneficiado a un proyecto" widgetVar="dlg3" modal="true" height="345" >
             <b:form id="miformulario2">
@@ -97,7 +94,7 @@
                             </b:inputText>
                             <h:outputLabel for="lugar" value="Localizacion:"/>
                             <b:selectOneMenu value="#{lugarproyectoBean.idlugar}">
-                                <f:ajax event="change" listener="#{lugarproyectoBean.selectidlugarEncargado()}" render=":miformulario2"/>                           
+                                <f:ajax event="change" listener="#{lugarproyectoBean.selectidlugar()}" render=":miformulario2"/>                           
                                 <f:selectItems value="#{lugarBean.listaLugar}" var="lugar"
                                                itemLabel="#{lugar.nombre}" itemValue="#{lugar.idlugar}" />
                             </b:selectOneMenu>
@@ -120,11 +117,11 @@
                         <p:panel header="Lista de actividades">
                             <h:outputLabel for="actividad" value="Seleciona una actividad"/><br></br>
                             <p:selectOneMenu id="advanced3" value="#{proyectosbeneficiadoBean.idactividad}"
-                                             effect="fade" var="y" style="width: 200px" filter="true" filterMatchMode="startsWith">
-                                <f:selectItems value="#{actividadesBean.listarActividadesXproyecto}" var="theme2" itemLabel="#{theme2.detalleactividad.titulo}" itemValue="#{theme2.idactividad}"/>                                
+                                             effect="fade" var="y" style="width: 300px" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems value="#{actividadesBean.listarActividadesXproyecto}" var="theme3" itemLabel="#{theme3.detalleactividad.titulo}" itemValue="#{theme3.idactividad}"/>                                
                             </p:selectOneMenu><br></br>
-                            <b:commandButton  value="Guardar" look="success" iconAwesome="fa-floppy-o" action="#{proyectosbeneficiadoBean.guardarBeneficiadoProyecto()}" style="margin-right:10px" onclick="return confirmarAgregar();">
-                                <f:param value="T" name="tipo"/> 
+                            <b:commandButton  value="Guardar" look="success" iconAwesome="fa-floppy-o" action="#{proyectosbeneficiadoBean.guardarBeneficiadoProyecto()}" style="margin-right:10px">
+                                <f:param value="A" name="codigo"/> 
                             </b:commandButton>
                         </p:panel>
                     </p:tab>
@@ -146,7 +143,7 @@
 
         <b:row>
             <h:form id="datosbeneficiados">
-                <b:dataTable styleClass="table" value="#{beneficiadoBeans.listaEstudiantes}" var="est" rendered="#{beneficiadoBeans.listaEstudiantes.size()>0}" excel="true" pdf="true" print="true"> 
+                <b:dataTable styleClass="table" value="#{beneficiadoBeans.listaEstudiantes}" var="est" rendered="#{beneficiadoBeans.listaEstudiantes.size()>0}" excel="true" pdf="true" columnVisibility="true"> 
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Nombre"/>
@@ -192,13 +189,23 @@
                         <f:facet name="header">
                             <h:outputLabel value="Operaciones"/>
                         </f:facet>
-                        <b:commandButton value="Proyectos" look="warning" style="margin-right:10px"   
-                                         action="#{proyectosbeneficiadoBean.meterbeneficiadoidtec()}">
+                        <h:commandButton value="Eliminar" class="btn btn-danger" style="margin-right:10px" 
+                                         action="#{beneficiadoBeans.eliminarBeneficiado()}" onclick="return confirmarEliminacion();">
+
+                            <f:param name="codigo" value="#{est.idusuario}"/>
+                        </h:commandButton>
+                        <b:commandButton value="Modificar" look="primary" style="margin-right:10px" 
+                                         action="#{beneficiadoBeans.obtenerBeneficiado()}" >
                             <f:param name="codigo" value="#{est.idusuario}"/>
                         </b:commandButton>
-                        <p:commandButton icon="ui-icon-disk" value="Integrar" actionListener="#{proyectosbeneficiadoBean.llenaridbeneficiado()}" update="miformulario2" onclick="PF('dlg3').show();" style="margin-top:10px; background: none; ">
+                        <b:commandButton value="Proyectos" look="warning" style="margin-right:10px"   
+                                         action="#{proyectosbeneficiadoBean.meterbeneficiadoid()}">
                             <f:param name="codigo" value="#{est.idusuario}"/>
-                        </p:commandButton>
+                        </b:commandButton>
+                        <b:commandButton value="PDF proyectos" style="margin-right:10px" iconAwesome="fa-file-pdf-o" look="warning"
+                                         actionListener="#{proyectosbeneficiadoBean.pdfbene}">     
+                            <f:param name="codigo" value="#{est.idusuario}"/>
+                        </b:commandButton>
                     </h:column>                      
                 </b:dataTable>
             </h:form>
@@ -210,10 +217,7 @@
                 alertify.success('#{flash.exito}');               
             </c:if>
             function confirmarEliminacion(){
-            return confirm("¿Está seguro que desea eliminar este beneficiado");
-            }
-            function confirmarAgregar(){
-            return confirm("¿Está seguro de la integridad de los datos ingresados?");
+            return confirm("¿Está seguro que desea eliminar este estudiante");
             }
         </h:outputScript>            
     </ui:define>
