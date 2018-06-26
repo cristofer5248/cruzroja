@@ -20,16 +20,18 @@
         <b:panel title=">Abrir registro de Departamentos" look="success" collapsed="true" iconAwesome="fa-briefcase">
             <b:form id="miFormulario">
                 <b:panelGrid columns="4" styleClass="table">
-                    <h:outputLabel value="ID"/>
-                    <b:inputText value="#{departamentoBean.departamento.iddepartamento}"/>
                     <h:outputLabel value="Nombre"/>
                     <b:inputText value="#{departamentoBean.departamento.nombre}"/>
+                    <h:outputLabel value="ID"/>
+                    <b:inputText value="#{departamentoBean.departamento.iddepartamento}"/>
                 </b:panelGrid>
-                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{departamentoBean.guardar()}" style="margin-right:10px"/>
+                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{departamentoBean.guardar()}" style="margin-right:10px" onclick="return confirmarGuardar();"/>
                 <b:commandButton type="reset" value="Limpiar" look="danger"/>
             </b:form>
 
         </b:panel>
+        
+        
         <b:row>
             <b:form >
                 <b:dataTable value="#{departamentoBean.listaDepartamento}" var="est" rendered="#{departamentoBean.listaDepartamento.size()>0}" pdf="true" excel="true" paginated="true">
@@ -122,6 +124,9 @@
             </c:if>
             function confirmarEliminacion(){
             return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+            function confirmarGuardar(){
+            return confirm("¿Está seguro de los datos ingresados?");
             }
         </h:outputScript>
 
