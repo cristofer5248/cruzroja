@@ -92,25 +92,26 @@
                 </b:commandButton>                           
                 <b:commandButton  value="Guardar/Actualizar" look="success" action="#{lugarBean.guardarLugar()}" style="margin-right:10px"/>
                 <b:commandButton type="reset" value="Limpiar" look="danger"/>
-                <!--<p:commandButton value="Ver Mapa" type="button"  onclick="PF('mapamodal').show();"/>-->
+                <p:commandButton value="Ver Mapa" type="button"  onclick="PF('mapamodal').show();"/>
             </b:form>
         </b:panel>
-        <h:form id="mapawe" prependId="false">
-
-
-            <h3 style="margin-top:0">Geocode</h3>
-            <h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
-                <p:outputLabel for="address" value="Address:" />
-                <p:inputText id="address" />
-                <p:commandButton value="Geocode" icon="ui-icon-search" onclick="geocode()" type="button" />
+        <p:dialog widgetVar="mapamodal" showEffect="explode" hideEffect="bounce" header="Mapa de google" height="500">
+        <h:form prependId="false">
+            <h3>Reverse Geocode</h3>
+            <h:panelGrid columns="5" style="margin-bottom:10px" cellpadding="5">
+                <p:outputLabel for="lat" value="Lat:" />
+                <p:inputText id="lat" />
+                <p:outputLabel for="lng" value="Lng:" />
+                <p:inputText id="lng" />
+                <p:commandButton value="Reverse Geocode" icon="ui-icon-search" onclick="reverseGeocode()" type="button"/>
             </h:panelGrid>
 
-            <p:gmap id="geoGmap" widgetVar="geoMap" center="#{lugarBean.centerGeoMap}" zoom="3" type="ROADMAP" model="#{lugarBean.geoModel}" style="width:100%;height:400px">
-                <p:ajax event="geocode" listener="#{lugarBean.onGeocode}" update="@this" />
+            <p:gmap id="revGeoGmap" widgetVar="revGeoMap" center="#{lugarBean.centerRevGeoMap}" zoom="2" type="ROADMAP" model="#{lugarBean.revGeoModel}" style="width:100%;height:400px">
+                <p:ajax event="reverseGeocode" listener="#{lugarBean.onReverseGeocode}" update="@this" />
             </p:gmap>
 
         </h:form>
-
+</p:dialog>
         <b:row>
             <b:form >
                 <b:dataTable value="#{lugarBean.listaLugar}" var="est" rendered="#{lugarBean.listaLugar.size()>0}" pdf="true" excel="true" paginated="true" columnVisibility="true">
@@ -175,7 +176,7 @@
             }
 
         </h:outputScript>
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjQqaxI5-UQr7W-rcg0XP8V5hWu4dRUAM"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjQqaxI5-UQr7W-rcg0XP8V5hWu4dRUAM"></script>
 
     </ui:define>
 </ui:composition>
