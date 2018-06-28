@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="2000" pageHeight="595" orientation="Landscape" columnWidth="1960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="08e4b89c-9eb2-4609-8858-449dacae2202">
 	<property name="ireport.zoom" value="1.0000000000000007"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="21"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<queryString>
 		<![CDATA[SELECT
@@ -147,14 +147,14 @@ ORDER BY
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="802" y="0" width="100" height="25" forecolor="#FF0000" uuid="a4013a0a-018b-4d71-8ab9-3a72eeb0727e"/>
+				<reportElement x="802" y="0" width="191" height="25" forecolor="#FF0000" uuid="a4013a0a-018b-4d71-8ab9-3a72eeb0727e"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOTAL]]></text>
+				<text><![CDATA[Total de participaciones:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="902" y="0" width="100" height="25" uuid="a1d0da6f-b1f9-4298-a343-5de9220ec025"/>
+				<reportElement x="983" y="0" width="100" height="25" uuid="a1d0da6f-b1f9-4298-a343-5de9220ec025"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{totalcount}]]></textFieldExpression>
 			</textField>
