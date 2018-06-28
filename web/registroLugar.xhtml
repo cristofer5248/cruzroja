@@ -17,29 +17,18 @@
 
     <ui:define name="contenido">
 
-        <style>
-            /* Always set the map height explicitly to define the size of the div
-             * element that contains the map. */
-            #map {
-                height: 100%;
+        <script type="text/javascript">
+            function geocode() {
+                PF('geoMap').geocode(document.getElementById('address').value);
             }
-            /* Optional: Makes the sample page fill the window. */
-            html, body {
-                height: 100%;
-                margin: 0;
-                padding: 0;
+
+            function reverseGeocode() {
+                var lat = document.getElementById('lat').value,
+                        lng = document.getElementById('lng').value;
+
+                PF('revGeoMap').reverseGeocode(lat, lng);
             }
-        </style>
-        <div id="map"></div>
-        <h:outputScript>
-            var map;
-            function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: -34.397, lng: 150.644},
-            zoom: 8
-            });
-            }
-        </h:outputScript>
+        </script>
 
         <b:panel title="Click aqui para registro de localizaciones" look="success" collapsed="true" iconAwesome="fa-briefcase">
 
@@ -63,7 +52,7 @@
                     </b:selectOneMenu>
                     <h:outputLabel for="nombre" value="Nombre:"/>
 
-                    <b:inputText id="nombre" styleClass="form-control" 
+                    <b:inputText id="nombre"
                                  value="#{lugarBean.lugar.nombre}" 
                                  required="true" maxlength="40"
                                  requiredMessage="Debes ingresar el nombre">
@@ -81,13 +70,13 @@
                                  required="true" maxlength="50"
                                  requiredMessage="La longitud es necesaria">
                     </b:inputText>
-                    
+
                     <h:outputLabel for="latitud" value="Latitud"/>                    
                     <p:inputText id="coordenadas2" 
                                  value="#{lugarBean.latitud}" 
                                  required="true" maxlength="50"
                                  requiredMessage="La latitud es necesaria">
-<!--                        <p:keyFilter regEx="/[]"-->
+                        <!--                        <p:keyFilter regEx="/[]"-->
                     </p:inputText>
 
                     <h:outputLabel for="id" value="ID:"/>
@@ -103,9 +92,24 @@
                 </b:commandButton>                           
                 <b:commandButton  value="Guardar/Actualizar" look="success" action="#{lugarBean.guardarLugar()}" style="margin-right:10px"/>
                 <b:commandButton type="reset" value="Limpiar" look="danger"/>
+                <!--<p:commandButton value="Ver Mapa" type="button"  onclick="PF('mapamodal').show();"/>-->
             </b:form>
         </b:panel>
+        <h:form id="mapawe" prependId="false">
 
+
+            <h3 style="margin-top:0">Geocode</h3>
+            <h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
+                <p:outputLabel for="address" value="Address:" />
+                <p:inputText id="address" />
+                <p:commandButton value="Geocode" icon="ui-icon-search" onclick="geocode()" type="button" />
+            </h:panelGrid>
+
+            <p:gmap id="geoGmap" widgetVar="geoMap" center="#{lugarBean.centerGeoMap}" zoom="3" type="ROADMAP" model="#{lugarBean.geoModel}" style="width:100%;height:400px">
+                <p:ajax event="geocode" listener="#{lugarBean.onGeocode}" update="@this" />
+            </p:gmap>
+
+        </h:form>
 
         <b:row>
             <b:form >
@@ -171,6 +175,7 @@
             }
 
         </h:outputScript>
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjQqaxI5-UQr7W-rcg0XP8V5hWu4dRUAM"></script>
 
     </ui:define>
 </ui:composition>

@@ -7,13 +7,10 @@ package sv.cruzroja.www.beans;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
-import org.apache.catalina.User;
-import org.primefaces.context.RequestContext;
 import sv.cruzroja.www.model.UsuariosModel;
 import sv.cruzroja.www.entities.UsuariosEntity;
 
@@ -59,7 +56,7 @@ public class Login extends UsuariosBean {
                         System.out.println("Usuario nivel 3 iniciado");
                         usernivel1 = model.verificarnivel3(usuario);
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel3", usernivel1);
-                        return "registroBeneficiadoJefes";
+                        return "principalAd";
                     }if (user.getTipousuario().getIdtipou() == 2) {
                         System.out.println("Aqui casual pasando por los if para el nivel2");
                         usernivel1 = model.verificarnivel2(usuario);

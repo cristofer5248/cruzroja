@@ -10,6 +10,13 @@ import java.util.Calendar;
 import javax.faces.bean.ManagedBean;
 import java.util.List;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.event.map.GeocodeEvent;
+import org.primefaces.event.map.ReverseGeocodeEvent;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.GeocodeResult;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 import sv.cruzroja.www.utils.JsfUtil;
 import sv.cruzroja.www.entities.DepartamentoEntity;
 import sv.cruzroja.www.entities.LugarEntity;
@@ -34,8 +41,12 @@ public class LugarBean {
     private List<MunicipioEntity> muni = new ArrayList<MunicipioEntity>();
     Calendar c1 = Calendar.getInstance();
     private String idgenerado;
-    public int latitud;
-    public int longitud;
+    public Double latitud;
+    public Double longitud;
+    private String centerGeoMap = "41.850033, -87.6500523";
+    private MapModel geoModel;
+    private MapModel revGeoModel;
+    private String centerRevGeoMap = "41.850033, -87.6500523";
 
     /**
      * Creates a new instance of LugarBean
@@ -46,6 +57,8 @@ public class LugarBean {
         lugar.setMunicipio(new MunicipioEntity());
         lugar.setCategoria(new LugarcategoriaEntity());
         this.setMuni(modelo2.obtenerMunicipio(modelo3.listarByIdDepartamento(1)));
+        geoModel = new DefaultMapModel();
+        revGeoModel = new DefaultMapModel();
 
     }
 
@@ -117,6 +130,30 @@ para obtener la lista de objetos a partir de la bd */
         lugar.setIdlugar(idgenerado);
     }
 
+    public void onGeocode(GeocodeEvent event) {
+        List<GeocodeResult> results = event.getResults();
+
+        if (results != null && !results.isEmpty()) {
+            LatLng center = results.get(0).getLatLng();
+            centerGeoMap = center.getLat() + "," + center.getLng();
+
+            for (int i = 0; i < results.size(); i++) {
+                GeocodeResult result = results.get(i);
+                geoModel.addOverlay(new Marker(result.getLatLng(), result.getAddress()));
+            }
+        }
+    }
+
+    public void onReverseGeocode(ReverseGeocodeEvent event) {
+        List<String> addresses = event.getAddresses();
+        LatLng coord = event.getLatlng();
+
+        if (addresses != null && !addresses.isEmpty()) {
+            centerRevGeoMap = coord.getLat() + "," + coord.getLng();
+            revGeoModel.addOverlay(new Marker(coord, addresses.get(0)));
+        }
+    }
+
     public void handleValueChange() {
         muni = modelo2.obtenerMunicipio(lugar.getDepartamento());
     }
@@ -152,29 +189,45 @@ para obtener la lista de objetos a partir de la bd */
     /**
      * @return the latitud
      */
-    public int getLatitud() {
+    public Double getLatitud() {
         return latitud;
     }
 
     /**
      * @param latitud the latitud to set
      */
-    public void setLatitud(int latitud) {
+    public void setLatitud(Double latitud) {
         this.latitud = latitud;
     }
 
     /**
      * @return the longitud
      */
-    public int getLongitud() {
+    public Double getLongitud() {
         return longitud;
     }
 
     /**
      * @param longitud the longitud to set
      */
-    public void setLongitud(int longitud) {
+    public void setLongitud(Double longitud) {
         this.longitud = longitud;
+    }
+
+    public MapModel getGeoModel() {
+        return geoModel;
+    }
+
+    public MapModel getRevGeoModel() {
+        return revGeoModel;
+    }
+
+    public String getCenterGeoMap() {
+        return centerGeoMap;
+    }
+
+    public String getCenterRevGeoMap() {
+        return centerRevGeoMap;
     }
 
 }

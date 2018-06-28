@@ -35,12 +35,12 @@ public class UsuariosBean {
     para obtener la lista de objetos a partir de la bd */
         return usuariosmodel.listarUsuarios();
     }
+
     public List<UsuariosEntity> getSoloEncargados() {
         /* Notese que se llama al método listarEstudiantes
     para obtener la lista de objetos a partir de la bd */
         return usuariosmodel.listarEncargados();
-    }    
-    
+    }
 
     public void obtenerUsuario() {
         String carnet = JsfUtil.getRequest().getParameter("codigo");
@@ -50,7 +50,9 @@ public class UsuariosBean {
     }
 
     public String guardarUsuario() {
-
+        if (usuarios.getTipousuario().getIdtipou() == null) {
+            usuarios.setTipousuario(new TipouEntity(2));
+        }
         if (usuariosmodel.insertarUsuarios(usuarios) != 1) {
             usuariosmodel.modificarUsuarios(usuarios);
             JsfUtil.setFlashMessage("exito", "Usuario actualizado");

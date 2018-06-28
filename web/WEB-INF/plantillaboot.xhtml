@@ -5,13 +5,14 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <link rel="icon" href="../resources/img/icono.png"></link>
         <h:outputStylesheet name="css/alertify.core.css" />
         <h:outputStylesheet name="css/alertify.default.css" />
         <h:outputScript name="js/alertify.js"/>        
-
+        
         <h:outputStylesheet name="css/bootstrap.min.css" /> 
         <h:outputStylesheet name="css/globalcss.css" /> 
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession()}"/>
@@ -23,13 +24,19 @@
     </h:head>
 
     <h:body>
+        <c:set var="variable" scope="session" value="#{verificarsesion.dameeltipo()}"/>
         <p:growl id="growl" showDetail="true" sticky="true" />
         <ui:insert name="menu">
             <b:navBar brandHref="principalAd.xhtml" brand-img="../resources/img/logo.png" inverse="true" style="background-color: #05235b">
                 <b:navbarLinks>
                     <b:dropMenu value="Personas" icon-awesome="fa-user">
                         <b:navLink value="Usuarios" outcome="usuarios" icon-awesome="fa-user-secret"></b:navLink>
-                        <b:navLink value="Beneficiados" outcome="registroBeneficiado" icon-awesome="fa-users"></b:navLink>
+                        <c:if test = "${variable== 1}">
+                            <b:navLink value="Beneficiados" outcome="registroBeneficiado" icon-awesome="fa-users"></b:navLink>
+                        </c:if>
+                        <c:if test = "${variable== 3}">
+                            <b:navLink value="Beneficiados" outcome="registroBeneficiadoJefes" icon-awesome="fa-users"></b:navLink>
+                        </c:if>                        
                     </b:dropMenu>
                     <b:dropMenu value="Datos" icon-awesome="fa-table">
                         <b:navLink value="Financiamiento" outcome="financiamiento" icon-awesome="fa-dollar"></b:navLink>
@@ -50,14 +57,27 @@
                 </b:navbarLinks>
 
                 <b:navbarLinks pull="right">
-                    <b:dropMenu icon="globe" value="Cordinador: #{verificarsesion.mensaje}">
-                        <!--                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>-->
-                        <br></br>
-                        <b:form>
-                            <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
-                            </b:navCommandLink>
-                        </b:form>
-                    </b:dropMenu>
+
+                    <c:if test = "${variable== 1}">
+                        <b:dropMenu icon="globe" value="Cordinador: #{verificarsesion.mensaje}">
+                            <!--                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>-->
+                            <br></br>
+                            <b:form>
+                                <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
+                                </b:navCommandLink>
+                            </b:form>
+                        </b:dropMenu>
+                    </c:if>
+                    <c:if test = "${variable== 3}">
+                        <b:dropMenu icon="globe" value="Jefe: #{verificarsesion.mensaje}">
+                            <!--                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>-->
+                            <br></br>
+                            <b:form>
+                                <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
+                                </b:navCommandLink>
+                            </b:form>
+                        </b:dropMenu>
+                    </c:if>
                 </b:navbarLinks>
 
 
@@ -91,7 +111,7 @@
         </div>
     </h:body>
     <div class="footer">
-        <p:panelGrid columns="2" columnClasses="ui-grid-col-7,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank">
             <b:container>
 
                 <p><strong><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">©2018 Cruz Roja Salvadoreña </a></strong></p>                    

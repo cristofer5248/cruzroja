@@ -23,15 +23,21 @@ import sv.cruzroja.www.model.UsuariosModel;
 public class Verificarsesion {
 
     private String mensaje;
+    public int tipo;
 
     public void verificarsession() throws IOException {
         try {
 
             FacesContext context = FacesContext.getCurrentInstance();
             UsuariosEntity us = (UsuariosEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nivel");
+
 //        UsuariosEntity usuario = new UsuariosEntity();
             String nombre = null;
 
+            if (us == null) {
+                us = (UsuariosEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nivel3");
+
+            }
             if (us == null) {
 
                 FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=true");
@@ -39,7 +45,7 @@ public class Verificarsesion {
                 System.out.println("Hasta aqui el estado es: " + us.getActivo().toString());
                 if (us.getActivo() == false) {
                     nombre = us.getNombres();
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido Coordinador", nombre));
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", nombre));
                     UsuariosModel model = new UsuariosModel();
                     UsuariosEntity cambiaractivo = new UsuariosEntity();
                     cambiaractivo.setIdusuario(us.getIdusuario());
@@ -51,8 +57,10 @@ public class Verificarsesion {
                     model.modificarUsuarios(cambiaractivo);
                     us.setActivo(Boolean.TRUE);
                     this.setMensaje(us.getNombres());
-                }
+                    
 
+                }
+                this.setTipo(us.getTipousuario().getIdtipou());
             }
 
         } catch (Exception e) {
@@ -60,6 +68,18 @@ public class Verificarsesion {
             JsfUtil.setErrorMessage(null, "Error interno");
         }
 
+    }
+
+    public int dameeltipo() {
+        int devolver=0;
+        try {
+        UsuariosEntity us = (UsuariosEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");    
+        devolver= us.getTipousuario().getIdtipou();
+        } catch (Exception e) {
+        }
+        
+        return devolver;
+        
     }
 
     public void verificarsession2() throws IOException {
@@ -160,4 +180,19 @@ public class Verificarsesion {
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
+
+    /**
+     * @return the tipo
+     */
+    public int getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
 }

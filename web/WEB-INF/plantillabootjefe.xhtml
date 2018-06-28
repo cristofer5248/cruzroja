@@ -5,12 +5,14 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
+        <link rel="icon" href="../resources/img/icono.png"></link>
         <h:outputStylesheet name="css/alertify.core.css" />
         <h:outputStylesheet name="css/alertify.default.css" />
         <h:outputScript name="js/alertify.js"/>        
-        <link rel="icon" href="../resources/img/icono.png"></link>
+
         <h:outputStylesheet name="css/bootstrap.min.css" /> 
         <h:outputStylesheet name="css/globalcss.css" /> 
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession3()}"/>
@@ -24,40 +26,57 @@
     <h:body>
         <p:growl id="growl" showDetail="true" sticky="true" />
         <ui:insert name="menu">
-            <b:navBar brandHref="principalTec.xhtml" brand-img="../resources/img/logo.png" inverse="true" style="background-color: #6b0a0a">
+            <b:navBar brandHref="principalAd.xhtml" brand-img="../resources/img/logo.png" inverse="true" style="background-color: #05235b">
                 <b:navbarLinks>
-
                     <b:dropMenu value="Personas" icon-awesome="fa-user">
-
-                        <b:navLink value="Beneficiados" outcome="registroBeneficiadoTec" icon-awesome="fa-users"></b:navLink>
+                        <b:navLink value="Usuarios" outcome="usuarios" icon-awesome="fa-user-secret"></b:navLink>
+                        <c:if test = "${variable== 1}">
+                            <b:navLink value="Beneficiados" outcome="registroBeneficiado" icon-awesome="fa-users"></b:navLink>
+                        </c:if>
+                        <c:if test = "${variable== 3}">
+                            <b:navLink value="Beneficiados" outcome="registroBeneficiadoJefes" icon-awesome="fa-users"></b:navLink>
+                        </c:if>                        
                     </b:dropMenu>
                     <b:dropMenu value="Datos" icon-awesome="fa-table">
-                        <b:navLink value="Estadisticas" outcome="EstadisticasTec" icon-awesome="fa-dollar"></b:navLink>
-
-                        <b:navLink value="Sociedad" outcome="sociedadTec" icon-awesome="fa-institution"></b:navLink>                                    
+                        <b:navLink value="Financiamiento" outcome="financiamiento" icon-awesome="fa-dollar"></b:navLink>
+                        <b:navLink value="Estadisticas" outcome="Estadisticas" icon-awesome="fa-line-chart"></b:navLink>                        
+                        <b:navLink value="Sociedad" outcome="sociedad" icon-awesome="fa-institution"></b:navLink>                        
                     </b:dropMenu>
-
                     <b:dropMenu value="Proyectos" icon-awesome="fa-ambulance">
-                        <b:navLink value="Todos los proyetos" outcome="proyectosTec" icon-awesome="fa-align-justify"></b:navLink>
-                        <b:navLink value="Todas las Actividades" outcome="ActividadesTec" icon-awesome="fa-child"></b:navLink>                        
+                        <b:navLink value="Todos los proyetos" outcome="proyectos" icon-awesome="fa-align-justify"></b:navLink>
+                        <b:navLink value="Todas las Actividades" outcome="Actividades" icon-awesome="fa-child"></b:navLink>
                         <b:dropMenu value="Localizaciones" icon-awesome="fa-sitemap">
-                            <b:navLink value="Todas las localizaciones" outcome="registroLugarTec" icon-awesome="fa-sitemap"></b:navLink>
-                            <b:navLink value="Localizacion de proyectos" outcome="lugarproyectoTec" icon-awesome="fa-thumb-tack"></b:navLink>
-                            <b:navLink value="Departamentos" outcome="departamentosTec" icon-awesome="fa-globe"></b:navLink>
+                            <b:navLink value="Todas los localizaciones" outcome="registroLugar" icon-awesome="fa-sitemap"></b:navLink>
+                            <b:navLink value="Localizacion de proyectos" outcome="lugarproyecto" icon-awesome="fa-thumb-tack"></b:navLink>
+                            <b:navLink value="Departamentos" outcome="departamentos" icon-awesome="fa-globe"></b:navLink>
                         </b:dropMenu>
-                        <b:navLink value="Area Misional"  outcome="areamisionalTec" icon-awesome="fa-list-ol"></b:navLink>
+
+                        <b:navLink value="Area Misional"  outcome="areamisional" icon-awesome="fa-list-ol"></b:navLink>
                     </b:dropMenu>
                 </b:navbarLinks>
 
                 <b:navbarLinks pull="right">
-                    <b:dropMenu icon="globe" value="Tecnico: #{verificarsesion.mensaje}">
-                        <!--                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>-->
-                        <br></br>
-                        <b:form>
-                            <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
-                            </b:navCommandLink>
-                        </b:form>
-                    </b:dropMenu>
+                    <c:set var="variable" scope="session" value="#{verificarsesion.dameeltipo()}"/>
+                    <c:if test = "${variable== 1}">
+                        <b:dropMenu icon="globe" value="Cordinador: #{verificarsesion.mensaje}">
+                            <!--                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>-->
+                            <br></br>
+                            <b:form>
+                                <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
+                                </b:navCommandLink>
+                            </b:form>
+                        </b:dropMenu>
+                    </c:if>
+                    <c:if test = "${variable== 3}">
+                        <b:dropMenu icon="globe" value="Jefe: #{verificarsesion.mensaje}">
+                            <!--                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>-->
+                            <br></br>
+                            <b:form>
+                                <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
+                                </b:navCommandLink>
+                            </b:form>
+                        </b:dropMenu>
+                    </c:if>
                 </b:navbarLinks>
 
 
@@ -81,7 +100,7 @@
                            </b:panel> -->
                     </ui:insert>
                 </div>
-                <div class="col-md-12 col-sm-9" >
+                <div class="col-md-12 col-sm-4" >
                     <ui:insert name="contenido" >
                         CONTENIDO POR DEFECTO
                     </ui:insert>
@@ -90,14 +109,12 @@
             </div>
         </div>
     </h:body>
-<!--    <script src=https://maps.googleapis.com/maps/api/js?key=AIzaSyDjQqaxI5-UQr7W-rcg0XP8V5hWu4dRUAM&callback=initMap"async defer>
-    </script>        -->
-    <div class="footer" style="background-color: #6b0a0a">
+    <div class="footer">
         <p:panelGrid columns="2" columnClasses="ui-grid-col-7,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
             <b:container>
 
                 <p><strong><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">©2018 Cruz Roja Salvadoreña </a></strong></p>                    
-                <p><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">Developers: UDB</a></p>
+                <p><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">Developer: UDB</a></p>
                 <!--                <p><a href="mailto:cristofr5248@gmail.com" target="_top" >cristofr5248@gmail.com</a></p>-->
             </b:container>
             <b:container>

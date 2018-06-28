@@ -36,13 +36,13 @@
                                    required="true" maxlength="40"
                                    requiredMessage="Debes ingresar el una contraseña">
                     </b:inputSecret>
-
-                    <h:outputLabel for="tipo" value="Tipo de usuario:"/>
-                    <b:selectOneMenu value="#{usuariosBean.usuarios.tipousuario.idtipou}">
-                        <f:selectItems value="#{tipousuarioBean.listaProyectos}" var="tipou"
-                                       itemLabel="#{tipou.nombre}" itemValue="#{tipou.idtipou}"/>
-                    </b:selectOneMenu>
-
+                    <c:if test = "${variable== 3}">
+                        <h:outputLabel for="tipo" value="Tipo de usuario:"/>
+                        <b:selectOneMenu value="#{usuariosBean.usuarios.tipousuario.idtipou}">
+                            <f:selectItems value="#{tipousuarioBean.listaProyectos}" var="tipou"
+                                           itemLabel="#{tipou.nombre}" itemValue="#{tipou.idtipou}"/>
+                        </b:selectOneMenu>
+                    </c:if>
                     <h:outputLabel for="genero" value="Genero:"/>
                     <b:selectOneMenu value="#{usuariosBean.usuarios.genero.idg}">
                         <f:selectItems value="#{generoBean.listaEstudiantes}" var="gene"
@@ -50,9 +50,9 @@
                     </b:selectOneMenu>
 
                     <h:outputLabel for="id" value="ID:"/>
-                    <b:inputText id="idauto" styleClass="form-control" 
+                    <b:inputText id="idauto"  required="true" requiredMessage="Es necesario un ID"
                                  value="#{usuariosBean.usuarios.idusuario}"
-                                 maxlength="6" validatorMessage="ID no valido"                                         
+                                 maxlength="6" validatorMessage="ID no valido"                                                                          
                                  >
                     </b:inputText>
 
@@ -60,7 +60,7 @@
                 <b:commandButton value="Auto-generar ID" look="warning" action="#{usuariosBean.genearid()}"  style="margin-right:10px">
                     <f:ajax execute="nombre" render="idauto"/>
                 </b:commandButton>                           
-                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{usuariosBean.guardarUsuario()}" style="margin-right:10px"/>
+                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{usuariosBean.guardarUsuario()}" style="margin-right:10px" onclick="return confirmarGuardar();"/>
                 <b:commandButton type="reset" value="Limpiar" look="danger"/>
             </b:form>
         </b:panel>
@@ -68,13 +68,15 @@
 
         <b:row>
             <b:form >
-                <b:dataTable styleClass="table table-striped table-bordered" value="#{usuariosBean.listaProyectos}" var="est" rendered="#{usuariosBean.listaProyectos.size()>0}">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="ID"/>
-                        </f:facet>
-                        <h:outputText value="#{est.idusuario}"/>
-                    </h:column>
+                <b:dataTable value="#{usuariosBean.listaProyectos}" var="est" rendered="#{usuariosBean.listaProyectos.size()>0}">
+                    <c:if test = "${variable== 3}">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="ID"/>
+                            </f:facet>
+                            <h:outputText value="#{est.idusuario}"/>
+                        </h:column>
+                    </c:if>
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Nombre"/>
@@ -93,21 +95,26 @@
                         </f:facet>
                         <h:outputText value="#{est.genero.nombre}"/>                          
                     </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Operaciones"/>
-                        </f:facet>
-                        <h:commandButton value="Eliminar" class="btn btn-danger"  style="margin-right:10px"
-                                         action="#{usuariosBean.eliminarUsuarios()}" onclick="return confirmarEliminacion();">
-                            <f:param name="codigo" value="#{est.idusuario}"/>
+                    <c:if test = "${variable== 3}">
+                        <h:column>
 
-                        </h:commandButton>
-                        <b:commandButton value="Modificar" look="primary"   
-                                         action="#{usuariosBean.obtenerUsuario()}">
-                            <f:param name="codigo" value="#{est.idusuario}"/>
-                        </b:commandButton>
-                    </h:column>
-                </b:dataTable>
+                            <f:facet name="header">
+                                <h:outputLabel value="Operaciones"/>
+                            </f:facet>
+                            <h:commandButton value="Eliminar" class="btn btn-danger"  style="margin-right:10px"
+                                             action="#{usuariosBean.eliminarUsuarios()}" onclick="return confirmarEliminacion();">
+                                <f:param name="codigo" value="#{est.idusuario}"/>
+
+                            </h:commandButton>
+
+                            <b:commandButton value="Modificar" look="primary"   
+                                             action="#{usuariosBean.obtenerUsuario()}">
+                                <f:param name="codigo" value="#{est.idusuario}"/>
+                            </b:commandButton>
+
+                        </h:column>
+                    </c:if>    
+                </b:dataTable>                
             </b:form>
         </b:row>
 
@@ -116,7 +123,10 @@
                 alertify.success('#{flash.exito}');               
             </c:if>
             function confirmarEliminacion(){
-            return confirm("¿Está seguro que desea eliminar este estudiante");
+            return confirm("¿Está seguro que desea eliminar este usuario");
+            }
+            function confirmarGuardar(){
+            return confirm("¿Está seguro con la integridad de los datos?");
             }
         </h:outputScript>
 
