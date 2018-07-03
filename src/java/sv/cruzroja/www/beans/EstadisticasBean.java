@@ -22,6 +22,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import sv.cruzroja.www.entities.BeneficiadosEntity;
 import sv.cruzroja.www.model.ProyectosBeneficiadomodel;
 import sv.cruzroja.www.entities.LugarproyectoEntity;
 import sv.cruzroja.www.entities.UsuariosEntity;
@@ -51,6 +52,7 @@ public class EstadisticasBean {
     private String departamentopara;
     private int muni;
     private String proyectoid2;
+    private int hayentabla=0;
 
     /**
      * Creates a new instance of EstadisticasBean
@@ -161,6 +163,19 @@ public class EstadisticasBean {
         stream.flush();
         stream.close();
         FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public List<BeneficiadosEntity> generarentabla() {
+        try {
+            List<BeneficiadosEntity> lista = modelo3.listaasistencia(proyectoid);
+            if (lista.size()>0) {                
+                hayentabla=1;                
+                return lista;
+            }
+        } catch (Exception e) {
+            hayentabla=0;
+        }
+        return null;
     }
 
     /**
@@ -309,5 +324,20 @@ public class EstadisticasBean {
     public void setProyectoid2(String proyectoid2) {
         this.proyectoid2 = proyectoid2;
     }
+
+    /**
+     * @return the hayentabla
+     */
+    public int getHayentabla() {
+        return hayentabla;
+    }
+
+    /**
+     * @param hayentabla the hayentabla to set
+     */
+    public void setHayentabla(int hayentabla) {
+        this.hayentabla = hayentabla;
+    }
+    
 
 }

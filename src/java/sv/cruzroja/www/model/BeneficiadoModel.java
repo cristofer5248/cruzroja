@@ -168,7 +168,7 @@ public class BeneficiadoModel {
                 m.put("datosbeneficiados_nombres", b.getIdbeneficiado().getNombres());
                 m.put("datosbeneficiados_apellidos", b.getIdbeneficiado().getApellidos());
                 m.put("datosbeneficiados_edad", b.getIdbeneficiado().getEdad());
-                m.put("actividadesdetalles_titulo", b.getIdproyecto().getDetalleactividad().getTitulo());                
+                m.put("actividadesdetalles_titulo", b.getIdproyecto().getDetalleactividad().getTitulo());
                 m.put("proyectos_nombre", b.getIdproyecto().getLugarproyectoPadre().getIdlp().getNombre());
                 m.put("genero_nombre", b.getIdbeneficiado().getGenero().getNombre());
                 m.put("datosbeneficiados_idusuario", b.getIdbeneficiado().getIdusuario());
@@ -183,6 +183,27 @@ public class BeneficiadoModel {
             }
             em.close();// Cerrando el EntityManager
             return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.close();
+            return null;
+        }
+    }
+
+    public List<BeneficiadosEntity> listaasistencia(String proyecto) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNamedQuery("BeneficiadosEntity.findByIdlpOrder").setParameter("codproyecto", proyecto);
+            //El método getResultList() de la clase Query permite obtener
+            // la lista de resultados de una consulta de selección
+            List<BeneficiadosEntity> lista = consulta.getResultList();
+            int totalcount = lista.size();
+
+            if (lista.size() == 0) {
+                System.out.println("we lo siento :C");
+            }
+            em.close();// Cerrando el EntityManager
+            return lista;
         } catch (Exception e) {
             e.printStackTrace();
             em.close();
