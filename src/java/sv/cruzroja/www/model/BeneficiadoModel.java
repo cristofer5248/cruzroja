@@ -279,4 +279,54 @@ public class BeneficiadoModel {
         }
     }
 
+    ///QUERYS NATIVOS, LOS CREARE PERO ME OFENDE MUCHISIMO.
+    public List<Object[]> obteneractividades() {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNativeQuery("select det.titulo,ac.idactividad from beneficiados  b inner join actividades ac on b.idproyecto=ac.idactividad inner join datosbeneficiados da\n"
+                    + "on b.idbeneficiado=da.idusuario inner join actividadesdetalles det on det.idactividadesdetalles=ac.detalleactividad  where ac.lugarproyectoPadre=\"LA2575\"\n"
+                    + "group by det.idactividadesdetalles order by da.nombres ASC;");
+            List<Object[]> aber = consulta.getResultList();
+            em.close();
+            return aber;
+        } catch (Exception e) {
+            System.out.print("NO we no pasa nada :c");
+            em.close();
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Object[]> obteneractividadesdatos(List<Object[]> actividades) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            String nombrarcolumnas = "";
+            int freno = 0;
+            for (Object[] a : actividades) {
+                freno += 1;
+                if (freno != a.length) {
+                    nombrarcolumnas += "sum( if( b.idproyecto='" + a[1] + "', 0, 1 ) ) as '" + a[0] + "',";
+                } else {
+                    nombrarcolumnas += "sum( if( b.idproyecto='" + a[1] + "', 0, 1 ) ) as '" + a[0] + "'";
+                }
+
+            }
+//            System.out.print(nombrarcolumnas);
+
+            Query consulta = em.createNativeQuery("select \n"
+                    + "  CONCAT(da.nombres,\" \",da.apellidos) as nombres,\n" + nombrarcolumnas
+                    //                    + "  \n"
+                    //                    + "  \n"
+                    + "from beneficiados  b inner join actividades ac on b.idproyecto=ac.idactividad inner join datosbeneficiados da\n"
+                    + "on b.idbeneficiado=da.idusuario  where ac.lugarproyectoPadre=\"LA2575\"\n"
+                    + "group by idbeneficiado order by da.nombres ASC;");
+            List<Object[]> pivot = consulta.getResultList();
+            em.close();
+            return pivot;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

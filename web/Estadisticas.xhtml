@@ -78,10 +78,10 @@
             </b:form>
         </b:panel>
         <b:form id="tablaasistenciaform">        
-            <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.generarentabla()}" var="tbene" rendered="#{estadisticasBean.hayentabla!=0}" paginator="true" >
+            <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.generarentabla()}" var="tbene" rendered="#{estadisticasBean.hayentabla!=0}" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
                 <f:facet name="{Exporters}">
                     <h:commandLink>
-                        <p:graphicImage name="/img/excel.png" width="24"/>
+                        <p:graphicImage name="img/excel.png" />
                         <p:dataExporter type="xls" target="tabladeasistencia" fileName="cars" />
                     </h:commandLink>
                 </f:facet>
