@@ -52,7 +52,8 @@ public class EstadisticasBean {
     private String departamentopara;
     private int muni;
     private String proyectoid2;
-    private int hayentabla=0;
+    private int hayentabla = 0;
+    private List<String> columnaspivot;
 
     /**
      * Creates a new instance of EstadisticasBean
@@ -168,12 +169,25 @@ public class EstadisticasBean {
     public List<BeneficiadosEntity> generarentabla() {
         try {
             List<BeneficiadosEntity> lista = modelo3.listaasistencia(proyectoid);
-            if (lista.size()>0) {                
-                hayentabla=1;                
+            if (lista.size() > 0) {
+                hayentabla = 1;
                 return lista;
             }
         } catch (Exception e) {
-            hayentabla=0;
+            hayentabla = 0;
+        }
+        return null;
+    }
+
+    //PIVOT MAESTRO ULTRA INSTINTO
+    public List<Object[]> datospivot() {
+        System.out.print("Iniciando...\n");
+        try {
+            List<Object[]> columnaspivotOb;
+            columnaspivotOb = modelo3.obteneractividades();
+            this.columnaspivot = modelo3.obteneractividadesList();
+            return modelo3.obteneractividadesdatos(columnaspivotOb);
+        } catch (Exception e) {
         }
         return null;
     }
@@ -338,6 +352,19 @@ public class EstadisticasBean {
     public void setHayentabla(int hayentabla) {
         this.hayentabla = hayentabla;
     }
-    
+
+    /**
+     * @return the columnaspivot
+     */
+    public List<String> getColumnaspivot() {
+        return columnaspivot;
+    }
+
+    /**
+     * @param columnaspivot the columnaspivot to set
+     */
+    public void setColumnaspivot(List<String> columnaspivot) {
+        this.columnaspivot = columnaspivot;
+    }
 
 }

@@ -95,15 +95,15 @@ public class ProyectosbeneficiadoBean {
 
     }
 
-    public String guardarBeneficiadoProyecto() {        
+    public void guardarBeneficiadoProyecto() {
         String codigo = JsfUtil.getRequest().getParameter("tipo");
-        
+
         try {
             int repetido = 0;
             repetido = beneficiadosmodel.buscarXidbeneYactividad(idbene, idactividad);
             if (repetido != 0) {
                 JsfUtil.setFlashMessage("exito", "Beneficiado ya integrado a dicha actividad");
-                return "registroBeneficiado?faces-redirect=true";
+//                return "registroBeneficiado?faces-redirect=true";
             }
             List<Actividades> nombreActividades = actividadesmodel.listarActividadesXid(idactividad);
 
@@ -127,7 +127,7 @@ public class ProyectosbeneficiadoBean {
                 JsfUtil.setFlashMessage("exito", "Fue actualizado el proyecto al que esta unido el beneficiado");
                 if (codigo.equals("T")) {
 
-                    return "registroBeneficiadoTec?faces-redirect=true";
+//                    return "registroBeneficiadoTec?faces-redirect=true";
                 } else {
                     JsfUtil.setFlashMessage("exito", "Beneficiado añadido a proyecto exitosamente");
 
@@ -135,14 +135,14 @@ public class ProyectosbeneficiadoBean {
             }
             if (codigo.equals("T")) {
                 JsfUtil.setFlashMessage("exito", "Beneficiado añadido a proyecto exitosamente");
-                return "registroBeneficiadoTec?faces-redirect=true";
+//                return "registroBeneficiadoTec?faces-redirect=true";
             }
 
         } catch (Exception e) {
 //            e.printStackTrace();
         }
         JsfUtil.setFlashMessage("exito", "Beneficiado añadido a proyecto exitosamente");
-        return "registroBeneficiado?faces-redirect=true";
+//        return "registroBeneficiado?faces-redirect=true";
     }
 
     public void pdfbene(ActionEvent actionEvent) throws JRException, IOException {

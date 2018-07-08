@@ -78,26 +78,17 @@
             </b:form>
         </b:panel>
         <b:form id="tablaasistenciaform">        
-            <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.generarentabla()}" var="tbene" rendered="#{estadisticasBean.hayentabla!=0}" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+            <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.datospivot()}" var="item" rendered="#{estadisticasBean.datospivot()!=null}" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
                 <f:facet name="{Exporters}">
                     <h:commandLink>
                         <p:graphicImage name="img/excel.png" />
                         <p:dataExporter type="xls" target="tabladeasistencia" fileName="cars" />
                     </h:commandLink>
                 </f:facet>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="ID"/>
-                    </f:facet>
-                    <h:outputText value="#{tbene.idb}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Apellidos"/>
-                    </f:facet>
-                    <h:outputText value="#{tbene.idbeneficiado.apellidos}"/>
-                </p:column>                
-                
+                <p:columns value="#{estadisticasBean.columnaspivot}" var="columnName" columnIndexVar="i">
+                    <f:facet name="header">#{columnName}</f:facet>
+                        #{item[i]}
+                </p:columns>
             </p:dataTable>
         </b:form>
 
