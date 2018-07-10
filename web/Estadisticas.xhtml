@@ -70,7 +70,7 @@
                         <b:commandButton value="Generar PDF" look="danger"  icon-awesome="fa-file-pdf-o" actionListener="${estadisticasBean.pdfasistenciaproyectos}">
 
                         </b:commandButton>
-                        <p:commandButton value="Generar en tabla" class="btn btn-danger" actionListener="${estadisticasBean.generarentabla}" icon="fa fa-table" update="tablaasistenciaform">    
+                        <p:commandButton value="Generar en tabla" class="btn btn-danger" ajax="true" icon="fa fa-table" update="tablaasistenciaform">    
 
                         </p:commandButton>
                     </b:panel>
@@ -78,7 +78,7 @@
             </b:form>
         </b:panel>
         <b:form id="tablaasistenciaform">        
-            <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.datospivot()}" var="item" rendered="#{estadisticasBean.datospivot()!=null}" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
+            <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.datospivot()}" var="item" rendered="#{estadisticasBean.proyectoid!=null}" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
                 <f:facet name="{Exporters}">
                     <h:commandLink>
                         <p:graphicImage name="img/excel.png" />

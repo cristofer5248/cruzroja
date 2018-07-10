@@ -25,11 +25,11 @@ public class pruebasqueryNativo {
             System.out.print("Iniciando...");
             BeneficiadoModel modelo = new BeneficiadoModel();
             List<Object[]> lista;
-            lista = modelo.obteneractividades();
+            lista = modelo.obteneractividades("ingresar un id valido de proyecto");
 //            System.out.print("... Total de beneficiados = " + lista.size());
             
 
-            for (Object[] z : modelo.obteneractividadesdatos(lista)) {
+            for (Object[] z : modelo.obteneractividadesdatos(lista,"dsad")) {
                 for (int i = 0; i < lista.size()+1; i++) {
                     System.out.print(z[i] + "\n");
                 }

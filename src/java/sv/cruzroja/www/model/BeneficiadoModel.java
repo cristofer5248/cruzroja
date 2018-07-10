@@ -22,7 +22,7 @@ import sv.cruzroja.www.utils.JpaUtil;
  * @author crist
  */
 public class BeneficiadoModel {
-    
+
     public List<DatosbeneficiadosEntity> listarLugar() {
 //Obtengo una instancia de EntityManager
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -38,7 +38,7 @@ public class BeneficiadoModel {
             return null;
         }
     }
-    
+
     public List<DatosbeneficiadosEntity> listarLugarX2meses(String fecha) {
 //Obtengo una instancia de EntityManager
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -55,7 +55,7 @@ public class BeneficiadoModel {
             return null;
         }
     }
-    
+
     public List<DatosbeneficiadosEntity> buscarXapellidos(String apellido) {
 //Obtengo una instancia de EntityManager
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -72,7 +72,7 @@ public class BeneficiadoModel {
             return null;
         }
     }
-    
+
     public DatosbeneficiadosEntity obtenerBeneficiado(String codigo) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
@@ -85,7 +85,7 @@ public class BeneficiadoModel {
             return null;
         }
     }
-    
+
     public int insertarEstudiante(DatosbeneficiadosEntity estudiante) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction tran = em.getTransaction();
@@ -101,7 +101,7 @@ public class BeneficiadoModel {
             return 0;
         }
     }
-    
+
     public int modificarBeneficiado(DatosbeneficiadosEntity estudiante) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction tran = em.getTransaction();
@@ -116,7 +116,7 @@ public class BeneficiadoModel {
             return 0;
         }
     }
-    
+
     public List<Map<String, ?>> listarLugarproyectosporedad(int edad1, int edad2, String idpro) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
@@ -127,7 +127,7 @@ public class BeneficiadoModel {
             List<BeneficiadosEntity> lista = consulta.getResultList();
             int totalcount = lista.size();
             for (BeneficiadosEntity b : lista) {
-                
+
                 Map<String, Object> m = new HashMap<String, Object>();
                 m.put("datosbeneficiados_nombres", b.getIdbeneficiado().getNombres());
                 m.put("datosbeneficiados_apellidos", b.getIdbeneficiado().getApellidos());
@@ -139,7 +139,7 @@ public class BeneficiadoModel {
                 m.put("totalcount", totalcount);
                 System.out.println("Prueba de datos: " + b.getIdbeneficiado().getNombres() + " total:" + totalcount);
                 result.add(m);
-                
+
             }
             if (lista.size() == 0) {
                 System.out.println("we lo siento :C");
@@ -152,7 +152,7 @@ public class BeneficiadoModel {
             return null;
         }
     }
-    
+
     public List<Map<String, ?>> listapdfasistencia(String proyecto) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
@@ -163,7 +163,7 @@ public class BeneficiadoModel {
             List<BeneficiadosEntity> lista = consulta.getResultList();
             int totalcount = lista.size();
             for (BeneficiadosEntity b : lista) {
-                
+
                 Map<String, Object> m = new HashMap<String, Object>();
                 m.put("datosbeneficiados_nombres", b.getIdbeneficiado().getNombres());
                 m.put("datosbeneficiados_apellidos", b.getIdbeneficiado().getApellidos());
@@ -176,7 +176,7 @@ public class BeneficiadoModel {
                 m.put("totalcount", totalcount);
                 System.out.println("Prueba de datos: " + b.getIdbeneficiado().getNombres() + " total:" + totalcount);
                 result.add(m);
-                
+
             }
             if (lista.size() == 0) {
                 System.out.println("we lo siento :C");
@@ -189,7 +189,7 @@ public class BeneficiadoModel {
             return null;
         }
     }
-    
+
     public List<BeneficiadosEntity> listaasistencia(String proyecto) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
@@ -198,7 +198,7 @@ public class BeneficiadoModel {
             // la lista de resultados de una consulta de selección
             List<BeneficiadosEntity> lista = consulta.getResultList();
             int totalcount = lista.size();
-            
+
             if (lista.size() == 0) {
                 System.out.println("we lo siento :C");
             }
@@ -210,7 +210,7 @@ public class BeneficiadoModel {
             return null;
         }
     }
-    
+
     public List<Map<String, ?>> listarcantidadeBeneficiadosXrea(int idarea) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         SimpleDateFormat d = new SimpleDateFormat("dd-MM-yyyy hh:mm");
@@ -224,7 +224,7 @@ public class BeneficiadoModel {
             List<BeneficiadosEntity> lista = consulta.getResultList();
             int totalcount = lista.size();
             for (BeneficiadosEntity b : lista) {
-                
+
                 Map<String, Object> m = new HashMap<String, Object>();
                 fechaString = d.format(b.getIdproyecto().getLugarproyectoPadre().getFechainicio());
                 fechaString2 = d.format(b.getIdproyecto().getLugarproyectoPadre().getFechafinal());
@@ -240,7 +240,7 @@ public class BeneficiadoModel {
                 m.put("areamisional", b.getIdproyecto().getLugarproyectoPadre().getIdlp().getCategoria().getNombre());
                 System.out.println("Prueba de datos: " + b.getIdbeneficiado().getNombres() + " total:" + totalcount);
                 result.add(m);
-                
+
             }
             if (lista.size() == 0) {
                 System.out.println("we lo siento :C");
@@ -253,7 +253,7 @@ public class BeneficiadoModel {
             return null;
         }
     }
-    
+
     public int eliminarLugar(String id) {
         //System.out.println(id);
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -262,7 +262,7 @@ public class BeneficiadoModel {
 //Recuperando el objeto a eliminar
             DatosbeneficiadosEntity est = em.find(DatosbeneficiadosEntity.class, id);
             if (est != null) {
-                
+
                 EntityTransaction tran = em.getTransaction();
                 tran.begin();//Iniciando transacción
                 em.remove(est);//Borrando la instancia
@@ -270,21 +270,21 @@ public class BeneficiadoModel {
                 filasBorradas = 1;
             }
             em.close();
-            
+
             return filasBorradas;
         } catch (Exception e) {
-            
+
             em.close();
             return 0;
         }
     }
 
     ///QUERYS NATIVOS, LOS CREARE PERO ME OFENDE MUCHISIMO.
-    public List<Object[]> obteneractividades() {
+    public List<Object[]> obteneractividades(String proyecto) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             Query consulta = em.createNativeQuery("select det.titulo,ac.idactividad from beneficiados  b inner join actividades ac on b.idproyecto=ac.idactividad inner join datosbeneficiados da\n"
-                    + "on b.idbeneficiado=da.idusuario inner join actividadesdetalles det on det.idactividadesdetalles=ac.detalleactividad  where ac.lugarproyectoPadre=\"LA2575\"\n"
+                    + "on b.idbeneficiado=da.idusuario inner join actividadesdetalles det on det.idactividadesdetalles=ac.detalleactividad  where ac.lugarproyectoPadre='"+proyecto+"'\n"
                     + "group by det.idactividadesdetalles order by da.nombres ASC;");
             List<Object[]> aber = consulta.getResultList();
             em.close();
@@ -296,15 +296,12 @@ public class BeneficiadoModel {
         }
         return null;
     }
-    
-    public List<String> obteneractividadesList() {
+
+    public List<String> obteneractividadesList(String proyecto) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             Query consulta = em.createNativeQuery("select det.titulo from beneficiados  b inner join actividades ac on b.idproyecto=ac.idactividad inner join datosbeneficiados da\n"
-                    + "on b.idbeneficiado=da.idusuario inner join actividadesdetalles det on det.idactividadesdetalles=ac.detalleactividad  where ac.lugarproyectoPadre=\"LA2575\"\n"
-                    + "group by det.idactividadesdetalles order by da.nombres ASC;");
-            Query consulta2 = em.createNativeQuery("select da.nombres from beneficiados  b inner join actividades ac on b.idproyecto=ac.idactividad inner join datosbeneficiados da\n"
-                    + "on b.idbeneficiado=da.idusuario inner join actividadesdetalles det on det.idactividadesdetalles=ac.detalleactividad  where ac.lugarproyectoPadre=\"LA2575\"\n"
+                    + "on b.idbeneficiado=da.idusuario inner join actividadesdetalles det on det.idactividadesdetalles=ac.detalleactividad  where ac.lugarproyectoPadre='"+proyecto+"'\n"
                     + "group by det.idactividadesdetalles order by da.nombres ASC;");
             List<String> aber = new ArrayList<String>();
             List<String> aber2 = consulta.getResultList();
@@ -312,7 +309,7 @@ public class BeneficiadoModel {
             for (int i = 0; i < aber2.size(); i++) {
                 aber.add(new String(aber2.get(i)));
             }
-            
+
             em.close();
             return aber;
         } catch (Exception e) {
@@ -322,20 +319,21 @@ public class BeneficiadoModel {
         }
         return null;
     }
-    
-    public List<Object[]> obteneractividadesdatos(List<Object[]> actividades) {
+
+    public List<Object[]> obteneractividadesdatos(List<Object[]> actividades, String proyecto) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        System.out.print("EL TAMANO DEL OBJETO ES" + actividades.size());
         try {
             String nombrarcolumnas = "";
-            int freno = 0;
+            int freno = 1;
             for (Object[] a : actividades) {
-                
-                if (freno < a.length) {
+
+                if (freno < actividades.size()) {
                     nombrarcolumnas += "sum( if( b.idproyecto='" + a[1] + "', 1, 0 ) ) as '" + a[0] + "',";
                 } else {
                     nombrarcolumnas += "sum( if( b.idproyecto='" + a[1] + "', 1, 0 ) ) as '" + a[0] + "'";
                 }
-                freno += 1;
+                freno = freno + 1;
             }
             System.out.print(nombrarcolumnas);
 
@@ -344,15 +342,15 @@ public class BeneficiadoModel {
                     //                    + "  \n"
                     //                    + "  \n"
                     + "from beneficiados  b inner join actividades ac on b.idproyecto=ac.idactividad inner join datosbeneficiados da\n"
-                    + "on b.idbeneficiado=da.idusuario  where ac.lugarproyectoPadre=\"LA2575\"\n"
+                    + "on b.idbeneficiado=da.idusuario  where ac.lugarproyectoPadre='"+proyecto+"'\n"
                     + "group by idbeneficiado order by da.nombres ASC;");
             List<Object[]> pivot = consulta.getResultList();
             em.close();
-            
+
             return pivot;
-            
+
         } catch (Exception e) {
-            
+
         }
         return null;
     }

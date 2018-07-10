@@ -183,10 +183,16 @@ public class EstadisticasBean {
     public List<Object[]> datospivot() {
         System.out.print("Iniciando...\n");
         try {
-            List<Object[]> columnaspivotOb;
-            columnaspivotOb = modelo3.obteneractividades();
-            this.columnaspivot = modelo3.obteneractividadesList();
-            return modelo3.obteneractividadesdatos(columnaspivotOb);
+            if (proyectoid != null) {
+                List<Object[]> columnaspivotOb;
+                columnaspivotOb = modelo3.obteneractividades(proyectoid);
+                System.out.print("TAMANOOOOOO: " + columnaspivotOb.size());
+                this.columnaspivot = modelo3.obteneractividadesList(proyectoid);
+                return modelo3.obteneractividadesdatos(columnaspivotOb, proyectoid);
+            } else {
+                return null;
+            }
+
         } catch (Exception e) {
         }
         return null;
