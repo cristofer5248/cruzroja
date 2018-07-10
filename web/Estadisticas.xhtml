@@ -15,7 +15,7 @@
     <ui:define name="title">
         <title> Estadisticas</title>
     </ui:define>
-
+    
     <ui:define name="contenido">      
         <b:panel title="Elija la opcion a graficar"  look="primary">
             <b:form id="miFormulario">
@@ -77,21 +77,41 @@
                 </b:panelGrid>                           
             </b:form>
         </b:panel>
-        <b:form id="tablaasistenciaform">        
-            <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.datospivot()}" var="item" rendered="#{estadisticasBean.proyectoid!=null}" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}">
-                <f:facet name="{Exporters}">
-                    <h:commandLink>
-                        <p:graphicImage name="img/excel.png" />
-                        <p:dataExporter type="xls" target="tabladeasistencia" fileName="cars" />
-                    </h:commandLink>
-                </f:facet>
+        <table id="tbldemo" style="width:100%">
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Age</th>
+            </tr>
+            <tr>
+                <td>Jill</td>
+                <td>Smith</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>Eve</td>
+                <td>Jackson</td>
+                <td>94</td>
+            </tr>
+            <tr>
+                <td>John</td>
+                <td>Doe</td>
+                <td>80</td>
+            </tr>
+        </table>
+        <b:form id="tablaasistenciaform">     
+            
+            <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.datospivot()}" var="item" rendered="#{estadisticasBean.proyectoid!=null}" paginator="false" class="bolado">
+
                 <p:columns value="#{estadisticasBean.columnaspivot}" var="columnName" columnIndexVar="i">
                     <f:facet name="header">#{columnName}</f:facet>
                         #{item[i]}
                 </p:columns>
             </p:dataTable>
-        </b:form>
+            <h3>Export Page Data Only</h3>
 
+        </b:form>
+        <button id="btn1" class="btn btn-success" >export</button>
 
 
         <h:outputScript>
@@ -102,7 +122,15 @@
             return confirm("¿Está seguro que desea eliminar?");
             }
         </h:outputScript>
-
+        <script type="text/javascript">
+            $("#btn1").click(function () {
+                $(".bolado").table2excel({
+                    exclude: ".noExl",
+                    name: "My work",
+                    filename: "biasdasd"
+                });
+            });
+        </script>
 
 
     </ui:define>

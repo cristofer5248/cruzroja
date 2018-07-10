@@ -197,6 +197,7 @@ public class EstadisticasBean {
         }
         return null;
     }
+    
 
     /**
      * @return the parametro1
