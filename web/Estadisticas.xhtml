@@ -77,28 +77,6 @@
                 </b:panelGrid>                           
             </b:form>
         </b:panel>
-        <table id="tbldemo" style="width:100%">
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Age</th>
-            </tr>
-            <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td>50</td>
-            </tr>
-            <tr>
-                <td>Eve</td>
-                <td>Jackson</td>
-                <td>94</td>
-            </tr>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>80</td>
-            </tr>
-        </table>
         <b:form id="tablaasistenciaform">     
             
             <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.datospivot()}" var="item" rendered="#{estadisticasBean.proyectoid!=null}" paginator="false" class="bolado">
@@ -108,7 +86,7 @@
                         #{item[i]}
                 </p:columns>
             </p:dataTable>
-            <h3>Export Page Data Only</h3>
+            <h3>Exportar a excel</h3>
 
         </b:form>
         <button id="btn1" class="btn btn-success" >export</button>
