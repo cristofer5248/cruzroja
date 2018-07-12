@@ -15,7 +15,7 @@
     <ui:define name="title">
         <title> Estadisticas</title>
     </ui:define>
-    
+
     <ui:define name="contenido">      
         <b:panel title="Elija la opcion a graficar"  look="primary">
             <b:form id="miFormulario">
@@ -73,12 +73,13 @@
                         <p:commandButton value="Generar en tabla" class="btn btn-danger" ajax="true" icon="fa fa-table" update="tablaasistenciaform">    
 
                         </p:commandButton>
+
                     </b:panel>
                 </b:panelGrid>                           
             </b:form>
         </b:panel>
         <b:form id="tablaasistenciaform">     
-            
+
             <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.datospivot()}" var="item" rendered="#{estadisticasBean.proyectoid!=null}" paginator="false" class="bolado">
 
                 <p:columns value="#{estadisticasBean.columnaspivot}" var="columnName" columnIndexVar="i">
@@ -86,10 +87,12 @@
                         #{item[i]}
                 </p:columns>
             </p:dataTable>
-            <h3>Exportar a excel</h3>
-
         </b:form>
-        <button id="btn1" class="btn btn-success" >export</button>
+        
+        <p:panelGrid style="margin-bottom:  10px;">
+            <h3>Exportar a excel</h3>
+            <button id="btn1" class="btn btn-success" style="margin-top: 10px;" >Descargar</button>
+        </p:panelGrid>
 
 
         <h:outputScript>
