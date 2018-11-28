@@ -14,76 +14,25 @@
         <title> Beneficiados</title>
     </ui:define>
     <ui:define name="contenido">
-        
 
 
 
-        <p:dialog header="Unir un beneficiado a un proyecto" widgetVar="dlg3" modal="true" height="345" >
-            <b:form id="miformulario2">
-                <p:wizard flowListener="#{actividadesBean.onFlowProcess}">
-                    <p:growl id="growl" sticky="true" showDetail="true"/> 
-                    <p:tab id="personal" title="Ubicacion">
-                        <p:panel header="Eljie la ubicacion del proyecto">
-                            <h:outputLabel for="idbene" value="ID del Beneficiado:"/>
-                            <b:inputText id="idbene1"
-                                         value="#{proyectosbeneficiadoBean.idbene}" 
-                                         required="true" 
-                                         requiredMessage="Debes ingresar un ID o auto-generarlo" 
-                                         validatorMessage="ID no valido">
-                                <f:validateRegex pattern="[A-Z]{3}[0-9]{3}"/>
-                            </b:inputText>
-                            <h:outputLabel for="lugar" value="Localizacion:"/>
-                            <b:selectOneMenu value="#{lugarproyectoBean.idlugar}">
-                                <f:ajax event="change" listener="#{lugarproyectoBean.selectidlugar()}" render=":miformulario2"/>                           
-                                <f:selectItems value="#{lugarBean.listaLugar}" var="lugar"
-                                               itemLabel="#{lugar.nombre}" itemValue="#{lugar.idlugar}" />
-                            </b:selectOneMenu>
-                            <h:outputLabel value="#{lugarproyectoBean.hayono}" rendered="#{lugarproyectoBean.hayono != null}" style="color:blue;"/>
-                        </p:panel>
-                    </p:tab>
-                    <p:tab id="address" title="Proyectos" >
-                        <p:panel header="Lista de proyectos">
-                            <h:outputLabel for="proyecto" value="Proyecto:"/><br></br>
-                            <p:selectOneMenu id="advanced" value="#{actividadesBean.proyectoid}" required="true"
-                                             effect="fade" var="t" style="width:200px" filter="true" filterMatchMode="startsWith">
-                                <p:ajax event="change" update="miformulario2" listener="#{actividadesBean.prueba}" />
-                                <f:selectItems value="#{lugarproyectoBean.listaproyectos}" var="theme" itemLabel="#{theme.idlp.nombre}" itemValue="#{theme.idl}" />
-                            </p:selectOneMenu><br></br>
-                            <h:outputLabel value="Correcto!" rendered="#{actividadesBean.listarActividadesXproyecto.size() >0}" style="color: blue;"/>
 
-                        </p:panel>
-                    </p:tab>
-                    <p:tab id="actividad" title="Actividades">
-                        <p:panel header="Lista de actividades">
-                            <h:outputLabel for="actividad" value="Seleciona una actividad"/><br></br>
-                            <p:selectOneMenu id="advanced3" value="#{proyectosbeneficiadoBean.idactividad}"
-                                             effect="fade" var="y" style="width: 300px" filter="true" filterMatchMode="startsWith">
-                                <f:selectItems value="#{actividadesBean.listarActividadesXproyecto}" var="theme3" itemLabel="#{theme3.detalleactividad.titulo}" itemValue="#{theme3.idactividad}"/>                                
-                            </p:selectOneMenu><br></br>
-                            <b:commandButton  value="Guardar" look="success" iconAwesome="fa-floppy-o" action="#{proyectosbeneficiadoBean.guardarBeneficiadoProyecto()}" style="margin-right:10px">
-                                <f:param value="A" name="codigo"/> 
-                            </b:commandButton>
-                        </p:panel>
-                    </p:tab>
-                </p:wizard>
-            </b:form>
-
-        </p:dialog>
 
         <center>
             <h:form id="filtro">
                 <p:outputLabel value="Filtrar por apellidos: " />
                 <h:inputText value="#{beneficiadoBeans.apellidos}">
                 </h:inputText>
-                <p:commandButton style="margin-left: 5px; background:none;" value="filtrar" icon="fa fa-fw fa-filter" update="datosbeneficiados">
+                <p:commandButton style="margin-left: 5px; background:none;" value="filtrar" icon="fa fa-fw fa-filter" update="datosbeneficiados" actionListener="#{beneficiadoBeans.listaEstudiantes()}">
 
                 </p:commandButton>
             </h:form>
         </center>
 
-        <b:row>
+        <p:row>
             <h:form id="datosbeneficiados">
-                <b:dataTable styleClass="table" value="#{beneficiadoBeans.listaEstudiantes}" var="est" rendered="#{beneficiadoBeans.listaEstudiantes.size()>0}" excel="true" pdf="true" columnVisibility="true"> 
+                <b:dataTable styleClass="table" value="#{beneficiadoBeans.beneficiadolist}" var="est" rendered="#{beneficiadoBeans.beneficiadolist.size()>0}" excel="true" pdf="true" columnVisibility="true">  
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Nombre"/>
@@ -143,10 +92,10 @@
                                          actionListener="#{proyectosbeneficiadoBean.pdfbene}">     
                             <f:param name="codigo" value="#{est.idusuario}"/>
                         </b:commandButton>
-                    </h:column>                      
+                    </h:column> 
                 </b:dataTable>
             </h:form>
-        </b:row>
+        </p:row>
 
 
         <h:outputScript>

@@ -41,7 +41,7 @@ public class ProyectosBeneficiadomodel {
         }
     }
 
-    public List<Map<String, ?>> listanativa1(String id) {
+    public List<Map<String, ?>> listanativa1(String id) {       
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 //        String sql = "SELECT\n"
 //                + "     datosbeneficiados.`nombres` AS datosbeneficiados_nombres,\n"
@@ -68,6 +68,9 @@ public class ProyectosBeneficiadomodel {
         List<Map<String, ?>> result = new ArrayList<Map<String, ?>>();
         Query consulta = em.createNamedQuery("BeneficiadosEntity.findByBeneficiado").setParameter("idbene", id);
         List<BeneficiadosEntity> lista = consulta.getResultList();
+        try {
+            
+        
         for (BeneficiadosEntity b : lista) {
 
             Map<String, Object> m = new HashMap<String, Object>();
@@ -83,7 +86,11 @@ public class ProyectosBeneficiadomodel {
             m.put("area", b.getIdproyecto().getLugarproyectoPadre().getIdlp().getCategoria().getNombre());
             m.put("fecha", b.getFecha().toString());
             result.add(m);
+            System.out.print("dfnsdnfsnfisdnfAQUI"+id);
 
+        }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
         return result;
 

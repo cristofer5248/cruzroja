@@ -11,8 +11,8 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
+//import net.sf.jasperreports.engine.JasperReport;
+//import net.sf.jasperreports.engine.util.JRLoader;
 import sv.cruzroja.www.entities.BeneficiadosEntity;
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
+//import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -73,6 +73,10 @@ public class ProyectosbeneficiadoBean {
         /* Notese que se llama al método listarEstudiantes
         para obtener la lista de objetos a partir de la bd */
         return beneficiadosmodel.listarBeneficiados();
+    }
+
+    public void ya() {
+        System.out.print("dsfsfsfsfnsdhfshfusfsjfbsfhsdyfbsdfnsdunfsdufn");
     }
 
     public void pdfbeneiciados(ActionEvent actionEvent) throws JRException, IOException {
@@ -147,6 +151,7 @@ public class ProyectosbeneficiadoBean {
 
     public void pdfbene(ActionEvent actionEvent) throws JRException, IOException {
         String carnet = JsfUtil.getRequest().getParameter("codigo");
+        System.out.print("carneeeeeeeeeeeeeet es esete:" + carnet);
         Map<String, Object> parametros = new HashMap<String, Object>();
         parametros.put("codbene", "ADD123");
         String streamurl = "/reporte/proyectoBeneficiado.jasper";
@@ -181,11 +186,14 @@ public class ProyectosbeneficiadoBean {
     }
 
     public String meterbeneficiadoid() {
+        try {
 // Leyendo el parametro enviado desde la vista
-        String carnet = JsfUtil.getRequest().getParameter("codigo");
-        System.out.println("el codigo es" + carnet);
-        beneficiadoproyecto = beneficiadosmodel.listarBeneficiadosbyidbene(carnet);
-
+            String carnet = JsfUtil.getRequest().getParameter("codigo");
+            System.out.println("el codigo es" + carnet);
+            beneficiadoproyecto = beneficiadosmodel.listarBeneficiadosbyidbene(carnet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "beneficiadoproyecto?faces-redirect=true";
     }
 

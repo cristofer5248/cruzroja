@@ -9,7 +9,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+//import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import sv.cruzroja.www.entities.DatosbeneficiadosEntity;
 import sv.cruzroja.www.entities.GeneroEntity;
 import sv.cruzroja.www.model.BeneficiadoModel;
@@ -21,16 +22,18 @@ import sv.cruzroja.www.utils.JsfUtil;
  * @author crist
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class BeneficiadoBeans {
 
     BeneficiadoModel modelo = new BeneficiadoModel();
     ProyectosBeneficiadomodel modelo2 = new ProyectosBeneficiadomodel();
     ProyectosbeneficiadoBean beneficiado2;
     private DatosbeneficiadosEntity beneficiado;
+    private List<DatosbeneficiadosEntity> beneficiadolist;
     Calendar c1 = Calendar.getInstance();
     private String idgenerado;
     public String apellidos;
+    
 
     public BeneficiadoBeans() {
         beneficiado = new DatosbeneficiadosEntity();
@@ -46,24 +49,26 @@ public class BeneficiadoBeans {
         this.beneficiado = beneficiado;
     }
 
-    public List<DatosbeneficiadosEntity> getListaEstudiantes() {
+    public void listaEstudiantes() {
         try {
             if (this.apellidos != null) {
-                return modelo.buscarXapellidos(apellidos);
+                this.beneficiadolist = modelo.buscarXapellidos(apellidos);
+            } else {
+                Date date;
+                Calendar cal2 = Calendar.getInstance();
+                String year = String.valueOf(cal2.get(Calendar.YEAR));
+                int month = cal2.get(Calendar.MONTH);
+                month = month - 2;
+                String mesString = String.valueOf(month);
+                String fechamandar = year + "-" + mesString + "-" + "1";
+                System.out.print(fechamandar);
+                this.beneficiadolist = modelo.listarLugarX2meses(fechamandar);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        Date date;
-        Calendar cal2 = Calendar.getInstance();
-        String year = String.valueOf(cal2.get(Calendar.YEAR));
-        int month = cal2.get(Calendar.MONTH);
-        month = month - 2;
-        String mesString = String.valueOf(month);
-        String fechamandar = year + "-" + mesString + "-" + "1";
-        System.out.print(fechamandar);
-        return modelo.listarLugarX2meses(fechamandar);
+//        return null;
     }
 
     public void obtenerBeneficiado() {
@@ -98,12 +103,12 @@ public class BeneficiadoBeans {
         String mes = Integer.toString(c1.get(Calendar.MONTH));
         int dianumero = Integer.parseInt(dia);
         int mesnumero = Integer.parseInt(mes);
-        if (dianumero < 10 && mesnumero<10) {
-            mes= "0"+String.valueOf(mesnumero);
+        if (dianumero < 10 && mesnumero < 10) {
+            mes = "0" + String.valueOf(mesnumero);
         }
-        
+
         idgenerado = beneficiado.getNombres().substring(0, 3).toUpperCase().concat(dia).concat(mes);
-        
+
         beneficiado.setIdusuario(idgenerado);
     }
 
@@ -132,6 +137,20 @@ public class BeneficiadoBeans {
      */
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
+    }
+
+    /**
+     * @return the beneficiadolist
+     */
+    public List<DatosbeneficiadosEntity> getBeneficiadolist() {
+        return beneficiadolist;
+    }
+
+    /**
+     * @param beneficiadolist the beneficiadolist to set
+     */
+    public void setBeneficiadolist(List<DatosbeneficiadosEntity> beneficiadolist) {
+        this.beneficiadolist = beneficiadolist;
     }
 
 }
