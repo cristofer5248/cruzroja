@@ -17,13 +17,11 @@
 
 
     <ui:define name="contenido">      
-        <b:panel title=">Abrir registro de Departamentos" look="success" collapsed="true" iconAwesome="fa-briefcase">
+        <b:panel title=">Desplegar menu Registro de Departamentos" look="success" collapsed="true" iconAwesome="fa-briefcase">
             <b:form id="miFormulario">
                 <b:panelGrid columns="4" styleClass="table">
                     <h:outputLabel value="Nombre"/>
                     <b:inputText value="#{departamentoBean.departamento.nombre}"/>
-                    <h:outputLabel value="ID"/>
-                    <b:inputText value="#{departamentoBean.departamento.iddepartamento}"/>
                 </b:panelGrid>
                 <b:commandButton  value="Guardar/Actualizar" look="success" action="#{departamentoBean.guardar()}" style="margin-right:10px" onclick="return confirmarGuardar();"/>
                 <b:commandButton type="reset" value="Limpiar" look="danger"/>

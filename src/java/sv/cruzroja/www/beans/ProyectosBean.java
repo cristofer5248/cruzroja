@@ -97,8 +97,9 @@ public class ProyectosBean {
         String dia = Integer.toString(c1.get(Calendar.DATE));
         String mes = Integer.toString(c1.get(Calendar.MONTH));
         int diaint = Integer.valueOf(dia);
-        int mesint = Integer.valueOf(dia);
-        if (diaint < 10 && mesint < 10) {
+        int mesint = Integer.valueOf(mes);
+//        String depaletter= proyecto.getSeccionales().getNombre().substring(0,1);
+        if ((diaint < 10) && (mesint < 10)) {
             mes = "0" + mes;
         }
         idgenerado = proyecto.getNombre().substring(0, 3).toUpperCase().concat(dia).concat(mes);
