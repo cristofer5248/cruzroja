@@ -88,7 +88,7 @@ public class BeneficiadoBeans {
             }
 
         } else {
-            JsfUtil.setFlashMessage("exito", "Alumno registrado exitosamente");
+            JsfUtil.setFlashMessage("exito", "Beneficiario registrado exitosamente");
             //Forzando la redirección en el cliente
             if (codigo == "T") {
 

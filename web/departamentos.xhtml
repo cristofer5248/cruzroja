@@ -111,7 +111,7 @@
             <h:form id="datosbeneficiados2">
                 <b:dataTable styleClass="table table-striped table-bordered" value="#{departamentoBean.actividadesDepartamento}" var="act" rendered="#{departamentoBean.actividadesDepartamento.size()>0}" responsive="true" scrollHorizontally="true" print="true" excel="true" pdf="true" copy="true">
                     <b:dataTableColumn value="#{act.detalleactividad.titulo}" label="Titulo"/>
-                    <b:dataTableColumn value="#{act.detalleactividad.detalle}" label="dddd"/>
+                    <b:dataTableColumn value="#{act.detalleactividad.detalle}" label="Detalles"/>
                 </b:dataTable>
             </h:form>
         </b:modal>

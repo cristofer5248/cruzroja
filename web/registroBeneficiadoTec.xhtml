@@ -33,7 +33,7 @@
                                  required="true" 
                                  requiredMessage="Debes ingresar el apellido"/>
 
-                    <h:outputLabel for="genero" value="Genero:"/>
+                    <h:outputLabel for="sexo" value="Sexo:"/>
                     <b:selectOneMenu value="#{beneficiadoBeans.beneficiado.genero.idg}" required="true" requiredMessage="Escoge un genero" class="form-control">
                         <f:selectItem itemLabel="Seleccionar .." itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{generoBean.listaEstudiantes}" var="generof"

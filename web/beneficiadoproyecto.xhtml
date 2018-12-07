@@ -42,7 +42,7 @@
                     </p:column>
                     <p:column headerText="Fecha">
                         <h:outputText value="#{est.fecha}">
-                            
+                            <f:convertDateTime type="date" pattern="dd/MM/yyyy 'a las' HH:mm"/>
                         </h:outputText>
                     </p:column>
 
