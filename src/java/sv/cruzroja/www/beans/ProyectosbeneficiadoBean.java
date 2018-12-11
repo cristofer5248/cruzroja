@@ -88,7 +88,7 @@ public class ProyectosbeneficiadoBean {
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath(streamurl));
 //        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(beneficiadosmodel.listarLugarproyectosporfechapdf(fecha1, fecha2)));
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename-jsfReporte.pdf");
+        response.addHeader("Content-disposition", "attachment; filename=Reporte.pdf");
         ServletOutputStream stream = response.getOutputStream();
 //        JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
 
@@ -151,15 +151,15 @@ public class ProyectosbeneficiadoBean {
 
     public void pdfbene(ActionEvent actionEvent) throws JRException, IOException {
         String carnet = JsfUtil.getRequest().getParameter("codigo");
-        System.out.print("carneeeeeeeeeeeeeet es esete:" + carnet);
+//        System.out.print("carneeeeeeeeeeeeeet es esete:" + carnet);
         Map<String, Object> parametros = new HashMap<String, Object>();
-        parametros.put("codbene", "ADD123");
+//        parametros.put("codbene", "ADD123");
         String streamurl = "/reporte/proyectoBeneficiado.jasper";
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath(streamurl));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(beneficiadosmodel.listanativa1(carnet)));
 
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename-jsfReporte.pdf");
+        response.addHeader("Content-disposition", "attachment; filename=reporte.pdf");
         ServletOutputStream stream = response.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
 

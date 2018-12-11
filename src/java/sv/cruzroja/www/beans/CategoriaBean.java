@@ -104,7 +104,7 @@ para obtener la lista de objetos a partir de la bd */
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath(streamurl));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(benemodel.listarcantidadeBeneficiadosXrea(codigo)));
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename-jsfReporte.pdf");
+        response.addHeader("Content-disposition", "attachment; filename=jReporte.pdf");
         ServletOutputStream stream = response.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
         stream.flush();

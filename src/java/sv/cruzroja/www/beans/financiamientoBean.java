@@ -81,7 +81,7 @@ public class financiamientoBean {
         File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath(streamurl));
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(model.listarLugarFiltroPDF(fecha1, fecha2)));
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename-jsfReporte.pdf");
+        response.addHeader("Content-disposition", "attachment; filename=Reporte.pdf");
         ServletOutputStream stream = response.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
 

@@ -338,7 +338,7 @@ para obtener la lista de objetos a partir de la bd */
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(modelo.proyectosPDF(carnet)));
 
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        response.addHeader("Content-disposition", "attachment; filename-jsfReporte.pdf");
+        response.addHeader("Content-disposition", "attachment; filename=fReporte.pdf");
         ServletOutputStream stream = response.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
 
