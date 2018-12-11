@@ -42,10 +42,6 @@
                                          action="#{proyectosbeneficiadoBean.eliminarBeneficidosproyecto()}" onclick="return confirmarEliminacion();">
                             <f:param name="codigo" value="#{est.idb}"/>
                         </h:commandButton>
-                        <b:commandButton value="Modificar" look="primary"  
-                                         action="#{proyectosBean.obtenerProyecto()}">
-                            <f:param name="codigo" value="#{est.idb}"/>
-                        </b:commandButton>
                     </p:column>                      
                 </p:dataTable>
                 <h3>Elija un tipo de exportacion:</h3>

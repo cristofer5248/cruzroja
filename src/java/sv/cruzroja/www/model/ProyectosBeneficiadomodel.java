@@ -68,6 +68,7 @@ public class ProyectosBeneficiadomodel {
         List<Map<String, ?>> result = new ArrayList<Map<String, ?>>();
         Query consulta = em.createNamedQuery("BeneficiadosEntity.findByBeneficiado").setParameter("idbene", id);
         List<BeneficiadosEntity> lista = consulta.getResultList();
+        Date myDate = new Date();
         try {
             
         
@@ -84,7 +85,8 @@ public class ProyectosBeneficiadomodel {
             m.put("proyectos_nombre", b.getIdproyecto().getLugarproyectoPadre().getIdlp().getNombre());
             m.put("actividad", b.getIdproyecto().getDetalleactividad().getTitulo());
             m.put("area", b.getIdproyecto().getLugarproyectoPadre().getIdlp().getCategoria().getNombre());
-            m.put("fecha", b.getFecha().toString());
+            String fechaNformat= new SimpleDateFormat("dd-MM-yyyy").format(b.getFecha());
+            m.put("fecha",fechaNformat);
             result.add(m);
             System.out.print("dfnsdnfsnfisdnfAQUI"+id);
 
