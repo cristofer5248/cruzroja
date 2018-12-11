@@ -101,6 +101,18 @@ public class ProyectosBean {
 //        String depaletter= proyecto.getSeccionales().getNombre().substring(0,1);
         if ((diaint < 10) && (mesint < 10)) {
             mes = "0" + mes;
+
+        } else {
+            
+                if (mesint == 10) {
+                    mes = "O";
+                }
+                if (mesint == 11) {
+                    mes = "N";
+                }
+                if (mesint == 12) {
+                    mes = "D";
+                }
         }
         idgenerado = proyecto.getNombre().substring(0, 3).toUpperCase().concat(dia).concat(mes);
         proyecto.setIdproyecto(idgenerado);
