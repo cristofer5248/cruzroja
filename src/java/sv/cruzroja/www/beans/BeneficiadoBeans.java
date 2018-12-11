@@ -33,7 +33,6 @@ public class BeneficiadoBeans {
     Calendar c1 = Calendar.getInstance();
     private String idgenerado;
     public String apellidos;
-    
 
     public BeneficiadoBeans() {
         beneficiado = new DatosbeneficiadosEntity();
@@ -105,9 +104,13 @@ public class BeneficiadoBeans {
         int mesnumero = Integer.parseInt(mes);
         if (dianumero < 10 && mesnumero < 10) {
             mes = "0" + String.valueOf(mesnumero);
+        } else {
+            if(mesnumero==10){mes="O";}
+            if(mesnumero==11){mes="N";}
+            if(mesnumero==12){mes="D";}
         }
 
-        idgenerado = beneficiado.getNombres().substring(0, 3).toUpperCase().concat(dia).concat(mes);
+        idgenerado = beneficiado.getNombres().substring(0, 3).toUpperCase().concat(beneficiado.getApellidos().substring(0,2)).toUpperCase().concat(dia).concat(mes);
 
         beneficiado.setIdusuario(idgenerado);
     }

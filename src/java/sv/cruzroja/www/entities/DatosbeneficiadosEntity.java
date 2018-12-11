@@ -43,7 +43,7 @@ public class DatosbeneficiadosEntity implements Serializable {
 
     @Id
     @Basic(optional = false)
-    @Column(name = "idusuario", nullable = false, length = 6)
+    @Column(name = "idusuario", nullable = false, length = 8)
     private String idusuario;
     @Basic(optional = false)
     @Column(name = "nombres", nullable = false, length = 50)

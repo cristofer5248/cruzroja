@@ -61,13 +61,13 @@
                     <b:inputText id="idauto"
                                  value="#{beneficiadoBeans.beneficiado.idusuario}" 
                                  required="true" 
-                                 requiredMessage="Debes ingresar un ID o auto-generarlo" 
-                                 validatorMessage="ID no valido">
-                        <f:validateRegex pattern="[A-Z]{3}[0-9]{3}"/>
+                                 requiredMessage="Debes ingresar un ID o auto-generarlo">
+                        
                     </b:inputText>
                 </b:panelGrid>
                 <b:commandButton value="Auto-generar ID" look="warning" action="#{beneficiadoBeans.genearid()}"  style="margin-right:10px">
-                    <f:ajax execute="nombre" render="idauto"/>
+                    <f:ajax execute="nombre,apellidos" render="idauto"/>
+                    
                 </b:commandButton>                           
                 <b:commandButton  value="Guardar/Actualizar" look="success" iconAwesome="fa-floppy-o" action="#{beneficiadoBeans.guardarBeneficiado()}" style="margin-right:10px">
                     <f:param value="A" id="codigo"></f:param>
@@ -130,88 +130,88 @@
 
         </p:dialog>
 
-        <center>
-            <h:form id="filtro">
-                <p:outputLabel value="Filtrar por apellidos: " />
-                <h:inputText value="#{beneficiadoBeans.apellidos}">
-                </h:inputText>
-                <p:commandButton style="margin-left: 5px; background:none;" value="filtrar" icon="fa fa-fw fa-filter" update="datosbeneficiados">
+            <center>
+                <h:form id="filtro">
+                    <p:outputLabel value="Filtrar por apellidos: " />
+                    <h:inputText value="#{beneficiadoBeans.apellidos}">
+                    </h:inputText>
+                    <p:commandButton style="margin-left: 5px; background:none;" value="filtrar" icon="fa fa-fw fa-filter" update="datosbeneficiados" actionListener="#{beneficiadoBeans.listaEstudiantes()}">
 
-                </p:commandButton>
-            </h:form>
-        </center>
-
-        <b:row>
-            <h:form id="datosbeneficiados">
-                <b:dataTable styleClass="table" value="#{beneficiadoBeans.listaEstudiantes}" var="est" rendered="#{beneficiadoBeans.listaEstudiantes.size()>0}" excel="true" pdf="true" columnVisibility="true"> 
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Nombre"/>
-                        </f:facet>
-                        <h:outputText value="#{est.nombres}"/>                          
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Apellido"/>
-                        </f:facet>
-                        <h:outputText value="#{est.apellidos}"/>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Sexo"/>
-                        </f:facet>
-                        <h:outputText value="#{est.genero.nombre}"/>
-
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Correo"/>
-                        </f:facet>
-                        <h:outputText value="#{est.correo}"/>
-
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Edad"/>
-                        </f:facet>
-                        <h:outputText value="#{est.edad}"/>
-
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Operaciones"/>
-                        </f:facet>
-                        <h:commandButton value="Eliminar" class="btn btn-danger" style="margin-right:10px" 
-                                         action="#{beneficiadoBeans.eliminarBeneficiado()}" onclick="return confirmarEliminacion();">
-
-                            <f:param name="codigo" value="#{est.idusuario}"/>
-                        </h:commandButton>
-                        <b:commandButton value="Modificar" look="primary" style="margin-right:10px" 
-                                         action="#{beneficiadoBeans.obtenerBeneficiado()}" >
-                            <f:param name="codigo" value="#{est.idusuario}"/>
-                        </b:commandButton>
-                        <b:commandButton value="Proyectos" look="warning" style="margin-right:10px"   
-                                         action="#{proyectosbeneficiadoBean.meterbeneficiadoid()}">
-                            <f:param name="codigo" value="#{est.idusuario}"/>
-                        </b:commandButton>
-                        <b:commandButton value="PDF proyectos" style="margin-right:10px" iconAwesome="fa-file-pdf-o" look="warning"
-                                         actionListener="#{proyectosbeneficiadoBean.pdfbene}">     
-                            <f:param name="codigo" value="#{est.idusuario}"/>
-                        </b:commandButton>
-                    </h:column>                      
-                </b:dataTable>
-            </h:form>
-        </b:row>
+                    </p:commandButton>
+                </h:form>
+            </center>
 
 
-        <h:outputScript>
-            <c:if test = "#{not empty flash.exito}" >
-                alertify.success('#{flash.exito}');               
-            </c:if>
-            function confirmarEliminacion(){
-            return confirm("¿Está seguro que desea eliminar este estudiante");
-            }
-        </h:outputScript>            
-    </ui:define>
+            <p:row>
+                <h:form id="datosbeneficiados">
+                    <b:dataTable styleClass="table" value="#{beneficiadoBeans.beneficiadolist}" var="est" rendered="#{beneficiadoBeans.beneficiadolist.size()>0}" excel="true" pdf="true" columnVisibility="true">  
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{est.nombres}"/>                          
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Apellido"/>
+                            </f:facet>
+                            <h:outputText value="#{est.apellidos}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Sexo"/>
+                            </f:facet>
+                            <h:outputText value="#{est.genero.nombre}"/>
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Correo"/>
+                            </f:facet>
+                            <h:outputText value="#{est.correo}"/>
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Edad"/>
+                            </f:facet>
+                            <h:outputText value="#{est.edad}"/>
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Operaciones"/>
+                            </f:facet>
+                            <h:commandButton value="Eliminar" class="btn btn-danger" style="margin-right:10px" 
+                                             action="#{beneficiadoBeans.eliminarBeneficiado()}" onclick="return confirmarEliminacion();">
+
+                                <f:param name="codigo" value="#{est.idusuario}"/>
+                            </h:commandButton>
+
+                            <b:commandButton value="Proyectos" look="warning" style="margin-right:10px"   
+                                             action="#{proyectosbeneficiadoBean.meterbeneficiadoid()}">
+                                <f:param name="codigo" value="#{est.idusuario}"/>
+                            </b:commandButton>
+                            <p:commandButton icon="ui-icon-disk" value="Integrar" actionListener="#{proyectosbeneficiadoBean.llenaridbeneficiado()}" update="miformulario2" onclick="PF('dlg3').show();" style="margin-top:10px; background: none; ">
+                                <f:param name="codigo" value="#{est.idusuario}"/>
+                            </p:commandButton>
+                            <b:commandButton value="PDF proyectos" style="margin-right:10px" iconAwesome="fa-file-pdf-o" look="warning"
+                                             actionListener="#{proyectosbeneficiadoBean.pdfbene}">     
+                                <f:param name="codigo" value="#{est.idusuario}"/>
+                            </b:commandButton>
+                        </h:column> 
+                    </b:dataTable>
+                </h:form>
+            </p:row>
+
+            <h:outputScript>
+                <c:if test = "#{not empty flash.exito}" >
+                    alertify.success('#{flash.exito}');               
+                </c:if>
+                function confirmarEliminacion(){
+                return confirm("¿Está seguro que desea eliminar este estudiante");
+                }
+            </h:outputScript>            
+        </ui:define>
 </ui:composition>

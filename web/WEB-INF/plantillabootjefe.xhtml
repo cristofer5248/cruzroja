@@ -12,7 +12,7 @@
         <h:outputStylesheet name="css/alertify.core.css" />
         <h:outputStylesheet name="css/alertify.default.css" />
         <h:outputScript name="js/alertify.js"/>        
-
+        <h:outputScript name="js/jquery.table2excel.js"/>  
         <h:outputStylesheet name="css/bootstrap.min.css" /> 
         <h:outputStylesheet name="css/globalcss.css" /> 
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession3()}"/>
@@ -39,7 +39,7 @@
                     </b:dropMenu>
                     <b:dropMenu value="Datos" icon-awesome="fa-table">
                         <b:navLink value="Financiamiento" outcome="financiamiento" icon-awesome="fa-dollar"></b:navLink>
-                        <b:navLink value="Estadisticas" outcome="Estadisticas" icon-awesome="fa-line-chart"></b:navLink>                        
+                        <!--<b:navLink value="Estadisticas" outcome="Estadisticas" icon-awesome="fa-line-chart"></b:navLink>-->                        
                         <b:navLink value="Sociedad" outcome="sociedad" icon-awesome="fa-institution"></b:navLink>                        
                     </b:dropMenu>
                     <b:dropMenu value="Proyectos" icon-awesome="fa-ambulance">
@@ -68,7 +68,7 @@
                         </b:dropMenu>
                     </c:if>
                     <c:if test = "${variable== 3}">
-                        <b:dropMenu icon="globe" value="Jefe: #{verificarsesion.mensaje}">
+                        <b:dropMenu icon="globe" value="Administrador #{verificarsesion.mensaje}">
                             <!--                        <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>-->
                             <br></br>
                             <b:form>
@@ -109,23 +109,15 @@
             </div>
         </div>
     </h:body>
-    <div class="footer">
-        <p:panelGrid columns="2" columnClasses="ui-grid-col-7,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
-            <b:container>
-
-                <p><strong><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">©2018 Cruz Roja Salvadoreña </a></strong></p>                    
-                <p><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1">Developer: UDB</a></p>
-                <!--                <p><a href="mailto:cristofr5248@gmail.com" target="_top" >cristofr5248@gmail.com</a></p>-->
-            </b:container>
-            <b:container>
-                <a ref="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=2&amp;cat=19"><img src="../resources/img/logo2.png" style="padding-left: 50%;" alt="Ùnete a la Cruz Roja Salvadoreña" /></a>
-            </b:container>
+    <footer style="background-color: #05235b">
 
 
-        </p:panelGrid>      
+        <div id="divinterno">
+            <p><strong><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1" style="color: white; padding-top: 10px;">©2018 Cruz Roja Salvadoreña </a></strong></p>                    
 
-
-
-    </div>
+            <!--                <p><a href="mailto:cristofr5248@gmail.com" target="_top" >cristofr5248@gmail.com</a></p>-->
+            <!--<a ref="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=2&amp;cat=19"><img src="../resources/img/logo2.png"  alt="Ùnete a la Cruz Roja Salvadoreña" /></a>-->
+        </div>
+    </footer>
 </html>
 

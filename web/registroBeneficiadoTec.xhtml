@@ -62,12 +62,11 @@
                                  value="#{beneficiadoBeans.beneficiado.idusuario}" 
                                  required="true" 
                                  requiredMessage="Debes ingresar un ID o auto-generarlo" 
-                                 validatorMessage="ID no valido">
-                        <f:validateRegex pattern="[A-Z]{3}[0-9]{3}"/>
+                                 />
                     </b:inputText>
                 </b:panelGrid>
                 <b:commandButton value="Auto-generar ID" look="warning" action="#{beneficiadoBeans.genearid()}"  style="margin-right:10px">
-                    <f:ajax execute="nombre" render="idauto"/>
+                    <f:ajax execute="nombre,apellidos" render="idauto"/>
                 </b:commandButton>                           
                 <b:commandButton  value="Guardar" look="success" iconAwesome="fa-floppy-o" action="#{beneficiadoBeans.guardarBeneficiado()}" style="margin-right:10px" onclick="return confirmarAgregar();">
                     <f:param name="tipo" value="T"/>
