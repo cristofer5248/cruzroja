@@ -43,7 +43,7 @@
                                            itemLabel="#{tipou.nombre}" itemValue="#{tipou.idtipou}"/>
                         </b:selectOneMenu>
                     </c:if>
-                    <h:outputLabel for="genero" value="Genero:"/>
+                    <h:outputLabel for="genero" value="Sexo:"/>
                     <b:selectOneMenu value="#{usuariosBean.usuarios.genero.idg}">
                         <f:selectItems value="#{generoBean.listaEstudiantes}" var="gene"
                                        itemLabel="#{gene.nombre}" itemValue="#{gene.idg}"/>
@@ -91,7 +91,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputLabel value="Genero"/>
+                            <h:outputLabel value="Sexo"/>
                         </f:facet>
                         <h:outputText value="#{est.genero.nombre}"/>                          
                     </h:column>

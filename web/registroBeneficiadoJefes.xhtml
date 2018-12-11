@@ -33,8 +33,8 @@
                                  required="true" 
                                  requiredMessage="Debes ingresar el apellido"/>
 
-                    <h:outputLabel for="genero" value="Genero:"/>
-                    <b:selectOneMenu value="#{beneficiadoBeans.beneficiado.genero.idg}" required="true" requiredMessage="Escoge un genero" class="form-control">
+                    <h:outputLabel for="genero" value="Sexo:"/>
+                    <b:selectOneMenu value="#{beneficiadoBeans.beneficiado.genero.idg}" required="true" requiredMessage="Escoge un sexo" class="form-control">
                         <f:selectItem itemLabel="Seleccionar .." itemValue="" noSelectionOption="true" />
                         <f:selectItems value="#{generoBean.listaEstudiantes}" var="generof"
                                        itemLabel="#{generof.nombre}" itemValue="#{generof.idg}" />
@@ -159,7 +159,7 @@
 
                     <h:column>
                         <f:facet name="header">
-                            <h:outputLabel value="Genero"/>
+                            <h:outputLabel value="Sexo"/>
                         </f:facet>
                         <h:outputText value="#{est.genero.nombre}"/>
 
@@ -176,13 +176,6 @@
                             <h:outputLabel value="Edad"/>
                         </f:facet>
                         <h:outputText value="#{est.edad}"/>
-
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Genero"/>
-                        </f:facet>
-                        <h:outputText value="#{est.genero.nombre}"/>
 
                     </h:column>
                     <h:column>
