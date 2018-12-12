@@ -113,7 +113,7 @@ public class EstadisticasBean {
 
         }
         System.out.print("llenarcombofuncion" + usuarioactivo + " LUGAR " + idlugar);
-        if (tipousuario == 1) {
+        if ((tipousuario == 1)||(tipousuario==3)) {
             lugarproyectoslist = model1.listarLugarproyectosporlugar(idlugar);
         } else {
             lugarproyectoslist = model1.listarLugarproyectosporlugarSegunEncargado(idlugar, usuarioactivo);
