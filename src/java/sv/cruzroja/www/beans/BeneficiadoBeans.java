@@ -78,6 +78,12 @@ public class BeneficiadoBeans {
 
     public void guardarBeneficiado() {
         String codigo = JsfUtil.getRequest().getParameter("tipo");
+        String dia = Integer.toString(c1.get(Calendar.DATE));
+        String mes = Integer.toString(c1.get(Calendar.MONTH));
+        String year = Integer.toString(c1.get(Calendar.YEAR));
+        String hora = Integer.toString((c1.get(Calendar.HOUR))).concat(Integer.toString(c1.get(Calendar.MINUTE)));
+        
+
         System.out.print("codigoooo " + codigo);
         if (modelo.insertarEstudiante(beneficiado) != 1) {
             modelo.modificarBeneficiado(beneficiado);
@@ -105,12 +111,18 @@ public class BeneficiadoBeans {
         if (dianumero < 10 && mesnumero < 10) {
             mes = "0" + String.valueOf(mesnumero);
         } else {
-            if(mesnumero==10){mes="O";}
-            if(mesnumero==11){mes="N";}
-            if(mesnumero==12){mes="D";}
+            if (mesnumero == 10) {
+                mes = "O";
+            }
+            if (mesnumero == 11) {
+                mes = "N";
+            }
+            if (mesnumero == 12) {
+                mes = "D";
+            }
         }
 
-        idgenerado = beneficiado.getNombres().substring(0, 3).toUpperCase().concat(beneficiado.getApellidos().substring(0,2)).toUpperCase().concat(dia).concat(mes);
+        idgenerado = beneficiado.getNombres().substring(0, 3).toUpperCase().concat(beneficiado.getApellidos().substring(0, 2)).toUpperCase().concat(dia).concat(mes);
 
         beneficiado.setIdusuario(idgenerado);
     }

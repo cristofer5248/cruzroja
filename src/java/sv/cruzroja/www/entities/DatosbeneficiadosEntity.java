@@ -60,7 +60,7 @@ public class DatosbeneficiadosEntity implements Serializable {
     @JoinColumn(name = "genero", referencedColumnName = "idg", nullable = false)
     @ManyToOne(optional = false)
     private GeneroEntity genero;
-    @Column(name = "fecha", nullable = false)
+    @Column(name = "fecha", nullable = false, insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idbeneficiado")
