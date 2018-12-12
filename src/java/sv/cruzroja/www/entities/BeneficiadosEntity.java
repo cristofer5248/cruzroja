@@ -51,7 +51,7 @@ public class BeneficiadosEntity implements Serializable {
     @ManyToOne(optional = false)
     private Actividades idproyecto;
     @Basic(optional = false)
-    @Column(name = "fecha", nullable = false)
+    @Column(name = "fecha", nullable = false, insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
 
