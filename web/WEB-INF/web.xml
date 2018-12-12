@@ -18,6 +18,31 @@
             30
         </session-timeout>
     </session-config>
+    <error-page>
+        <!-- Missing resource -->
+        <error-code>404</error-code>
+        <location>/404Error.html</location>
+    </error-page>
+    <error-page>
+        <!-- Uncaught exception -->
+        <error-code>500</error-code>
+        <location>/501Error.html</location>
+    </error-page>
+    <error-page>
+        <!-- Missing login -->
+        <error-code>401</error-code>
+        <location>/501Error.html</location>
+    </error-page>
+    <error-page>
+        <!-- Forbidden directory listing -->
+        <error-code>403</error-code>
+        <location>/501Error.html</location>
+    </error-page>
+    <error-page>
+        <!-- Unsupported servlet method -->
+        <error-code>503</error-code>
+        <location>/501Error.html</location>
+    </error-page>
     <welcome-file-list>
         <welcome-file>faces/login.xhtml</welcome-file>
     </welcome-file-list>
