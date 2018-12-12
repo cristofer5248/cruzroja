@@ -55,6 +55,12 @@ public class LugarEntity implements Serializable {
     @Column(name = "coordenadas", length = 80)
     private String coordenadas;
 
+    @Column(name = "latitud")
+    private String latitud;
+    @Basic(optional = false)
+    @Column(name = "longitud")
+    private String longitud;
+
     public LugarEntity() {
     }
 
@@ -147,6 +153,34 @@ public class LugarEntity implements Serializable {
 
     public void setCoordenadas(String coordenadas) {
         this.coordenadas = coordenadas;
+    }
+
+    /**
+     * @return the latitud
+     */
+    public String getLatitud() {
+        return latitud;
+    }
+
+    /**
+     * @param latitud the latitud to set
+     */
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
+    }
+
+    /**
+     * @return the longitud
+     */
+    public String getLongitud() {
+        return longitud;
+    }
+
+    /**
+     * @param longitud the longitud to set
+     */
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
     }
 
 }

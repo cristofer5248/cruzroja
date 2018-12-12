@@ -106,9 +106,7 @@
                     <p:commandButton value="Reverse Geocode" icon="ui-icon-search" onclick="reverseGeocode()" type="button"/>
                 </h:panelGrid>
 
-                <p:gmap id="revGeoGmap" widgetVar="revGeoMap" center="#{lugarBean.centerRevGeoMap}" zoom="2" type="ROADMAP" model="#{lugarBean.revGeoModel}" style="width:100%;height:400px">
-                    <p:ajax event="reverseGeocode" listener="#{lugarBean.onReverseGeocode}" update="@this" />
-                </p:gmap>
+                <p:gmap center="13.7208503,-88.9365976" zoom="13" type="HYBRID" style="width:100%;height:500px" model="#{lugarBean.simpleModel}" />
 
             </h:form>
         </p:dialog>
@@ -143,10 +141,15 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputLabel value="Coordenadas"/>
+                            <h:outputLabel value="Latitud"/>
                         </f:facet>
-                        <h:outputText value="#{est.coordenadas}"/>
-
+                        <h:outputText value="#{est.latitud}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputLabel value="Longitud"/>
+                        </f:facet>
+                        <h:outputText value="#{est.longitud}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">

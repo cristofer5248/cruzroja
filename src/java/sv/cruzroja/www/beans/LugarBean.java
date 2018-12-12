@@ -34,6 +34,7 @@ import sv.cruzroja.www.entities.LugarcategoriaEntity;
 @ViewScoped
 public class LugarBean {
 
+    private List<LugarEntity> lugarEntityList;
     LugarModel modelo = new LugarModel();
     MunicipioModel modelo2 = new MunicipioModel();
     DepartamentoModel modelo3 = new DepartamentoModel();
@@ -47,6 +48,7 @@ public class LugarBean {
     private MapModel geoModel;
     private MapModel revGeoModel;
     private String centerRevGeoMap = "41.850033, -87.6500523";
+    private MapModel simpleModel;
 
     /**
      * Creates a new instance of LugarBean
@@ -59,6 +61,17 @@ public class LugarBean {
         this.setMuni(modelo2.obtenerMunicipio(modelo3.listarByIdDepartamento(1)));
         geoModel = new DefaultMapModel();
         revGeoModel = new DefaultMapModel();
+
+    }
+
+    public void init() {
+        simpleModel = new DefaultMapModel();
+
+        lugarEntityList = modelo.listarLugar();
+        for (LugarEntity sit : lugarEntityList) {
+            LatLng coord1 = new LatLng(Double.parseDouble(sit.getLatitud()), Double.parseDouble(sit.getLongitud()));
+            simpleModel.addOverlay(new Marker(coord1, sit.getNombre()));
+        }
 
     }
 
@@ -81,6 +94,7 @@ para obtener la lista de objetos a partir de la bd */
         String carnet = JsfUtil.getRequest().getParameter("codigo");
         LugarModel modelo2 = new LugarModel();
         this.lugar = modelo2.obtenerLugar(carnet);
+        
 
     }
 
@@ -89,7 +103,9 @@ para obtener la lista de objetos a partir de la bd */
             if (latitud != 0 && longitud != 0) {
 
                 lugar.setCoordenadas("Latitud: " + getLatitud() + " Longitud: " + getLongitud());
-            }
+                lugar.setLatitud(String.valueOf(getLatitud()));
+                lugar.setLongitud(String.valueOf(getLongitud()));
+            }            
 
             if (modelo.insertarEstudiante(lugar) != 1) {
                 modelo.modificarLugar(lugar);
@@ -125,6 +141,16 @@ para obtener la lista de objetos a partir de la bd */
         int mesint = Integer.valueOf(mes);
         if (diaint < 10 && mesint < 10) {
             mes = "0" + mes;
+        } else {
+            if (mesint == 10) {
+                mes = "O";
+            }
+            if (mesint == 11) {
+                mes = "N";
+            }
+            if (mesint == 12) {
+                mes = "D";
+            }
         }
         idgenerado = lugar.getNombre().substring(0, 3).toUpperCase().concat(dia).concat(mes);
         lugar.setIdlugar(idgenerado);
@@ -230,4 +256,7 @@ para obtener la lista de objetos a partir de la bd */
         return centerRevGeoMap;
     }
 
+    public MapModel getSimpleModel() {
+        return simpleModel;
+    }
 }
