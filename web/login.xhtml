@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:b="http://bootsfaces.net/ui"      
-      xmlns:p="http://primefaces.org/ui"
+
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <link rel="icon" href="../resources/img/icono.png"></link>
@@ -35,13 +35,13 @@
                         <div class="field email">
                             <div class="icon"></div>
 
-                            <b:inputText class="input" id="email" placeholder="Usuario" value="#{login.usuario}" />
+                            <h:inputText class="input" a:placeholder="Usuario" id="usuario" value="#{login.usuario}" />
                         </div>
                         <div class="field password">
                             <div class="icon"></div>
-                            <b:inputText class="input" id="password" placeholder="Password" type="password" value="#{login.pass}"/>
+                            <h:inputSecret class="input" id="password" a:placeholder="Password" value="#{login.pass}"/>
                         </div>
-                        <h:commandButton class="button" id="submit" value="Sign In" action="#{login.iniciarsesion()}">
+                        <h:commandButton class="button" id="submit" value="Iniciar Sesion" action="#{login.iniciarsesion()}">
                             <div class="side-top-bottom"></div>
                             <div class="side-left-right"></div>
                         </h:commandButton><small>Cruz Roja Salvadoreña</small>
@@ -50,16 +50,29 @@
             </div>
 
         </b:container>
-               
+
         <h:outputScript>
             <c:set var="message" value='${param.error}' />
 
-            <c:if test = "${message!=null}">
+            <c:if test = "${message=='true'}">
                 alertify
                 .alert("Acceso no permitido, Inicia sesion primero.", function(){
                 alertify.message('OK');
                 });  
             </c:if>
+            <c:if test = "${message=='ErrU'}">
+                alertify
+                .alert("Usuario no existe o las credenciales no son correctas.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+            <c:if test = "${message=='BDD'}">
+                alertify
+                .alert("Hubo un error al conectarse a la base de datos.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+
         </h:outputScript>
     </h:body>
 </html>

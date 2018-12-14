@@ -5,6 +5,7 @@
  */
 package sv.cruzroja.www.beans;
 
+import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
@@ -33,7 +34,7 @@ public class Login extends UsuariosBean {
 
     }
 
-    public String iniciarsesion() {
+    public String iniciarsesion() throws IOException {
         try {
 
             UsuariosModel model = new UsuariosModel();
@@ -50,14 +51,15 @@ public class Login extends UsuariosBean {
                         System.out.println("Usuario nivel 1 iniciado");
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel", usernivel1);
                         return "principalAd";
-                        
+
                     }
                     if (user.getTipousuario().getIdtipou() == 3) {
                         System.out.println("Usuario nivel 3 iniciado");
                         usernivel1 = model.verificarnivel3(usuario);
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel3", usernivel1);
                         return "principalAd";
-                    }if (user.getTipousuario().getIdtipou() == 2) {
+                    }
+                    if (user.getTipousuario().getIdtipou() == 2) {
                         System.out.println("Aqui casual pasando por los if para el nivel2");
                         usernivel1 = model.verificarnivel2(usuario);
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel2", usernivel1);
@@ -65,14 +67,20 @@ public class Login extends UsuariosBean {
                         return "principalTec";
                     }
 
-                    
                 }
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "El usuario no existe", "El usuario no existe"));
+                System.out.print("entrando al metodo del iniciar session");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El usuario no existe"));
+                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=ErrU");
+
                 return null;
+            } else {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=ErrU");
             }
         } catch (Exception e) {
+            
+            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=BDD");
         }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "El usuario no existe", "El usuario no existe"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El usuario no existe"));
         return null;
     }
 
