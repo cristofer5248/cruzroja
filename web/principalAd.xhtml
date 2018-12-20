@@ -12,18 +12,18 @@
 
     </h:head>
     <ui:define name="contenido">
-        <div class="ui-fluid">
-            <p:panelGrid columns="2" columnClasses="ui-grid-col-40,ui-grid-col-20" layout="grid" styleClass="ui-panelgrid-blank">
+        
+            
 
                 <p:imageSwitch effect="fade" id="fadeEffect">
                     <ui:repeat value="#{slideshow.images}" var="image" id="fadeEffectImages">
                         <p:graphicImage name="img/#{image}" id="image"/>
                     </ui:repeat>
                 </p:imageSwitch>
-                <h:graphicImage value="/resources/img/enlace.PNG" />
-            </p:panelGrid>
+                
+            
             <a class="twitter-timeline" data-lang="es" data-width="900" data-height="500" data-link-color="#E81C4F" href="https://twitter.com/CruzRojaSal?ref_src=twsrc%5Etfw">Tweets by CruzRojaSal</a> <script  src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
-        </div>
+            
     </ui:define>
 </ui:composition>
 
