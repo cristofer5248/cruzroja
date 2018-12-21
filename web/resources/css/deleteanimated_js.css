@@ -80,6 +80,7 @@ button .text {
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
 }
+
 button .text span {
     width: 100%;
     opacity: 0;
