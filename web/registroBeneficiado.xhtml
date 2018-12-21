@@ -14,6 +14,20 @@
         <title> Beneficiados</title>
     </ui:define>
     <ui:define name="contenido">
+        <h:form>
+            <div class="nada">
+                <b:commandButton class="centerMe" action="#{beneficiadoBeans.eliminarBeneficiado()}" onclick="return confirmarEliminacion();"
+                                 style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex;" ajax="true">
+
+                    <div class='icon1'>
+                        <i class='fa fa-trash-o'></i>
+                    </div>
+                    <div class='text'>
+                        <span>Delete</span>
+                    </div>
+                </b:commandButton>
+            </div>
+        </h:form>
         <center>
             <h:form id="filtro">
                 <p:outputLabel value="Filtrar por apellidos: " />
@@ -78,7 +92,7 @@
 
         </p:dialog>
 
-        
+
         <p:row>
             <h:form id="datosbeneficiados">
                 <b:dataTable styleClass="table" value="#{beneficiadoBeans.beneficiadolist}" var="est" rendered="#{beneficiadoBeans.beneficiadolist.size()>0}" excel="true" pdf="true" columnVisibility="true">  
@@ -120,11 +134,18 @@
                         <f:facet name="header">
                             <h:outputLabel value="Operaciones"/>
                         </f:facet>
-                        <h:commandButton value="Eliminar" class="btn btn-danger" style="margin-right:10px" 
-                                         action="#{beneficiadoBeans.eliminarBeneficiado()}" onclick="return confirmarEliminacion();">
 
-                            <f:param name="codigo" value="#{est.idusuario}"/>
-                        </h:commandButton>
+                        <b:commandButton class="centerMe" action="#{beneficiadoBeans.eliminarBeneficiado()}" onclick="return confirmarEliminacion();"
+                                         style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px" ajax="true">
+                            <f:setPropertyActionListener target="#{beneficiadoBeans.fordeleting}" value="#{est.idusuario}" />
+                            <f:ajax render="@form" />
+                            <div class='icon1'>
+                                <i class='fa fa-trash-o'></i>
+                            </div>
+                            <div class='text'>
+                                <span>Eliminar</span>
+                            </div>
+                        </b:commandButton>
 
                         <b:commandButton value="Proyectos" look="warning" style="margin-right:10px"   
                                          action="#{proyectosbeneficiadoBean.meterbeneficiadoid()}">
@@ -133,7 +154,7 @@
                         <p:commandButton icon="ui-icon-disk" value="Integrar" actionListener="#{proyectosbeneficiadoBean.llenaridbeneficiado()}" update="miformulario2" onclick="PF('dlg3').show();" style="margin-top:10px; background: none; ">
                             <f:param name="codigo" value="#{est.idusuario}"/>
                         </p:commandButton>
-                        <b:commandButton value="PDF proyectos" style="margin-right:10px" iconAwesome="fa-file-pdf-o" look="warning"
+                        <b:commandButton value="Ver" style="margin-right:10px" iconAwesome="fa-file-pdf-o" look="warning"
                                          actionListener="#{proyectosbeneficiadoBean.pdfbene}">     
                             <f:param name="codigo" value="#{est.idusuario}"/>
                         </b:commandButton>

@@ -8,13 +8,18 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
+
         <link rel="icon" href="../resources/img/icono.png"></link>
         <h:outputStylesheet name="css/alertify.core.css" />
-        <h:outputStylesheet name="css/alertify.default.css" />
-        <h:outputScript name="js/alertify.js"/>
-        <h:outputScript name="js/jquery.table2excel.js"/>                
         <h:outputStylesheet name="css/bootstrap.min.css" /> 
+        <h:outputStylesheet name="css/alertify.default.css" />
+        <h:outputScript name="js/alertify.js"/>        
+        <h:outputScript name="js/jquery.table2excel.js"/>                        
         <h:outputStylesheet name="css/globalcss.css" /> 
+        <!--        animacion para eliminar bonita chida-->
+        <h:outputStylesheet name="css/deleteanimated_js.css" /> 
+        <h:outputScript name="js/animeddelete.js"/>
+        <!--        animacion para eliminar bonita chida-->
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession()}"/>
         <ui:insert name="title">
 
@@ -25,7 +30,7 @@
 
     <h:body>
         <c:set var="variable" scope="session" value="#{verificarsesion.dameeltipo()}"/>
-        <p:growl id="growl" showDetail="true" sticky="true" />
+        <p:growl id="growl" showDetail="false" sticky="false" life="4000"/>
         <ui:insert name="menu">
             <b:navBar brandHref="principalAd.xhtml" brand-img="../resources/img/logo.png" inverse="true" style="background-color: #05235b">
                 <b:navbarLinks>

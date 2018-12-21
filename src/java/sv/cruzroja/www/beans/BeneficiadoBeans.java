@@ -33,6 +33,7 @@ public class BeneficiadoBeans {
     Calendar c1 = Calendar.getInstance();
     private String idgenerado;
     public String apellidos;
+    private String fordeleting;
 
     public BeneficiadoBeans() {
         beneficiado = new DatosbeneficiadosEntity();
@@ -129,7 +130,7 @@ public class BeneficiadoBeans {
 
     public String eliminarBeneficiado() {
 // Leyendo el parametro enviado desde la vista
-        String carnet = JsfUtil.getRequest().getParameter("codigo");
+        String carnet = this.fordeleting;
         //System.out.println(carnet);
         if (modelo.eliminarLugar(carnet) > 0) {
             JsfUtil.setFlashMessage("exito", "Beneficiado eliminad"
@@ -166,6 +167,20 @@ public class BeneficiadoBeans {
      */
     public void setBeneficiadolist(List<DatosbeneficiadosEntity> beneficiadolist) {
         this.beneficiadolist = beneficiadolist;
+    }
+
+    /**
+     * @return the fordeleting
+     */
+    public String getFordeleting() {
+        return fordeleting;
+    }
+
+    /**
+     * @param fordeleting the fordeleting to set
+     */
+    public void setFordeleting(String fordeleting) {
+        this.fordeleting = fordeleting;
     }
 
 }
