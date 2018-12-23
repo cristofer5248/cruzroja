@@ -184,9 +184,16 @@
                         <f:facet name="header">
                             <h:outputLabel value="Operaciones"/>
                         </f:facet>
-                        <b:commandButton value="Proyectos" look="warning" style="margin-right:10px"   
-                                         action="#{proyectosbeneficiadoBean.meterbeneficiadoidtec()}">
-                            <f:param name="codigo" value="#{est.idusuario}"/>
+                        <b:commandButton action="#{proyectosbeneficiadoBean.meterbeneficiadoidtec()}"
+                                         style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px" ajax="true">
+                            <f:setPropertyActionListener target="#{proyectosbeneficiadoBean.param1}" value="#{est.idusuario}"/>
+                            <f:ajax render="@form" />
+                            <div class='icon1'>
+                                <i class='glyphicon glyphicon-folder-open'></i>
+                            </div>
+                            <div class='text' style="background-color: #ec971f">
+                                <span>Ver proyectos</span>
+                            </div>
                         </b:commandButton>
                         <p:commandButton icon="ui-icon-disk" value="Integrar" actionListener="#{proyectosbeneficiadoBean.llenaridbeneficiado()}" update="miformulario2" onclick="PF('dlg3').show();" style="margin-top:10px; background: none; ">
                             <f:param name="codigo" value="#{est.idusuario}"/>

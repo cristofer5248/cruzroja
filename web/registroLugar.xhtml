@@ -112,7 +112,7 @@
         </p:dialog>
         <b:row>
             <b:form >
-                <b:dataTable value="#{lugarBean.listaLugar}" var="est" rendered="#{lugarBean.listaLugar.size()>0}" pdf="true" excel="true" paginated="true" columnVisibility="true">
+                <b:dataTable value="#{lugarBean.listaLugar}" var="est" rendered="#{lugarBean.listaLugar.size()>0}" pdf="true" excel="true" paginated="true" columnVisibility="true" responsive="true">
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="ID"/>
@@ -155,15 +155,28 @@
                         <f:facet name="header">
                             <h:outputLabel value="Operaciones"/>
                         </f:facet>
-                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"  style="margin-right:10px"
-                                         action="#{lugarBean.eliminarLugar()}" onclick="return confirmarEliminacion();">
-                            <f:param name="codigo" value="#{est.idlugar}"/>
-
-                        </h:commandButton>
-                        <h:commandButton value="Modificar" styleClass="btn btn-primary"   
-                                         action="#{lugarBean.obtenerLugar()}">
-                            <f:param name="codigo" value="#{est.idlugar}"/>
-                        </h:commandButton>
+                        <b:commandButton action="#{lugarBean.eliminarLugar()}" onclick="return confirmarEliminacion();"
+                                         style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px" ajax="true">
+                            <f:setPropertyActionListener target="#{lugarBean.param1}" value="#{est.idlugar}"/>
+                            <f:ajax render="@form" />
+                            <div class='icon1'>
+                                <i class='fa fa-trash-o'></i>
+                            </div>
+                            <div class='text'>
+                                <span>Eliminar</span>
+                            </div>
+                        </b:commandButton>
+                        <b:commandButton action="#{lugarBean.obtenerLugar()}" onclick="timeAlert();"
+                                         style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px" ajax="true">
+                            <f:setPropertyActionListener target="#{lugarBean.param1}" value="#{est.idlugar}"/>
+                            <f:ajax render="miFormulario" />
+                            <div class='icon1'>
+                                <i class='glyphicon glyphicon-pencil'></i>
+                            </div>
+                            <div class='text' style="background-color: #286090;">
+                                <span>Modificar</span>
+                            </div>
+                        </b:commandButton>
 
                     </h:column>                      
                 </b:dataTable>
@@ -175,7 +188,13 @@
                 alertify.success('#{flash.exito}');               
             </c:if>
             function confirmarEliminacion(){
-            return confirm("¿Está seguro que desea eliminar este lugar");
+            return confirm("¿Está seguro que desea eliminar este lugar?");
+            }
+            function timeAlert() {
+            alertify
+            .alert("Abre el registro para editarlo.", function(){
+            alertify.message('OK');
+            });            
             }
 
         </h:outputScript>

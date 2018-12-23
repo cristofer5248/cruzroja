@@ -24,6 +24,7 @@ public class actividadesDetallesBean {
     private ActividadesdetallesEntity actividadesdetalles;
     ActividadesDetaModel modelo = new ActividadesDetaModel();
     Calendar c1 = Calendar.getInstance();
+    private String param1;
 
     /**
      * Creates a new instance of actividadesDetallesBean
@@ -72,7 +73,7 @@ public class actividadesDetallesBean {
     }
 
     public void obtenerActividad() {
-        String carnet = JsfUtil.getRequest().getParameter("codigo");
+        String carnet = this.param1;
         System.out.print("ESTE ES EL CODIGO RECOGIDO PARA MODIFICAR " + carnet);
         this.actividadesdetalles = modelo.obtenerActividadporId(carnet);
     }
@@ -93,6 +94,20 @@ public class actividadesDetallesBean {
      */
     public void setActividadesdetalles(ActividadesdetallesEntity actividadesdetalles) {
         this.actividadesdetalles = actividadesdetalles;
+    }
+
+    /**
+     * @return the param1
+     */
+    public String getParam1() {
+        return param1;
+    }
+
+    /**
+     * @param param1 the param1 to set
+     */
+    public void setParam1(String param1) {
+        this.param1 = param1;
     }
 
 }

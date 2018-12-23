@@ -139,9 +139,9 @@
                             </div>
                         </b:commandButton>
                         <b:commandButton style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex;" ajax="true" 
-                                         action="#{proyectosBean.obtenerProyecto()}">
+                                         action="#{proyectosBean.obtenerProyecto()}" onclick="setTimeout(timeAlert, 1500);">
                             <f:setPropertyActionListener target="#{proyectosBean.param1}" value="#{est.idproyecto}"/>
-                            <f:ajax render="@form"/>
+                            <f:ajax render="miFormulario"/>
                             <div class='icon1'>
                                 <i class='glyphicon glyphicon-pencil'></i>
                             </div>
@@ -149,7 +149,7 @@
                                 <span>Modificar</span>
                             </div>
                         </b:commandButton>
-                        
+
 
                     </h:column>                      
                 </b:dataTable>
@@ -162,6 +162,15 @@
             </c:if>
             function confirmarEliminacion(){
             return confirm("¿Está seguro que desea eliminar este proyecto");
+            }
+            function confirmarAgregar(){
+            return confirm("¿Está seguro de la integridad de los datos ingresados?");
+            }
+            function timeAlert() {
+            alertify
+            .alert("Abre el registro para editarlo.", function(){
+            alertify.message('OK');
+            });            
             }
         </h:outputScript>
 

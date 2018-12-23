@@ -122,18 +122,25 @@
                     </f:facet>
                     <b:dataTableColumn value="#{est.titulo}"/>       
                     <b:dataTableColumn value="#{est.detalle}" />
-                    <h:column>   
-                        <p:commandButton icon="ui-icon-disk" value="Integrar" actionListener="#{actividadesBean.llenarIntegraractividad()}" onclick="PF('dlg3').show();" style="margin-top:10px; background: none; ">
-                            <f:param name="codigo" value="#{est.idactividadesdetalles}"/>
-                        </p:commandButton>
-                        <b:commandButton value="Proyectos" ajax="true" icon-awesome="fa-search" look="info" update="proyectosASOactividades" action="#{actividadesBean.listarActividadesXIddetalleActividad()}"
-                                         oncomplete="$('#responsiveModal3').modal('show')" style="margin-left: 10px;" >
-                            <f:param name="codigo" value="#{est.idactividadesdetalles}"/>
+                    <h:column>  
+                        <b:commandButton action="#{actividadesBean.listarActividadesXIddetalleActividad()}"
+                                         oncomplete="$('#responsiveModal3').modal('show')" style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px;" ajax="true">
+                            <f:setPropertyActionListener target="#{actividadesBean.param1}" value="#{est.idactividadesdetalles}"/>                            
+                            <f:ajax render="proyectosASOactividades" />
+                            <div class='icon1'>
+                                <i class='glyphicon glyphicon-search'></i>
+                            </div>
+                            <div class='text' style="background-color: #31b0d5">
+                                <span>Ver proyectos</span>
+                            </div>
                         </b:commandButton>
-                        <b:commandButton value="PDF proyectos" style="margin-left:10px" iconAwesome="fa-file-pdf-o" look="warning" 
+                        <b:commandButton style="margin-right:10px" iconAwesome="fa-file-pdf-o" look="warning" 
                                          actionListener="#{actividadesBean.pdfproyectos}">     
                             <f:param name="codigo" value="#{est.idactividadesdetalles}"/>
                         </b:commandButton>
+                        <p:commandButton icon="ui-icon-disk" value="Integrar" actionListener="#{actividadesBean.llenarIntegraractividad()}" onclick="PF('dlg3').show();" style="margin-top:10px; background: none; ">
+                            <f:param name="codigo" value="#{est.idactividadesdetalles}"/>
+                        </p:commandButton>
                     </h:column>
 
                 </b:dataTable>

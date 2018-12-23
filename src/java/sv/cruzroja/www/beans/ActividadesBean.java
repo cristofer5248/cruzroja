@@ -60,7 +60,7 @@ public class ActividadesBean implements Serializable {
     private String datoscompletos;
     private String hayono;
     private boolean skip3;
-
+    private String param1;
     private String idactividad;
 
     Calendar c1 = Calendar.getInstance();
@@ -219,7 +219,7 @@ public class ActividadesBean implements Serializable {
     }
 
     public String eliminar() {
-        String codigo = JsfUtil.getRequest().getParameter("codigo");
+        String codigo = this.param1;
 
         if (modelo4.eliminarActividadDet(codigo) != 0) {
             JsfUtil.setFlashMessage("exito", "Actividad eliminad"
@@ -315,7 +315,7 @@ para obtener la lista de objetos a partir de la bd */
     }
 
     public void listarActividadesXIddetalleActividad() {
-        String codigo = JsfUtil.getRequest().getParameter("codigo");
+        String codigo = this.param1;
 //        System.out.print("El codigo del proyecto para actividad es: " + proyectoid);
         try {
             if (codigo != null) {
@@ -519,6 +519,20 @@ para obtener la lista de objetos a partir de la bd */
      */
     public void setActividadesmodal(List<Actividades> actividadesmodal) {
         this.actividadesmodal = actividadesmodal;
+    }
+
+    /**
+     * @return the param1
+     */
+    public String getParam1() {
+        return param1;
+    }
+
+    /**
+     * @param param1 the param1 to set
+     */
+    public void setParam1(String param1) {
+        this.param1 = param1;
     }
 
 }

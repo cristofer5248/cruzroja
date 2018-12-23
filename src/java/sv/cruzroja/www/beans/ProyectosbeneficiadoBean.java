@@ -56,6 +56,7 @@ public class ProyectosbeneficiadoBean {
     private Date fecha1;
     private Date fecha2;
     private int idactividad;
+    private String param1;
     Calendar c1 = Calendar.getInstance();
 
     /**
@@ -199,7 +200,7 @@ public class ProyectosbeneficiadoBean {
 
     public String meterbeneficiadoidtec() {
 // Leyendo el parametro enviado desde la vista
-        String carnet = JsfUtil.getRequest().getParameter("codigo");
+        String carnet = this.param1;
         System.out.println("el codigo es" + carnet);
         beneficiadoproyecto = beneficiadosmodel.listarBeneficiadosbyidbene(carnet);
 
@@ -340,6 +341,20 @@ public class ProyectosbeneficiadoBean {
      */
     public void setIdactividad(int idactividad) {
         this.idactividad = idactividad;
+    }
+
+    /**
+     * @return the param1
+     */
+    public String getParam1() {
+        return param1;
+    }
+
+    /**
+     * @param param1 the param1 to set
+     */
+    public void setParam1(String param1) {
+        this.param1 = param1;
     }
 
 }

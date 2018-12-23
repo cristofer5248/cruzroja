@@ -49,6 +49,7 @@ public class LugarBean {
     private MapModel revGeoModel;
     private String centerRevGeoMap = "41.850033, -87.6500523";
     private MapModel simpleModel;
+    private String param1;
 
     /**
      * Creates a new instance of LugarBean
@@ -91,9 +92,12 @@ para obtener la lista de objetos a partir de la bd */
     }
 
     public void obtenerLugar() {
-        String carnet = JsfUtil.getRequest().getParameter("codigo");
+        String carnet = this.param1;
         LugarModel modelo2 = new LugarModel();
         this.lugar = modelo2.obtenerLugar(carnet);
+        this.setLatitud(Double.valueOf(lugar.getLatitud()));
+        this.setLongitud(Double.valueOf(lugar.getLongitud()));
+        
         
 
     }
@@ -122,7 +126,7 @@ para obtener la lista de objetos a partir de la bd */
 
     public String eliminarLugar() {
 // Leyendo el parametro enviado desde la vista
-        String carnet = JsfUtil.getRequest().getParameter("codigo");
+        String carnet = this.param1;
 
         //System.out.println(carnet);
         if (modelo.eliminarLugar(carnet) > 0) {
@@ -259,4 +263,19 @@ para obtener la lista de objetos a partir de la bd */
     public MapModel getSimpleModel() {
         return simpleModel;
     }
+
+    /**
+     * @return the param1
+     */
+    public String getParam1() {
+        return param1;
+    }
+
+    /**
+     * @param param1 the param1 to set
+     */
+    public void setParam1(String param1) {
+        this.param1 = param1;
+    }
+    
 }
