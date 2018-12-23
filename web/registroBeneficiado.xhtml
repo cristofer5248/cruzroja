@@ -14,20 +14,6 @@
         <title> Beneficiados</title>
     </ui:define>
     <ui:define name="contenido">
-        <h:form>
-            <div class="nada">
-                <b:commandButton class="centerMe" action="#{beneficiadoBeans.eliminarBeneficiado()}" onclick="return confirmarEliminacion();"
-                                 style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex;" ajax="true">
-
-                    <div class='icon1'>
-                        <i class='fa fa-trash-o'></i>
-                    </div>
-                    <div class='text'>
-                        <span>Delete</span>
-                    </div>
-                </b:commandButton>
-            </div>
-        </h:form>
         <center>
             <h:form id="filtro">
                 <p:outputLabel value="Filtrar por apellidos: " />
@@ -95,27 +81,21 @@
 
         <p:row>
             <h:form id="datosbeneficiados">
-                <b:dataTable styleClass="table" value="#{beneficiadoBeans.beneficiadolist}" var="est" rendered="#{beneficiadoBeans.beneficiadolist.size()>0}" excel="true" pdf="true" columnVisibility="true">  
+                <b:dataTable value="#{beneficiadoBeans.beneficiadolist}" var="est" rendered="#{beneficiadoBeans.beneficiadolist.size()>0}" excel="true" pdf="true" columnVisibility="true" responsive="true">  
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Nombre"/>
                         </f:facet>
                         <h:outputText value="#{est.nombres}"/>                          
                     </h:column>
-                    <h:column>
+                    <h:column headerClass="col1">
                         <f:facet name="header">
                             <h:outputLabel value="Apellido"/>
                         </f:facet>
                         <h:outputText value="#{est.apellidos}"/>
                     </h:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Sexo"/>
-                        </f:facet>
-                        <h:outputText value="#{est.genero.nombre}"/>
-
-                    </h:column>
+                    <b:dataTableColumn label="Sexo" value="#{est.genero.nombre}"/>
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Correo"/>
@@ -146,7 +126,6 @@
                                 <span>Eliminar</span>
                             </div>
                         </b:commandButton>
-
                         <b:commandButton action="#{proyectosbeneficiadoBean.meterbeneficiadoid()}"
                                          style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px;" ajax="true">
                             <f:param name="codigo" value="#{est.idusuario}"/>

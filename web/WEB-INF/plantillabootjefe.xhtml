@@ -13,7 +13,11 @@
         <h:outputStylesheet name="css/alertify.default.css" />
         <h:outputScript name="js/alertify.js"/>        
         <h:outputScript name="js/jquery.table2excel.js"/>  
-        <h:outputStylesheet name="css/bootstrap.min.css" /> 
+        <h:outputStylesheet name="css/bootstrap.min.css" />
+        <!--        animacion para eliminar bonita chida-->
+        <h:outputStylesheet name="css/deleteanimated_js.css" /> 
+        <h:outputScript name="js/animeddelete.js"/>
+        <!--        animacion para eliminar bonita chida-->
         <h:outputStylesheet name="css/globalcss.css" /> 
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession3()}"/>
         <ui:insert name="title">
@@ -38,7 +42,7 @@
                         </c:if>                        
                     </b:dropMenu>
                     <b:dropMenu value="Datos" icon-awesome="fa-table">
-<!--                        <b:navLink value="Financiamiento" outcome="financiamiento" icon-awesome="fa-dollar"></b:navLink>-->
+                        <!--                        <b:navLink value="Financiamiento" outcome="financiamiento" icon-awesome="fa-dollar"></b:navLink>-->
                         <b:navLink value="Estadisticas" outcome="Estadisticas" icon-awesome="fa-line-chart"></b:navLink>                        
                         <b:navLink value="Sociedad" outcome="sociedad" icon-awesome="fa-institution"></b:navLink>                        
                     </b:dropMenu>

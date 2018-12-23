@@ -72,8 +72,14 @@ public class BeneficiadoBeans {
     }
 
     public void obtenerBeneficiado() {
-        String codigo = JsfUtil.getRequest().getParameter("codigo");
-        this.beneficiado = modelo.obtenerBeneficiado(codigo);
+        try {
+            String codigo = this.param1;
+            System.out.print("QUE ME SALIOOOO "+codigo);
+            this.beneficiado = modelo.obtenerBeneficiado(codigo);
+            JsfUtil.setFlashMessage("Listo, abre el formulario de registro", "Listo, abre el formulario de registro");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -83,7 +89,6 @@ public class BeneficiadoBeans {
         String mes = Integer.toString(c1.get(Calendar.MONTH));
         String year = Integer.toString(c1.get(Calendar.YEAR));
         String hora = Integer.toString((c1.get(Calendar.HOUR))).concat(Integer.toString(c1.get(Calendar.MINUTE)));
-        
 
         System.out.print("codigoooo " + codigo);
         if (modelo.insertarEstudiante(beneficiado) != 1) {

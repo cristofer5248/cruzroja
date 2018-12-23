@@ -40,6 +40,7 @@ public class ProyectosBean {
     Calendar c1 = Calendar.getInstance();
     private String idgenerado;
     private int departamento;
+    private String param1;
 
     /**
      * Creates a new instance of ProyectosBean
@@ -62,7 +63,7 @@ public class ProyectosBean {
 
     public String eliminarLugar() {
 // Leyendo el parametro enviado desde la vista
-        String codigo = JsfUtil.getRequest().getParameter("codigo");
+        String codigo = this.param1;
 
         //System.out.println(carnet);
         if (proyectomodel.eliminarProyecto(codigo) > 0) {
@@ -75,8 +76,12 @@ public class ProyectosBean {
     }
 
     public void obtenerProyecto() {
-        String carnet = JsfUtil.getRequest().getParameter("codigo");
-        this.proyecto = proyectomodel.obtenerProyecto(carnet);
+        try {
+            String carnet = this.param1;
+            this.proyecto = proyectomodel.obtenerProyecto(carnet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -103,16 +108,16 @@ public class ProyectosBean {
             mes = "0" + mes;
 
         } else {
-            
-                if (mesint == 10) {
-                    mes = "O";
-                }
-                if (mesint == 11) {
-                    mes = "N";
-                }
-                if (mesint == 12) {
-                    mes = "D";
-                }
+
+            if (mesint == 10) {
+                mes = "O";
+            }
+            if (mesint == 11) {
+                mes = "N";
+            }
+            if (mesint == 12) {
+                mes = "D";
+            }
         }
         idgenerado = proyecto.getNombre().substring(0, 3).toUpperCase().concat(dia).concat(mes);
         proyecto.setIdproyecto(idgenerado);
@@ -163,6 +168,20 @@ public class ProyectosBean {
      */
     public void setDepartamento(int departamento) {
         this.departamento = departamento;
+    }
+
+    /**
+     * @return the param1
+     */
+    public String getParam1() {
+        return param1;
+    }
+
+    /**
+     * @param param1 the param1 to set
+     */
+    public void setParam1(String param1) {
+        this.param1 = param1;
     }
 
 }

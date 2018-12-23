@@ -9,9 +9,9 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:b="http://bootsfaces.net/ui"
     template="./WEB-INF/plantillaboot.xhtml"
-    
+
     >
-    
+
 
     <ui:define name="title">
         <title> Proyectos</title>
@@ -84,7 +84,7 @@
 
         <b:row>
             <b:form >
-                <b:dataTable value="#{proyectosBean.listaProyectos}" var="est" rendered="#{lugarBean.listaLugar.size()>0}" pdf="true" excel="true" columnVisibility="true">
+                <b:dataTable value="#{proyectosBean.listaProyectos}" var="est" rendered="#{lugarBean.listaLugar.size()>0}" pdf="true" excel="true" columnVisibility="true" responsive="true">
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Nombre"/>
@@ -104,10 +104,10 @@
                         <h:outputText value="#{est.categoria.nombre}"/>
                     </h:column>
                     <h:column>
-                    <f:facet name="header">
-                        <h:outputLabel value="Tecnico encargado"/>
-                    </f:facet>
-                    <h:outputText value="#{est.encargado.nombres}"/>
+                        <f:facet name="header">
+                            <h:outputLabel value="Tecnico encargado"/>
+                        </f:facet>
+                        <h:outputText value="#{est.encargado.nombres}"/>
                     </h:column>
 
                     <h:column>
@@ -127,15 +127,29 @@
                         <f:facet name="header">
                             <h:outputLabel value="Operaciones"/>
                         </f:facet>
-                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"  style="margin-right:10px"
-                                         action="#{proyectosBean.eliminarLugar()}" onclick="return confirmarEliminacion();">
-                            <f:param name="codigo" value="#{est.idproyecto}"/>
-
-                        </h:commandButton>
-                        <h:commandButton value="Modificar" styleClass="btn btn-primary"   
+                        <b:commandButton style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px" ajax="true"
+                                         action="#{proyectosBean.eliminarLugar()}" onclick="return confirmarEliminacion();">                            
+                            <f:setPropertyActionListener target="#{proyectosBean.param1}" value="#{est.idproyecto}" />
+                            <f:ajax render="@form" />
+                            <div class='icon1'>
+                                <i class='fa fa-trash-o'></i>
+                            </div>
+                            <div class='text'>
+                                <span>Eliminar</span>
+                            </div>
+                        </b:commandButton>
+                        <b:commandButton style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex;" ajax="true" 
                                          action="#{proyectosBean.obtenerProyecto()}">
-                            <f:param name="codigo" value="#{est.idproyecto}"/>
-                        </h:commandButton>
+                            <f:setPropertyActionListener target="#{proyectosBean.param1}" value="#{est.idproyecto}"/>
+                            <f:ajax render="@form"/>
+                            <div class='icon1'>
+                                <i class='glyphicon glyphicon-pencil'></i>
+                            </div>
+                            <div class='text' style="background-color: #286090;">
+                                <span>Modificar</span>
+                            </div>
+                        </b:commandButton>
+                        
 
                     </h:column>                      
                 </b:dataTable>
