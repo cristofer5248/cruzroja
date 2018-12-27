@@ -161,6 +161,10 @@
                                          actionListener="#{actividadesBean.pdfproyectos}">     
                             <f:param name="codigo" value="#{est.idactividadesdetalles}"/>
                         </b:commandButton>
+                        <b:commandButton style="margin-right:10px" iconAwesome="fa-file-excel-o" look="warning" 
+                                         actionListener="#{actividadesBean.excelproyectos}">     
+                            <f:param name="codigo" value="#{est.idactividadesdetalles}"/>
+                        </b:commandButton>
                         <p:commandButton icon="ui-icon-disk" value="Integrar" actionListener="#{actividadesBean.llenarIntegraractividad()}" onclick="PF('dlg3').show();">
                             <f:param name="codigo" value="#{est.idactividadesdetalles}"/>
                         </p:commandButton>

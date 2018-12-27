@@ -20,10 +20,12 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import org.primefaces.event.FlowEvent;
 import sv.cruzroja.www.entities.Actividades;
 import sv.cruzroja.www.entities.ActividadesdetallesEntity;
@@ -89,7 +91,6 @@ public class ActividadesBean implements Serializable {
 
         }
     }
-    
 
     public String integraractividad() {
         String codigo = JsfUtil.getRequest().getParameter("tipo");
@@ -259,7 +260,7 @@ public class ActividadesBean implements Serializable {
 
     public void llenarproyectoid() {
         String codigo = JsfUtil.getRequest().getParameter("codigo");
-        System.out.print("sdfnsfusfuisfhysdfsdhfsdhsdfs "+codigo);        
+        System.out.print("sdfnsfusfuisfhysdfsdhfsdhsdfs " + codigo);
         proyectoid = codigo;
 
     }
@@ -341,6 +342,29 @@ para obtener la lista de objetos a partir de la bd */
         response.addHeader("Content-disposition", "attachment; filename=fReporte.pdf");
         ServletOutputStream stream = response.getOutputStream();
         JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+
+        stream.flush();
+        stream.close();
+
+        FacesContext.getCurrentInstance().responseComplete();
+
+    }
+
+    public void excelproyectos(ActionEvent actionEvent) throws JRException, IOException {
+        String carnet = JsfUtil.getRequest().getParameter("codigo");
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        parametros.put("codbene", "ADD123");
+        String streamurl = "/reporte/actividadesProyectos.jasper";
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath(streamurl));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(modelo.proyectosPDF(carnet)));
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.addHeader("Content-disposition", "attachment; filename=fReporte.xls");
+        ServletOutputStream stream = response.getOutputStream();
+        JRXlsExporter exporter = new JRXlsExporter();
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
+        exporter.exportReport();
 
         stream.flush();
         stream.close();
