@@ -46,7 +46,7 @@
                 <b:commandButton value="Auto-generar ID" look="warning" action="#{actividadesDetallesBean.generarid()}"  style="margin-right:10px">
                     <f:ajax execute="nombre" render="idauto"/>
                 </b:commandButton>                           
-                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{actividadesDetallesBean.guardar()}" style="margin-right:10px">
+                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{actividadesDetallesBean.guardar()}" style="margin-right:10px" onclick="return confirmarGuardar();">
                     <f:param value="A" name="tipo"/> 
                 </b:commandButton>
                 <b:commandButton type="reset" value="Limpiar" look="danger"/>
@@ -121,17 +121,20 @@
                     <b:dataTableColumn value="#{est.titulo}"/>       
                     <b:dataTableColumn value="#{est.detalle}"/>
                     <h:column>
-                        <b:commandButton action="#{actividadesBean.eliminar()}" onclick="return confirmarEliminacion();"
-                                         style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px" ajax="true">
-                            <f:setPropertyActionListener target="#{actividadesBean.param1}" value="#{est.idactividadesdetalles}"/>
-                            <f:ajax render="@form" />
-                            <div class='icon1'>
-                                <i class='fa fa-trash-o'></i>
-                            </div>
-                            <div class='text'>
-                                <span>Eliminar</span>
-                            </div>
-                        </b:commandButton>
+                        <c:set var="variable" scope="session" value="#{verificarsesion.dameeltipo()}"/>
+                        <c:if test="${variable==3}">
+                            <b:commandButton action="#{actividadesBean.eliminar()}" onclick="return confirmarEliminacion();"
+                                             style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px" ajax="true">
+                                <f:setPropertyActionListener target="#{actividadesBean.param1}" value="#{est.idactividadesdetalles}"/>
+                                <f:ajax render="@form" />
+                                <div class='icon1'>
+                                    <i class='fa fa-trash-o'></i>
+                                </div>
+                                <div class='text'>
+                                    <span>Eliminar</span>
+                                </div>
+                            </b:commandButton>
+                        </c:if>
                         <b:commandButton action="#{actividadesDetallesBean.obtenerActividad()}" onclick="setTimeout(timeAlert, 1500);"
                                          style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px;" ajax="true">
                             <f:setPropertyActionListener target="#{actividadesDetallesBean.param1}" value="#{est.idactividadesdetalles}"/>
@@ -216,6 +219,9 @@
             .alert("Abre el registro para editarlo.", function(){
             alertify.message('OK');
             });            
+            }
+            function confirmarGuardar(){
+            return confirm("¿Está seguro de los datos ingresados?");
             }
         </h:outputScript>
 
