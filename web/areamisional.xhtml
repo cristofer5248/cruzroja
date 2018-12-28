@@ -38,7 +38,7 @@
                     </b:inputText>
 
                 </b:panelGrid>
-                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{categoriaBean.guardarCategoria()}" style="margin-right:10px"/>
+                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{categoriaBean.guardarCategoria()}" style="margin-right:10px" onclick="return confirmarGuardar();"/>
                 <b:commandButton type="reset" value="Limpiar" look="danger"/>
             </b:form>
         </b:panel>
@@ -46,7 +46,7 @@
 
         <b:row>
             <b:form >
-                <b:dataTable value="#{categoriaBean.listaCategoria}" var="est" rendered="#{lugarBean.listaLugar.size()>0}" pdf="true" excel="true" columnVisibility="true" paginated="true">
+                <b:dataTable value="#{categoriaBean.listaCategoria}" var="est" rendered="#{lugarBean.listaLugar.size()>0}" pdf="true" excel="true" columnVisibility="true" paginated="true" responsive="true">
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="ID"/>
@@ -63,20 +63,41 @@
                         <f:facet name="header">
                             <h:outputLabel value="Operaciones"/>
                         </f:facet>
-                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"  style="margin-right:10px"
-                                         action="#{categoriaBean.eliminarArea()}" onclick="return confirmarEliminacion();">
-                            <f:param name="codigo" value="#{est.idcategoria}"/>
-
-                        </h:commandButton>
-                        <h:commandButton value="Modificar" styleClass="btn btn-primary" style="margin-right:10px"   
-                                         action="#{categoriaBean.obtenerCategoria()}">
-                            <f:param name="codigo" value="#{est.idcategoria}"/>
-                        </h:commandButton>                       
-                        <b:commandButton value="Proyectos" ajax="true" icon-awesome="fa-search" style="margin-right:10px" look="info" update="datosbeneficiados" action="#{categoriaBean.proyectosporCategoria}"
-                                         oncomplete="$('#responsiveModal').modal('show')" >
-                            <f:param name="codigo" value="#{est.idcategoria}"/>
+                        <b:commandButton action="#{categoriaBean.eliminarArea()}" onclick="return confirmarEliminacion();"
+                                         style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px;">
+                            <f:setPropertyActionListener target="#{categoriaBean.param1}" value="#{est.idcategoria}"/>
+                            <f:ajax render="@form"/>
+                            <div class='icon1'>
+                                <i class='fa fa-trash-o'></i>
+                            </div>
+                            <div class='text'>
+                                <span>Eliminar</span>
+                            </div>
                         </b:commandButton>
-                        <b:commandButton value="N° de beneficiados" icon-awesome="fa-file-pdf-o" look="danger" actionListener="#{categoriaBean.pdfareamisional}"
+                        <b:commandButton action="#{categoriaBean.obtenerCategoria()}" onclick="timeAlert();"
+                                         style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px;">
+                            <f:setPropertyActionListener target="#{categoriaBean.param1}" value="#{est.idcategoria}"/>
+                            <f:ajax render="miFormulario"/>
+                            <div class='icon1'>
+                                <i class='glyphicon glyphicon-pencil'></i>
+                            </div>
+                            <div class='text' style="background-color: #286090;">
+                                <span>Modificar</span>
+                            </div>
+                        </b:commandButton>                       
+                        <b:commandButton ajax="true" update="datosbeneficiados" action="#{categoriaBean.proyectosporCategoria}"
+                                         oncomplete="$('#responsiveModal').modal('show')"
+                                         style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px;">
+                            <f:setPropertyActionListener target="#{categoriaBean.param1}" value="#{est.idcategoria}"/>
+                            
+                            <div class='icon1'>
+                                <i class='glyphicon glyphicon-search'></i>
+                            </div>
+                            <div class='text' style="background-color: #ec971f;">
+                                <span>Proyectos</span>
+                            </div>
+                        </b:commandButton>
+                        <b:commandButton icon-awesome="fa-file-pdf-o" look="danger" actionListener="#{categoriaBean.pdfareamisional}" tooltip="N° de beneficiados" tooltip-position="auto"
                                          >
                             <f:param name="codigo" value="#{est.idcategoria}"/>
                         </b:commandButton>
@@ -143,6 +164,15 @@
             </c:if>
             function confirmarEliminacion(){
             return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+            function confirmarGuardar(){
+            return confirm("¿Está seguro de los datos ingresados?");
+            }
+            function timeAlert() {
+            alertify
+            .alert("Abre el registro para editarlo.", function(){
+            alertify.message('OK');
+            });            
             }
         </h:outputScript>
 

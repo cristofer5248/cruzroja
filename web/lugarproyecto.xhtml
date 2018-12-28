@@ -75,7 +75,7 @@
                 <b:commandButton value="Auto-generar ID" look="warning" action="#{lugarproyectoBean.generarId()}"  style="margin-right:10px">
                     <f:ajax render="idauto"/>
                 </b:commandButton> 
-                <b:commandButton  value="Guardar/Actualizar"  look="success" action="#{lugarproyectoBean.guardarLugarproyecto()}" style="margin-right:10px">
+                <b:commandButton  value="Guardar/Actualizar"  look="success" action="#{lugarproyectoBean.guardarLugarproyecto()}" style="margin-right:10px" onclick="return confirmarGuardar();">
                 </b:commandButton>
                 <b:commandButton type="reset" value="Limpiar" look="danger"/>
             </b:form>
@@ -138,7 +138,7 @@
 
         <b:row>
             <b:form id="datosdelugaresproyectos">
-                <b:dataTable  value="#{lugarproyectoBean.listalugarProyecto()}" var="est" rendered="#{lugarproyectoBean.listalugarProyecto.size()>0}" pdf="true" excel="true" paginated="true" columnVisibility="true">
+                <b:dataTable  value="#{lugarproyectoBean.listalugarProyecto()}" var="est" rendered="#{lugarproyectoBean.listalugarProyecto.size()>0}" pdf="true" excel="true" paginated="true" columnVisibility="true" responsive="true">
                     <h:column>
                         <f:facet name="header">
                             <h:outputLabel value="Nombre del proyecto"/>
@@ -202,13 +202,29 @@
                         <f:facet name="header">
                             <h:outputLabel value="Operaciones"/>
                         </f:facet>
-                        <p:commandButton icon="ui-icon-disk" value="Actividades" actionListener="#{actividadesBean.llenarproyectoid()}" update="actividadestable2" onclick="$('.modalPseudoClass2').modal()">
-                            <f:param name="codigo" value="#{est.idl}"/>
-                        </p:commandButton>
-                        <h:commandButton value="Eliminar" styleClass="btn btn-danger"  style="margin-right:10px"
-                                         action="#{lugarproyectoBean.eliminarLugarproyecto()}" onclick="return confirmarEliminacion();">
-                            <f:param name="codigo" value="#{est.idl}"/>
-                        </h:commandButton>                        
+                        <b:commandButton  action="#{actividadesBean.llenarproyectoid()}" onclick="$('.modalPseudoClass2').modal()"
+                                          style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px;" ajax="true">
+                            <f:setPropertyActionListener target="#{actividadesBean.param1}" value="#{est.idl}"/>
+                            <f:ajax render="actividadestable2" />
+                            <div class='icon1'>
+                                <i class='glyphicon glyphicon-search'></i>
+                            </div>
+                            <div class='text' style="background-color: #ec971f;">
+                                <span>Actividades</span>
+                            </div>
+                        </b:commandButton>
+
+                        <b:commandButton action="#{lugarproyectoBean.eliminarLugarproyecto()}" onclick="return confirmarEliminacion();" 
+                                         style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px;">
+                            <f:setPropertyActionListener target="#{lugarproyectoBean.param1}" value="#{est.idl}"/>
+                            <f:ajax render="@form"/>
+                            <div class='icon1'>
+                                <i class='fa fa-trash-o'></i>
+                            </div>
+                            <div class='text'>
+                                <span>Eliminar</span>
+                            </div>
+                        </b:commandButton>                        
                     </h:column>                      
                 </b:dataTable>
             </b:form>
@@ -221,10 +237,8 @@
             function confirmarEliminacion(){
             return confirm("¿Está seguro que desea eliminar este registro?");
             }
-            function CheckAdd(){
-            return alertify.confirm('Cancel button is focused by default.').set('defaultFocus', 'cancel'); 
-
-
+            function confirmarGuardar(){
+            return confirm("¿Está seguro de los datos ingresados?");
             }
         </h:outputScript>
 

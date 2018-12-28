@@ -90,7 +90,7 @@
                 <b:commandButton value="Auto-generar ID" look="warning" action="#{lugarBean.genearid()}"  style="margin-right:10px">
                     <f:ajax execute="nombre" render="idauto"/>
                 </b:commandButton>                           
-                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{lugarBean.guardarLugar()}" style="margin-right:10px"/>
+                <b:commandButton  value="Guardar/Actualizar" look="success" action="#{lugarBean.guardarLugar()}" style="margin-right:10px" onclick="return confirmarGuardar();"/>
                 <b:commandButton type="reset" value="Limpiar" look="danger"/>
                 <p:commandButton value="Ver Mapa" type="button"  onclick="PF('mapamodal').show();" style="margin-left: 5px;" class="btn-info"/>
             </b:form>
@@ -195,6 +195,9 @@
             .alert("Abre el registro para editarlo.", function(){
             alertify.message('OK');
             });            
+            }
+            function confirmarGuardar(){
+            return confirm("¿Está seguro de los datos ingresados?");
             }
 
         </h:outputScript>

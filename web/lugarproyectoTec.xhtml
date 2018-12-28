@@ -140,9 +140,17 @@
                         <f:facet name="header">
                             <h:outputLabel value="Operaciones"/>
                         </f:facet>
-                        <p:commandButton icon="ui-icon-disk" value="Actividades" actionListener="#{actividadesBean.llenarproyectoid()}" update="actividadestable2" onclick="$('.modalPseudoClass2').modal()">
-                            <f:param name="codigo" value="#{est.idl}"/>
-                        </p:commandButton>
+                        <b:commandButton action="#{actividadesBean.llenarproyectoid()}" update="actividadestable2" onclick="$('.modalPseudoClass2').modal()"
+                                         style="border-color: none; margin: 0px; padding: 0px; border:0px; display: inline-flex; margin-right:10px;">
+                            <f:setPropertyActionListener target="#{actividadesBean.param1}" value="#{est.idl}"/>
+                            <f:ajax render="actividadestable2"/>
+                            <div class='icon1'>
+                                <i class='glyphicon glyphicon-search'></i>
+                            </div>
+                            <div class='text' style="background-color: #ec971f;">
+                                <span>Actividades</span>
+                            </div>
+                        </b:commandButton>
                     </h:column>
                 </b:dataTable>
             </b:form>

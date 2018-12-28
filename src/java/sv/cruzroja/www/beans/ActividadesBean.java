@@ -259,7 +259,7 @@ public class ActividadesBean implements Serializable {
     }
 
     public void llenarproyectoid() {
-        String codigo = JsfUtil.getRequest().getParameter("codigo");
+        String codigo = this.param1;
         System.out.print("sdfnsfusfuisfhysdfsdhfsdhsdfs " + codigo);
         proyectoid = codigo;
 

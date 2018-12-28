@@ -44,6 +44,7 @@ public class CategoriaBean {
     private String idgenerado;
     private List<LugarproyectoEntity> lugarproyecto;
     private LugarProyectos lugarProyectosmodel = new LugarProyectos();
+    private String param1;
 
     /**
      * Creates a new instance of CategoriaBean
@@ -73,7 +74,7 @@ para obtener la lista de objetos a partir de la bd */
 
     public String eliminarArea() {
 // Leyendo el parametro enviado desde la vista
-        int codigo = Integer.parseInt(JsfUtil.getRequest().getParameter("codigo"));
+        int codigo = Integer.parseInt(this.param1);
 
         //System.out.println(carnet);
         if (categoriamodel.eliminarCategoria(codigo) > 0) {
@@ -86,7 +87,7 @@ para obtener la lista de objetos a partir de la bd */
     }
 
     public void obtenerCategoria() {
-        int carnet = Integer.parseInt(JsfUtil.getRequest().getParameter("codigo"));
+        int carnet = Integer.parseInt(this.param1);
         this.categoria = categoriamodel.obtenerCategoria(carnet);
 
     }
@@ -134,7 +135,7 @@ para obtener la lista de objetos a partir de la bd */
 
     public void proyectosporCategoria() {
         int codigo = 0;
-        codigo = Integer.parseInt(JsfUtil.getRequest().getParameter("codigo"));
+        codigo = Integer.parseInt(this.param1);
         if (codigo != 0) {
             System.out.print("el codigo de categoria es : " + codigo);
             lugarproyecto = lugarProyectosmodel.listarLugarproyectosporArea(codigo);
@@ -157,5 +158,20 @@ para obtener la lista de objetos a partir de la bd */
     public void setLugarproyecto(List<LugarproyectoEntity> lugarproyecto) {
         this.lugarproyecto = lugarproyecto;
     }
+
+    /**
+     * @return the param1
+     */
+    public String getParam1() {
+        return param1;
+    }
+
+    /**
+     * @param param1 the param1 to set
+     */
+    public void setParam1(String param1) {
+        this.param1 = param1;
+    }
+    
 
 }

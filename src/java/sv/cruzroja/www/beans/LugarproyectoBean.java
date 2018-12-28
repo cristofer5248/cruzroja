@@ -65,6 +65,7 @@ public class LugarproyectoBean {
     private String encargado;
     private String hayono;
     private PDFOptions pdfOpt;
+    private String param1;
 
     /**
      * Creates a new instance of Lugarproyecto
@@ -139,7 +140,7 @@ public class LugarproyectoBean {
 
     public String eliminarLugarproyecto() {
 // Leyendo el parametro enviado desde la vista
-        String carnet = JsfUtil.getRequest().getParameter("codigo");
+        String carnet = this.param1;
 
         //System.out.println(carnet);
         if (model.eliminarLugarproyecto(carnet) > 0) {
@@ -356,6 +357,20 @@ public class LugarproyectoBean {
      */
     public void setPdfOpt(PDFOptions pdfOpt) {
         this.pdfOpt = pdfOpt;
+    }
+
+    /**
+     * @return the param1
+     */
+    public String getParam1() {
+        return param1;
+    }
+
+    /**
+     * @param param1 the param1 to set
+     */
+    public void setParam1(String param1) {
+        this.param1 = param1;
     }
     
     

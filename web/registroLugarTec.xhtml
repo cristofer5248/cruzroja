@@ -47,7 +47,7 @@
                         <h:outputText value="#{est.municipio.nombre}"/>
 
                     </h:column>
-                                       
+
                 </b:dataTable>
             </b:form>
         </b:row>
@@ -58,6 +58,9 @@
             </c:if>
             function confirmarEliminacion(){
             return confirm("¿Está seguro que desea eliminar este estudiante");
+            }
+            function confirmarGuardar(){
+            return confirm("¿Está seguro de los datos ingresados?");
             }
         </h:outputScript>
 
