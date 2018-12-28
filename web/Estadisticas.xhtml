@@ -16,17 +16,18 @@
         <title> Estadisticas</title>
     </ui:define>
 
-    <ui:define name="contenido">      
+    <ui:define name="contenido">     
         <b:panel title="Elija la opcion a graficar"  look="primary">
-            <b:form id="miFormulario">
-                <h:panelGroup layout="block" styleClass="alert alert-danger" 
-                              rendered="#{not empty facesContext.messageList}">
-                    <h:messages  />
-                </h:panelGroup>
-                <b:panelGrid columns="4" styleClass="table">                    
+
+            <h:panelGroup layout="block" styleClass="alert alert-danger" 
+                          rendered="#{not empty facesContext.messageList}">
+                <h:messages  />
+            </h:panelGroup>
+            <b:panelGrid columns="4" styleClass="table">                   
 
 
-                    <b:panel title="Beneficiados por proyecto:">
+                <b:panel title="Beneficiados por proyecto:">
+                    <b:form id="miFormulario">
                         <h:outputLabel for="Lugar" value="Lugar"/>
                         <b:selectOneMenu value="#{estadisticasBean.idlugar}">
                             <f:ajax event="change" listener="${estadisticasBean.llenarcomboProyecto()}" render="proyectodrown"/>                           
@@ -53,8 +54,13 @@
                         <b:commandButton value="PDF por edad" look="danger"  icon-awesome="fa-file-pdf-o" actionListener="${estadisticasBean.pdfedades}">
 
                         </b:commandButton>
-                    </b:panel>
-                    <b:panel title="Asistencia de beneficiados" >                        
+                    </b:form>
+                </b:panel>
+
+
+
+                <b:panel title="Asistencia de beneficiados" >                        
+                    <b:form id='asistencia'>
                         <h:outputLabel for="Lugar" value="Lugar"/>
                         <b:selectOneMenu value="#{estadisticasBean.idlugar}">
                             <f:ajax event="change" listener="${estadisticasBean.llenarcomboProyecto()}" render="proyectodrown2"/>                           
@@ -68,15 +74,42 @@
                         </p:selectOneMenu><br></br>
 
                         <b:commandButton value="Generar PDF" look="danger"  icon-awesome="fa-file-pdf-o" actionListener="${estadisticasBean.pdfasistenciaproyectos}">
-
                         </b:commandButton>
-                        <p:commandButton value="Generar en tabla" class="btn btn-danger" ajax="true" icon="fa fa-table" update="tablaasistenciaform">    
+                        <p:commandButton value="Generar en tabla" class="btn btn-danger" ajax="true" icon="fa fa-table" update="tablaasistenciaform"/> 
 
-                        </p:commandButton>
+                    </b:form>
+                </b:panel>
+                <b:panel title="Busqueda de beneficiados" >
+                    <b:form id="busquedaBene">                        
+                        <b:button value="Establecer rango de fechas" look="info"  icon-awesome="fa-fa-calendar" onclick="$('.responsiveModalPseudoClass').modal()" /> <br></br>
 
-                    </b:panel>
-                </b:panelGrid>                           
-            </b:form>
+                        <b:commandButton value="PDF" style="margin-top: 10px;" iconAwesome="fa-file-pdf-o" look="danger"
+                                         actionListener="#{beneficiadoBeans.busquedaporFecha}"> 
+                        </b:commandButton><br></br>
+                        <!--                        <b:commandButton value="XLS" style="margin-top: 10px;" iconAwesome="fa-file-excel-o" look="danger"
+                                                                 actionListener="{beneficiadoBeans.busquedaporFechaExcel}"> 
+                                                </b:commandButton>-->
+                    </b:form>
+                </b:panel>
+            </b:panelGrid>
+
+            <b:modal title="Elije el rango de fechas" styleClass="responsiveModalPseudoClass"
+                     id="responsiveModal" closable="false">
+                <h:form id="filtro">
+                    <p:panelGrid columns="4" style="border:0px;">
+                        <p:outputLabel value="Fecha de inicio:" />
+                        <p:calendar id="mask" value="#{beneficiadoBeans.fecha1}" pattern="yyyy-MM-dd" mask="true" >
+                        </p:calendar>
+                        <p:outputLabel style="margin-left: 5px;" value="Fecha final:" />
+                        <p:calendar id="mask2" value="#{beneficiadoBeans.fecha2}" pattern="yyyy-MM-dd" mask="true">
+                        </p:calendar>
+                        <b:commandButton ajax="true" value="Enviar" update="@form" />
+                    </p:panelGrid>
+                    <br></br>                
+                    <b:button value="Listo!" look="primary" dismiss="modal" style="margin-right: 10px;" rendered="#{(beneficiadoBeans.fecha1!=null)and(beneficiadoBeans.fecha2!=null)}" />
+                </h:form>
+
+            </b:modal>
         </b:panel>
         <b:form id="tablaasistenciaform">     
 
@@ -88,7 +121,7 @@
                 </p:columns>
             </p:dataTable>
         </b:form>
-        
+
         <p:panelGrid style="margin-bottom:  10px;">
             <h3>Exportar a excel</h3>
             <button id="btn1" class="btn btn-success" style="margin-top: 10px;" >Descargar</button>
@@ -101,6 +134,15 @@
             </c:if>
             function confirmarEliminacion(){
             return confirm("¿Está seguro que desea eliminar?");
+            }
+            funcion cerrarModal(){
+            $(window).load(function(){ $('.responsiveModalPseudoClass').modal('hide'); });
+            }
+            function timeAlert() {
+            alertify
+            .alert("Fechas enviadas! Cierra esta ventana.", function(){
+            alertify.message('OK');
+            });            
             }
         </h:outputScript>
         <script type="text/javascript">

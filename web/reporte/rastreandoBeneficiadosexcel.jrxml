@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="900" pageHeight="595" orientation="Landscape" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="78d16270-1296-4830-9ba0-9285123e369f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#954A4A">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#E6CFCF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#8B0000">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#DC002C">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#FFE6EB">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="cruz" uuid="06ec9e67-43be-4221-8f55-97e5228eb034">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     
+     datosbeneficiados.`nombres` AS datosbeneficiados_nombres,
+     datosbeneficiados.`idusuario` AS datosbeneficiados_idusuario,
+     datosbeneficiados.`apellidos` AS datosbeneficiados_apellidos,
+     datosbeneficiados.`edad` AS datosbeneficiados_edad,
+     lugarproyecto.`fechainicio` AS lugarproyecto_fechainicio,
+     lugarproyecto.`fechafinal` AS lugarproyecto_fechafinal,
+     datosbeneficiados.`telefono` AS datosbeneficiados_telefono,
+     genero.`nombre` AS genero_nombre,
+     actividadesdetalles.`titulo` AS actividadesdetalles_titulo,
+     proyectos.`nombre` AS proyectos_nombre,
+     municipio.`nombre` AS municipio_nombre,
+     departamento.`nombre` AS departamento_nombre
+FROM
+     `datosbeneficiados` datosbeneficiados INNER JOIN `beneficiados` t2 ON datosbeneficiados.`idusuario` = t2.`idbeneficiado`
+     INNER JOIN `genero` genero ON datosbeneficiados.`genero` = genero.`idg`
+     INNER JOIN `actividades` actividades ON t2.`idproyecto` = actividades.`idactividad`
+     INNER JOIN `lugarproyecto` lugarproyecto ON actividades.`lugarproyectoPadre` = lugarproyecto.`idl`
+     INNER JOIN `actividadesdetalles` actividadesdetalles ON actividades.`detalleactividad` = actividadesdetalles.`idactividadesdetalles`
+     INNER JOIN `actividades` t1 ON lugarproyecto.`idl` = t1.`lugarproyectoPadre`
+     INNER JOIN `proyectos` proyectos ON lugarproyecto.`idlp` = proyectos.`idproyecto`
+     INNER JOIN `municipio` municipio ON proyectos.`seccionales` = municipio.`idmunicipio`
+     INNER JOIN `departamento` departamento ON municipio.`departamento` = departamento.`iddepartamento`,
+     `lugarproyecto` t0
+WHERE
+     (((CAST(t0.fechainicio AS Date) >= '2017-12-04')
+ AND (CAST(t0.fechafinal AS Date) <= '2018-12-04'))
+ AND ((t1.idactividad = t2.idproyecto)
+ AND (t0.idl = t1.lugarproyectoPadre)))]]>
+		</queryString>
+		<field name="datosbeneficiados_nombres" class="java.lang.String"/>
+		<field name="datosbeneficiados_idusuario" class="java.lang.String"/>
+		<field name="datosbeneficiados_apellidos" class="java.lang.String"/>
+		<field name="datosbeneficiados_edad" class="java.lang.Integer"/>
+		<field name="lugarproyecto_fechainicio" class="java.sql.Date"/>
+		<field name="lugarproyecto_fechafinal" class="java.sql.Date"/>
+		<field name="datosbeneficiados_telefono" class="java.lang.Integer"/>
+		<field name="genero_nombre" class="java.lang.String"/>
+		<field name="actividadesdetalles_titulo" class="java.lang.String"/>
+		<field name="proyectos_nombre" class="java.lang.String"/>
+		<field name="municipio_nombre" class="java.lang.String"/>
+		<field name="departamento_nombre" class="java.lang.String"/>
+		<group name="proyectos_nombre">
+			<groupExpression><![CDATA[$F{proyectos_nombre}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     
+     datosbeneficiados.`nombres` AS datosbeneficiados_nombres,
+     datosbeneficiados.`idusuario` AS datosbeneficiados_idusuario,
+     datosbeneficiados.`apellidos` AS datosbeneficiados_apellidos,
+     datosbeneficiados.`edad` AS datosbeneficiados_edad,
+     lugarproyecto.`fechainicio` AS lugarproyecto_fechainicio,
+     lugarproyecto.`fechafinal` AS lugarproyecto_fechafinal,
+     datosbeneficiados.`telefono` AS datosbeneficiados_telefono,
+     genero.`nombre` AS genero_nombre,
+     actividadesdetalles.`titulo` AS actividadesdetalles_titulo,
+     proyectos.`nombre` AS proyectos_nombre,
+     municipio.`nombre` AS municipio_nombre,
+     departamento.`nombre` AS departamento_nombre
+FROM
+     `datosbeneficiados` datosbeneficiados INNER JOIN `beneficiados` t2 ON datosbeneficiados.`idusuario` = t2.`idbeneficiado`
+     INNER JOIN `genero` genero ON datosbeneficiados.`genero` = genero.`idg`
+     INNER JOIN `actividades` actividades ON t2.`idproyecto` = actividades.`idactividad`
+     INNER JOIN `lugarproyecto` lugarproyecto ON actividades.`lugarproyectoPadre` = lugarproyecto.`idl`
+     INNER JOIN `actividadesdetalles` actividadesdetalles ON actividades.`detalleactividad` = actividadesdetalles.`idactividadesdetalles`
+     INNER JOIN `actividades` t1 ON lugarproyecto.`idl` = t1.`lugarproyectoPadre`
+     INNER JOIN `proyectos` proyectos ON lugarproyecto.`idlp` = proyectos.`idproyecto`
+     INNER JOIN `municipio` municipio ON proyectos.`seccionales` = municipio.`idmunicipio`
+     INNER JOIN `departamento` departamento ON municipio.`departamento` = departamento.`iddepartamento`,
+     `lugarproyecto` t0
+WHERE
+     (((CAST(t0.fechainicio AS Date) >= '2017-12-04')
+ AND (CAST(t0.fechafinal AS Date) <= '2018-12-04'))
+ AND ((t1.idactividad = t2.idproyecto)
+ AND (t0.idl = t1.lugarproyectoPadre)))]]>
+	</queryString>
+	<field name="datosbeneficiados_nombres" class="java.lang.String"/>
+	<field name="datosbeneficiados_idusuario" class="java.lang.String"/>
+	<field name="datosbeneficiados_apellidos" class="java.lang.String"/>
+	<field name="datosbeneficiados_edad" class="java.lang.Integer"/>
+	<field name="datosbeneficiados_telefono" class="java.lang.Integer"/>
+	<field name="genero_nombre" class="java.lang.String"/>
+	<field name="actividadesdetalles_titulo" class="java.lang.String"/>
+	<field name="proyectos_nombre" class="java.lang.String"/>
+	<field name="municipio_nombre" class="java.lang.String"/>
+	<field name="departamento_nombre" class="java.lang.String"/>
+	<field name="fechainicio" class="java.lang.String"/>
+	<field name="fechafinal" class="java.lang.String"/>
+	<title>
+		<band height="71" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="216" height="70" uuid="f36298ae-7686-4c8e-a904-88f2d6715049"/>
+				<imageExpression><![CDATA["003banner.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yy">
+				<reportElement x="533" y="25" width="188" height="25" forecolor="#FFFFFF" uuid="0df108f3-fbfb-4260-b535-7a2d91899ab0"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="269" y="0" width="216" height="70" uuid="bafa0911-3a20-4d5b-9c04-97ed751275e1"/>
+				<imageExpression><![CDATA["logo_1.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="44">
+			<componentElement>
+				<reportElement key="table 4" style="table 4" x="0" y="0" width="860" height="43" uuid="657edf66-4c9b-4bcd-a4dc-535082fc9ece"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="cruz" uuid="b0ab2e69-601f-4349-9b18-1134ce37c1b4">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="3e13b9d9-0a33-46bd-9581-38b80284133c">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="da9fabdf-ff45-49cd-aa6b-6bb583eb6333"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Id]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="6e7dd490-8f89-4685-b72f-8f1c352f83a9"/>
+								<textFieldExpression><![CDATA[$F{datosbeneficiados_idusuario}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="2a6cfc5c-6c7a-42a6-a139-191959441431">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="9f8856d0-b035-461a-9eef-91b5f6448237"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nombres]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="cd4cffb4-d955-4942-8769-4305f14048ce"/>
+								<textFieldExpression><![CDATA[$F{datosbeneficiados_nombres}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="41b64002-4d6a-452b-a48b-be1268dc8cd5">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="11832167-9107-4b0b-9e0e-3345ebfd8ffa"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Apellidos]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="07ece6e2-7cb0-4add-86e3-4947fd89e19d"/>
+								<textFieldExpression><![CDATA[$F{datosbeneficiados_apellidos}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="732a7678-b706-4b8e-9bb1-42d1b9582d29">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="0c01b3cd-ef1c-4e31-a990-0f7d4badadc0"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Edad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="5b22c509-ceb1-48c1-9cfc-9606b9c204ff"/>
+								<textFieldExpression><![CDATA[$F{datosbeneficiados_edad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="a01b66ae-29e5-40e8-913e-64adcb04317c">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="64ab4ff8-d768-4c06-8a11-55e5f04eac50"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Inicio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="36ceeaf2-238b-424d-ab1c-fc1d39f741bf"/>
+								<textFieldExpression><![CDATA[$F{fechainicio}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="41590358-a5dc-4fdd-9bea-5c3567813d0c">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="8df9175c-1502-4876-96f4-3dfd080cb708"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Finalizacion]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="831786d3-8651-4a72-bc9a-83d07a69d6be"/>
+								<textFieldExpression><![CDATA[$F{fechafinal}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="fc024231-f9f0-4a1a-82b6-81220834c522">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="eeaa2fae-86a9-42b7-90d1-71a7573b6243"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Telefono]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="078257c6-16e2-4e0a-83b0-fe8a0fda49ef"/>
+								<textFieldExpression><![CDATA[$F{datosbeneficiados_telefono}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="da9f2b94-200a-48d8-b14a-26bac5cea40f">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="1a17d694-8865-4f84-955b-406204113685"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Sexo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="460e0e57-6819-495a-9cde-b17ea5ad47e2"/>
+								<textFieldExpression><![CDATA[$F{genero_nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="6a72017e-8e44-4ff4-84f0-f656f8a489b5">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="ccc41d97-44e9-4160-89a5-87de8d21d2cb"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Actividad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="c71b72f1-37ce-44ec-bf01-1c6472cbdca8"/>
+								<textFieldExpression><![CDATA[$F{actividadesdetalles_titulo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="1e3e380d-086a-4991-9538-cae33aff5f9b">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="2fb37a06-8034-4679-8aa7-6b903203e375"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Id actividad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="4ca0c3a3-016a-425f-a920-0f00b08911f4"/>
+								<textFieldExpression><![CDATA[$F{proyectos_nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="9a2064de-59e8-4a8e-916f-28e3d3552689">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="eb56c1d7-9d2d-492b-aa0d-777566934f7e"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Municipio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="34e74a40-4d21-440d-a294-3d098ae26e52"/>
+								<textFieldExpression><![CDATA[$F{municipio_nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="55c8c909-2bf6-4654-b0ef-9e105485efac">
+						<jr:columnHeader style="table 4_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="6e7ffafa-83f2-4ee5-9b22-92dfd8458b96"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Departamento]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 4_CH" height="30"/>
+						<jr:detailCell style="table 4_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="e67cd717-3c8a-44b5-a12c-5bf8286cd272"/>
+								<textFieldExpression><![CDATA[$F{departamento_nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

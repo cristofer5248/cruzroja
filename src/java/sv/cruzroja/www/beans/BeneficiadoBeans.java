@@ -5,17 +5,33 @@
  */
 package sv.cruzroja.www.beans;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 //import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import sv.cruzroja.www.entities.DatosbeneficiadosEntity;
 import sv.cruzroja.www.entities.GeneroEntity;
 import sv.cruzroja.www.model.BeneficiadoModel;
 import sv.cruzroja.www.model.ProyectosBeneficiadomodel;
 import sv.cruzroja.www.utils.JsfUtil;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 
 /**
  *
@@ -34,6 +50,8 @@ public class BeneficiadoBeans {
     private String idgenerado;
     public String apellidos;
     private String param1;
+    private Date fecha1;
+    private Date fecha2;
 
     public BeneficiadoBeans() {
         beneficiado = new DatosbeneficiadosEntity();
@@ -74,13 +92,65 @@ public class BeneficiadoBeans {
     public void obtenerBeneficiado() {
         try {
             String codigo = this.param1;
-            System.out.print("QUE ME SALIOOOO "+codigo);
+            System.out.print("QUE ME SALIOOOO " + codigo);
             this.beneficiado = modelo.obtenerBeneficiado(codigo);
             JsfUtil.setFlashMessage("Listo, abre el formulario de registro", "Listo, abre el formulario de registro");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void busquedaporFecha(ActionEvent actionEvent) throws JRException, IOException {
+        try {
+
+            Map<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("fechainicio", "fechainicio");
+            parametros.put("fecha2", "fecha");
+            String streamurl = "/reporte/rastreandoBeneficiados.jasper";
+            File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath(streamurl));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(modelo.rastreandoBeneficiados(fecha1, fecha2)));
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=Reporte.pdf");
+            ServletOutputStream stream = response.getOutputStream();
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+
+            stream.flush();
+            stream.close();
+
+            FacesContext.getCurrentInstance().responseComplete();
+//            System.out.print("Vaya ahorita iniciamos el experimento we");
+//            int aver = modelo.rastreandoBeneficiados(this.fecha1, this.fecha2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void busquedaporFechaExcel(ActionEvent actionEvent) throws JRException, IOException {
+        try {
+
+            Map<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("fechainicio", "fechainicio");
+            parametros.put("fecha2", "fecha");
+            String streamurl = "/reporte/rastreandoBeneficiadosexcel.jasper";
+            File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath(streamurl));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(modelo.rastreandoBeneficiados(fecha1, fecha2)));
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=Reporte.xls");
+            ServletOutputStream stream = response.getOutputStream();
+            JRXlsExporter exporter = new JRXlsExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
+            exporter.exportReport();
+            stream.flush();
+            stream.close();
+
+            FacesContext.getCurrentInstance().responseComplete();
+//            System.out.print("Vaya ahorita iniciamos el experimento we");
+//            int aver = modelo.rastreandoBeneficiados(this.fecha1, this.fecha2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void guardarBeneficiado() {
@@ -186,6 +256,34 @@ public class BeneficiadoBeans {
      */
     public void setParam1(String param1) {
         this.param1 = param1;
+    }
+
+    /**
+     * @return the fecha1
+     */
+    public Date getFecha1() {
+        return fecha1;
+    }
+
+    /**
+     * @param fecha1 the fecha1 to set
+     */
+    public void setFecha1(Date fecha1) {
+        this.fecha1 = fecha1;
+    }
+
+    /**
+     * @return the fecha2
+     */
+    public Date getFecha2() {
+        return fecha2;
+    }
+
+    /**
+     * @param fecha2 the fecha2 to set
+     */
+    public void setFecha2(Date fecha2) {
+        this.fecha2 = fecha2;
     }
 
 }

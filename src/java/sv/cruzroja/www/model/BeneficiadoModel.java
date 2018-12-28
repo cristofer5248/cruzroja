@@ -7,6 +7,7 @@ package sv.cruzroja.www.model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -211,6 +212,55 @@ public class BeneficiadoModel {
         }
     }
 
+    public List<Map<String, ?>> rastreandoBeneficiados(Date fecha1, Date fecha2) {
+        SimpleDateFormat d = new SimpleDateFormat("dd-MM-yyyy");
+        String fechaString;
+        String fechaString2;
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNamedQuery("BeneficiadosEntity.findByIdDateRange").setParameter("fecha1", fecha1).setParameter("fecha2", fecha2);
+            //El método getResultList() de la clase Query permite obtener
+            // la lista de resultados de una consulta de selección
+            List<Map<String, ?>> result = new ArrayList<Map<String, ?>>();
+            List<BeneficiadosEntity> lista = consulta.getResultList();
+            int totalcount = lista.size();
+            for (BeneficiadosEntity b : lista) {
+                Map<String, Object> m = new HashMap<String, Object>();
+                fechaString = d.format(b.getIdproyecto().getLugarproyectoPadre().getFechainicio());
+                fechaString2 = d.format(b.getIdproyecto().getLugarproyectoPadre().getFechafinal());
+//                m.put("fechainicio", fechaString);
+//                m.put("fechafinal", fechaString2);
+                m.put("datosbeneficiados_idusuario", b.getIdbeneficiado().getIdusuario());
+                m.put("datosbeneficiados_nombres", b.getIdbeneficiado().getNombres());
+                m.put("datosbeneficiados_apellidos", b.getIdbeneficiado().getApellidos());
+                m.put("datosbeneficiados_edad", b.getIdbeneficiado().getEdad());
+                m.put("fechainicio", fechaString);
+                m.put("fechafinal", fechaString2);
+                m.put("proyectos_nombre", b.getIdproyecto().getLugarproyectoPadre().getIdlp().getNombre());
+                m.put("datosbeneficiados_telefono", b.getIdbeneficiado().getTelefono());
+                m.put("genero_nombre", b.getIdbeneficiado().getGenero().getNombre());
+                m.put("actividadesdetalles_titulo", b.getIdproyecto().getDetalleactividad().getTitulo());
+                m.put("municipio_nombre", b.getIdproyecto().getLugarproyectoPadre().getIdlugar().getMunicipio().getNombre());
+                m.put("departamento_nombre", b.getIdproyecto().getLugarproyectoPadre().getIdlugar().getDepartamento().getNombre());
+                System.out.println("Prueba de datos: " + b.getIdbeneficiado().getNombres() + " total:" + totalcount);
+                result.add(m);
+
+//                totalcount = lista.size();
+//
+//                if (lista.size() == 0) {
+//                    System.out.println("we lo siento :C");
+//                }
+                em.close();// Cerrando el EntityManager
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.close();
+            return null;
+        }
+    }
+    
+
     public List<Map<String, ?>> listarcantidadeBeneficiadosXrea(int idarea) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         SimpleDateFormat d = new SimpleDateFormat("dd-MM-yyyy hh:mm");
@@ -284,7 +334,7 @@ public class BeneficiadoModel {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             Query consulta = em.createNativeQuery("select det.titulo,ac.idactividad from beneficiados  b inner join actividades ac on b.idproyecto=ac.idactividad inner join datosbeneficiados da\n"
-                    + "on b.idbeneficiado=da.idusuario inner join actividadesdetalles det on det.idactividadesdetalles=ac.detalleactividad  where ac.lugarproyectoPadre='"+proyecto+"'\n"
+                    + "on b.idbeneficiado=da.idusuario inner join actividadesdetalles det on det.idactividadesdetalles=ac.detalleactividad  where ac.lugarproyectoPadre='" + proyecto + "'\n"
                     + "group by det.idactividadesdetalles order by da.nombres ASC;");
             List<Object[]> aber = consulta.getResultList();
             em.close();
@@ -301,7 +351,7 @@ public class BeneficiadoModel {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             Query consulta = em.createNativeQuery("select det.titulo from beneficiados  b inner join actividades ac on b.idproyecto=ac.idactividad inner join datosbeneficiados da\n"
-                    + "on b.idbeneficiado=da.idusuario inner join actividadesdetalles det on det.idactividadesdetalles=ac.detalleactividad  where ac.lugarproyectoPadre='"+proyecto+"'\n"
+                    + "on b.idbeneficiado=da.idusuario inner join actividadesdetalles det on det.idactividadesdetalles=ac.detalleactividad  where ac.lugarproyectoPadre='" + proyecto + "'\n"
                     + "group by det.idactividadesdetalles order by da.nombres ASC;");
             List<String> aber = new ArrayList<String>();
             List<String> aber2 = consulta.getResultList();
@@ -342,7 +392,7 @@ public class BeneficiadoModel {
                     //                    + "  \n"
                     //                    + "  \n"
                     + "from beneficiados  b inner join actividades ac on b.idproyecto=ac.idactividad inner join datosbeneficiados da\n"
-                    + "on b.idbeneficiado=da.idusuario  where ac.lugarproyectoPadre='"+proyecto+"'\n"
+                    + "on b.idbeneficiado=da.idusuario  where ac.lugarproyectoPadre='" + proyecto + "'\n"
                     + "group by idbeneficiado order by da.nombres ASC;");
             List<Object[]> pivot = consulta.getResultList();
             em.close();
