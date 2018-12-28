@@ -53,6 +53,7 @@
 
         <h:outputScript>
             <c:set var="message" value='${param.error}' />
+            <c:set var="variable" scope="session" value="#{verificarsesion.dameeltipo()}"/>
 
             <c:if test = "${message=='true'}">
                 alertify
@@ -72,6 +73,13 @@
                 alertify.message('OK');
                 });  
             </c:if>
+            <c:if test="${variable==2}">                
+                window.location.replace("principalTec.xhtml");
+            </c:if>
+            <c:if test="${(variable==1) || (variable ==3)}"> 
+                window.location.replace("principalAd.xhtml"); 
+            </c:if>
+
 
         </h:outputScript>
     </h:body>

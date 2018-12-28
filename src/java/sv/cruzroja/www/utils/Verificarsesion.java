@@ -57,7 +57,6 @@ public class Verificarsesion {
                     model.modificarUsuarios(cambiaractivo);
                     us.setActivo(Boolean.TRUE);
                     this.setMensaje(us.getNombres());
-                    
 
                 }
                 this.setTipo(us.getTipousuario().getIdtipou());
@@ -71,15 +70,15 @@ public class Verificarsesion {
     }
 
     public int dameeltipo() {
-        int devolver=0;
+        int devolver = 0;
         try {
-        UsuariosEntity us = (UsuariosEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");    
-        devolver= us.getTipousuario().getIdtipou();
+            UsuariosEntity us = (UsuariosEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+            devolver = us.getTipousuario().getIdtipou();
         } catch (Exception e) {
         }
-        
+
         return devolver;
-        
+
     }
 
     public void verificarsession2() throws IOException {
