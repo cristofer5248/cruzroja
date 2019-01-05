@@ -250,8 +250,8 @@ public class BeneficiadoModel {
 //                if (lista.size() == 0) {
 //                    System.out.println("we lo siento :C");
 //                }
-                em.close();// Cerrando el EntityManager
             }
+            em.close();// Cerrando el EntityManager
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -259,7 +259,6 @@ public class BeneficiadoModel {
             return null;
         }
     }
-    
 
     public List<Map<String, ?>> listarcantidadeBeneficiadosXrea(int idarea) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
