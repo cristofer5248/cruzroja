@@ -73,9 +73,11 @@
                             <f:selectItems value="#{estadisticasBean.lugarproyectoslist}" var="theme" itemLabel="#{theme.idlp.nombre}" itemValue="#{theme.idl}" />
                         </p:selectOneMenu><br></br>
 
-                        <b:commandButton value="Generar PDF" look="danger"  icon-awesome="fa-file-pdf-o" actionListener="${estadisticasBean.pdfasistenciaproyectos}">
+                        <b:commandButton value="Generar PDF" look="danger" style="margin-bottom: 10px;"  icon-awesome="fa-file-pdf-o" actionListener="${estadisticasBean.pdfasistenciaproyectos}">
                         </b:commandButton>
-                        <p:commandButton value="Generar en tabla" class="btn btn-danger" ajax="true" icon="fa fa-table" update="tablaasistenciaform"/> 
+                        <b:commandButton value="Generar en tabla" class="btn btn-danger" ajax="true" oncomplete="$('#responsiveModal4').modal('show')"  icon="fa fa-table" update="tablaasistenciaform">
+
+                        </b:commandButton>
 
                     </b:form>
                 </b:panel>
@@ -83,12 +85,13 @@
                     <b:form id="busquedaBene">                        
                         <b:button value="Establecer rango de fechas" look="info"  icon-awesome="fa-fa-calendar" onclick="$('.responsiveModalPseudoClass').modal()" /> <br></br>
 
-                        <b:commandButton value="PDF" style="margin-top: 10px;" iconAwesome="fa-file-pdf-o" look="danger"
+                        <b:commandButton value="PDF" style="margin-top: 10px; margin-bottom: 10px;" iconAwesome="fa-file-pdf-o" look="danger"
                                          actionListener="#{beneficiadoBeans.busquedaporFecha}"> 
                         </b:commandButton><br></br>
-                        <!--                        <b:commandButton value="XLS" style="margin-top: 10px;" iconAwesome="fa-file-excel-o" look="danger"
-                                                                 actionListener="{beneficiadoBeans.busquedaporFechaExcel}"> 
-                                                </b:commandButton>-->
+
+                        <b:commandButton value="Generar en tabla" ajax="true" class="btn btn-danger" update="consolidated"
+                                         oncomplete="$('#responsiveModal3').modal('show')" >                            
+                        </b:commandButton>
                     </b:form>
                 </b:panel>
             </b:panelGrid>
@@ -103,7 +106,7 @@
                         <p:outputLabel style="margin-left: 5px;" value="Fecha final:" />
                         <p:calendar id="mask2" value="#{beneficiadoBeans.fecha2}" pattern="yyyy-MM-dd" mask="true">
                         </p:calendar>
-                        <b:commandButton ajax="true" value="Enviar" update="@form" />
+                        <b:commandButton id="btnSendDates" ajax="true" value="Enviar" update="@form" />
                     </p:panelGrid>
                     <br></br>                
                     <b:button value="Listo!" look="primary" dismiss="modal" style="margin-right: 10px;" rendered="#{(beneficiadoBeans.fecha1!=null)and(beneficiadoBeans.fecha2!=null)}" />
@@ -111,21 +114,40 @@
 
             </b:modal>
         </b:panel>
-        <b:form id="tablaasistenciaform">     
+        <b:modal title="Asistencia por proyecto / exportacion" styleClass="responsiveModalPseudoClass2"
+                 id="responsiveModal4" closable="false">
+            <b:form id="tablaasistenciaform">     
 
-            <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.datospivot()}" var="item" rendered="#{estadisticasBean.proyectoid!=null}" paginator="false" class="bolado">
+                <p:dataTable id="tabladeasistencia" value="#{estadisticasBean.datospivot()}" var="item" rendered="#{estadisticasBean.proyectoid!=null}" paginator="false" class="bolado" widgetVar="nolose">
 
-                <p:columns value="#{estadisticasBean.columnaspivot}" var="columnName" columnIndexVar="i">
-                    <f:facet name="header">#{columnName}</f:facet>
-                        #{item[i]}
-                </p:columns>
-            </p:dataTable>
-        </b:form>
+                    <p:columns value="#{estadisticasBean.columnaspivot}" var="columnName" columnIndexVar="i">
+                        <f:facet name="header">#{columnName}</f:facet>
+                            #{item[i]}
+                    </p:columns>
+                </p:dataTable>
+            </b:form>
+            <button id="btn1" class="btn btn-success" style="margin-top: 10px;" >Descargar</button><br></br>
+        </b:modal>
+        <b:modal title="Asistencia por fecha / exportacion" styleClass="responsiveModalPseudoClass1"
+                 id="responsiveModal3" closable="false">
+            <b:form id="consolidated">     
 
-        <p:panelGrid style="margin-bottom:  10px;">
-            <h3>Exportar a excel</h3>
-            <button id="btn1" class="btn btn-success" style="margin-top: 10px;" >Descargar</button>
-        </p:panelGrid>
+                <p:dataTable id="consolidatedTable" value="#{beneficiadoBeans.consolidated()}" rendered="#{beneficiadoBeans.fecha1!=null}"  var="con"  paginator="false" class="consolidatedClass" widgetVar="nolose1">
+
+                    <p:column headerText="Rango de edades">
+                        <h:outputText value="#{con.rangoEdades}"/>
+                    </p:column>
+                    <p:column headerText="Masculino">                      
+                        <h:outputText value="#{con.masculino}"/>
+                    </p:column>
+                    <p:column headerText="Femenino">
+                        <h:outputText value="#{con.femenino}"/>
+                    </p:column>
+                </p:dataTable>
+
+            </b:form>
+            <button id="btn2" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
+        </b:modal>
 
 
         <h:outputScript>
@@ -135,19 +157,35 @@
             function confirmarEliminacion(){
             return confirm("¿Está seguro que desea eliminar?");
             }
-            funcion cerrarModal(){
-            $(window).load(function(){ $('.responsiveModalPseudoClass').modal('hide'); });
+
+            function verButton(){
+            var x = document.getElementById("ajatable").rows.length;
+            alert('numero de bolados='+x)
+            if(x>0){
+            document.getElementById("btn1").disabled = false;
             }
-            function timeAlert() {
-            alertify
-            .alert("Fechas enviadas! Cierra esta ventana.", function(){
-            alertify.message('OK');
-            });            
             }
+            function verButton2(){
+            var x = document.getElementById("ajatable").rows.length;
+            alert('numero de bolados='+x)
+            if(x>0){
+            document.getElementById("btn2").disabled = false;
+            }
+            }
+
+
         </h:outputScript>
         <script type="text/javascript">
             $("#btn1").click(function () {
                 $(".bolado").table2excel({
+                    bootstrap: true,
+                    exclude: ".noExl",
+                    name: "Asistencia",
+                    filename: "Asistencia"
+                });
+            });
+            $("#btn2").click(function () {
+                $(".consolidatedClass").table2excel({
                     bootstrap: true,
                     exclude: ".noExl",
                     name: "Asistencia",

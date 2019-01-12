@@ -53,7 +53,9 @@ public class EstadisticasBean {
     private int muni;
     private String proyectoid2;
     private int hayentabla = 0;
-    private List<String> columnaspivot;
+    private List<String> columnaspivot;    
+    private int activarButton = 0;
+    
 
     /**
      * Creates a new instance of EstadisticasBean
@@ -113,7 +115,7 @@ public class EstadisticasBean {
 
         }
         System.out.print("llenarcombofuncion" + usuarioactivo + " LUGAR " + idlugar);
-        if ((tipousuario == 1)||(tipousuario==3)) {
+        if ((tipousuario == 1) || (tipousuario == 3)) {
             lugarproyectoslist = model1.listarLugarproyectosporlugar(idlugar);
         } else {
             lugarproyectoslist = model1.listarLugarproyectosporlugarSegunEncargado(idlugar, usuarioactivo);
@@ -188,6 +190,11 @@ public class EstadisticasBean {
                 columnaspivotOb = modelo3.obteneractividades(proyectoid);
                 System.out.print("TAMANOOOOOO: " + columnaspivotOb.size());
                 this.columnaspivot = modelo3.obteneractividadesList(proyectoid);
+                if (columnaspivotOb.size() != 0) {
+                    this.activarButton = 1;
+                } else {
+                    this.activarButton = 0;
+                }
                 return modelo3.obteneractividadesdatos(columnaspivotOb, proyectoid);
             } else {
                 return null;
@@ -197,6 +204,7 @@ public class EstadisticasBean {
         }
         return null;
     }
+
     
 
     /**
@@ -372,6 +380,20 @@ public class EstadisticasBean {
      */
     public void setColumnaspivot(List<String> columnaspivot) {
         this.columnaspivot = columnaspivot;
+    }
+
+    /**
+     * @return the activarButton
+     */
+    public int getActivarButton() {
+        return activarButton;
+    }
+
+    /**
+     * @param activarButton the activarButton to set
+     */
+    public void setActivarButton(int activarButton) {
+        this.activarButton = activarButton;
     }
 
 }

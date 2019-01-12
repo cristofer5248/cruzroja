@@ -7,13 +7,13 @@ package sv.cruzroja.www.beans;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
-//import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -32,6 +32,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
+import sv.cruzroja.www.entities.ConsolidadoTable;
 
 /**
  *
@@ -52,6 +53,8 @@ public class BeneficiadoBeans {
     private String param1;
     private Date fecha1;
     private Date fecha2;
+//    private List<String> consolidatedTable;
+    
 
     public BeneficiadoBeans() {
         beneficiado = new DatosbeneficiadosEntity();
@@ -216,6 +219,26 @@ public class BeneficiadoBeans {
         return "registroBeneficiado?faces-redirect=true";
     }
 
+    public List<ConsolidadoTable> consolidated() {
+
+        try {
+            if (fecha1 != null && fecha2 != null);
+            List<Object[]> r = (List<Object[]>) modelo.nativo();
+            List<ConsolidadoTable> consolidedLis = new ArrayList<ConsolidadoTable>(r.size());
+            for (Object[] o : r) {
+                ConsolidadoTable b = new ConsolidadoTable();
+                b.setRangoEdades((String) o[0]);
+                b.setMasculino(((Long) o[1]).intValue());
+                b.setFemenino(((Long) o[2]).intValue());
+                consolidedLis.add(b);
+            }
+            return consolidedLis;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * @return the apellidos
      */
@@ -285,5 +308,6 @@ public class BeneficiadoBeans {
     public void setFecha2(Date fecha2) {
         this.fecha2 = fecha2;
     }
+
 
 }

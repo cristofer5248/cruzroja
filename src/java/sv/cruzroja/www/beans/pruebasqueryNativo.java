@@ -5,6 +5,7 @@
  */
 package sv.cruzroja.www.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 import sv.cruzroja.www.model.BeneficiadoModel;
 
@@ -19,24 +20,55 @@ public class pruebasqueryNativo {
 
     }
 
+//    public static void imprimir() {
+//        try {
+//
+//            System.out.print("Iniciando...");
+//            BeneficiadoModel modelo = new BeneficiadoModel();
+//            List<Object[]> lista;
+//            lista = modelo.obteneractividades("ingresar un id valido de proyecto");
+////            System.out.print("... Total de beneficiados = " + lista.size());
+//            
+//
+//            for (Object[] z : modelo.obteneractividadesdatos(lista,"dsad")) {
+//                for (int i = 0; i < lista.size()+1; i++) {
+//                    System.out.print(z[i] + "\n");
+//                }
+//                
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace(); 
+//        }
+//    }
     public static void imprimir() {
         try {
 
             System.out.print("Iniciando...");
+
             BeneficiadoModel modelo = new BeneficiadoModel();
             List<Object[]> lista;
-            lista = modelo.obteneractividades("ingresar un id valido de proyecto");
+//            lista = modelo.nativo();
 //            System.out.print("... Total de beneficiados = " + lista.size());
+
+            List<String> aber = new ArrayList<String>();
+            aber.add(new String("Edades"));
+            aber.add(new String("Masculino"));
+            aber.add(new String("Femenino"));
             
 
-            for (Object[] z : modelo.obteneractividadesdatos(lista,"dsad")) {
-                for (int i = 0; i < lista.size()+1; i++) {
-                    System.out.print(z[i] + "\n");
-                }
-                
-            }
+//            for(Object[] a :  lista){
+//                
+//                System.out.print(a[0]);
+//        }
+            
+//                            for (Object[] z : modelo.obteneractividadesdatos(lista,"dsad")) {
+//                for (int i = 0; i < lista.size()+1; i++) {
+//                    System.out.print(z[i] + "\n");
+//                }
+//                
+//            }
         } catch (Exception e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
     }
 

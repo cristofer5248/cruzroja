@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.cruzroja.www.entities.BeneficiadosEntity;
+import sv.cruzroja.www.entities.ConsolidadoTable;
 import sv.cruzroja.www.entities.DatosbeneficiadosEntity;
 import sv.cruzroja.www.utils.JpaUtil;
 
@@ -329,6 +330,23 @@ public class BeneficiadoModel {
     }
 
     ///QUERYS NATIVOS, LOS CREARE PERO ME OFENDE MUCHISIMO.
+    public List<Object[]> nativo() {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+//            Query consulta = em.createNativeQuery("select categorizarEdades(db.edad) as rangoEdades, lp.idlp, count(IF(db.genero=1,1,NULL)) as Masculino, count(IF(db.genero=2,1,NULL)) as femenino from beneficiados be inner join datosbeneficiados db on db.idusuario= be.idbeneficiado inner join actividades ac on ac.idactividad=be.idproyecto inner join lugarproyecto lp on lp.idl=ac.lugarproyectoPadre group by lp.idlp, categorizarEdades(db.edad) ORDER BY `rangoEdades` ASC;");
+            Query consulta = em.createNativeQuery("select categorizarEdades(db.edad) as edades, count(IF(db.genero=1,1,NULL)) as Masculino, count(IF(db.genero=2,1,NULL)) as femenino from datosbeneficiados db inner join (SELECT idbeneficiado,idproyecto FROM beneficiados GROUP by idbeneficiado) be on db.idusuario= be.idbeneficiado inner join actividades ac on ac.idactividad=be.idproyecto inner join lugarproyecto lp on lp.idl=ac.lugarproyectoPadre group by categorizarEdades(db.edad) ORDER BY `edades` ASC;");
+            List<Object[]> aber = consulta.getResultList();
+            em.close();
+            return aber;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("NO we no pasa nada :c");
+            em.close();
+//            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<Object[]> obteneractividades(String proyecto) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
@@ -371,7 +389,7 @@ public class BeneficiadoModel {
 
     public List<Object[]> obteneractividadesdatos(List<Object[]> actividades, String proyecto) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        System.out.print("EL TAMANO DEL OBJETO ES" + actividades.size());
+//        System.out.print("EL TAMANO DEL OBJETO ES" + actividades.size());
         try {
             String nombrarcolumnas = "";
             int freno = 1;
@@ -384,7 +402,7 @@ public class BeneficiadoModel {
                 }
                 freno = freno + 1;
             }
-            System.out.print(nombrarcolumnas);
+//            System.out.print(nombrarcolumnas);
 
             Query consulta = em.createNativeQuery("select \n"
                     + "  CONCAT(da.nombres,\" \",da.apellidos) as nombres,\n" + nombrarcolumnas
