@@ -330,11 +330,12 @@ public class BeneficiadoModel {
     }
 
     ///QUERYS NATIVOS, LOS CREARE PERO ME OFENDE MUCHISIMO.
-    public List<Object[]> nativo() {
+    public List<Object[]> nativo(String fecha1, String fecha2) {
+        System.out.print("EStas son la fechas: "+fecha1+" Tambien "+fecha2);
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
 //            Query consulta = em.createNativeQuery("select categorizarEdades(db.edad) as rangoEdades, lp.idlp, count(IF(db.genero=1,1,NULL)) as Masculino, count(IF(db.genero=2,1,NULL)) as femenino from beneficiados be inner join datosbeneficiados db on db.idusuario= be.idbeneficiado inner join actividades ac on ac.idactividad=be.idproyecto inner join lugarproyecto lp on lp.idl=ac.lugarproyectoPadre group by lp.idlp, categorizarEdades(db.edad) ORDER BY `rangoEdades` ASC;");
-            Query consulta = em.createNativeQuery("select categorizarEdades(db.edad) as edades, count(IF(db.genero=1,1,NULL)) as Masculino, count(IF(db.genero=2,1,NULL)) as femenino from datosbeneficiados db inner join (SELECT idbeneficiado,idproyecto FROM beneficiados GROUP by idbeneficiado) be on db.idusuario= be.idbeneficiado inner join actividades ac on ac.idactividad=be.idproyecto inner join lugarproyecto lp on lp.idl=ac.lugarproyectoPadre group by categorizarEdades(db.edad) ORDER BY `edades` ASC;");
+            Query consulta = em.createNativeQuery("select categorizarEdades(db.edad) as edades, count(IF(db.genero=1,1,NULL)) as Masculino, count(IF(db.genero=2,1,NULL)) as femenino from datosbeneficiados db inner join (SELECT idbeneficiado,idproyecto, fecha FROM beneficiados GROUP by idbeneficiado) be on db.idusuario= be.idbeneficiado inner join actividades ac on ac.idactividad=be.idproyecto inner join lugarproyecto lp on lp.idl=ac.lugarproyectoPadre WHERE be.fecha>=CAST('"+fecha1+"' as DATE) AND be.fecha<=CAST('"+fecha2+"' as DATE)  group by categorizarEdades(db.edad) ORDER BY `edades` ASC;");
             List<Object[]> aber = consulta.getResultList();
             em.close();
             return aber;

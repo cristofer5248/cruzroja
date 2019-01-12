@@ -32,7 +32,7 @@
                                  requiredMessage="Debes ingresar el nombre">
                     </b:inputText>
 
-                    <h:outputLabel for="encargado" value="Tecnico Encargado:"/>
+                    <h:outputLabel for="encargado" value="Encargado:"/>
                     <b:selectOneMenu value="#{proyectosBean.proyecto.encargado.idusuario}" required="true" requiredMessage="Seleciona un encargado">
                         <f:selectItems value="#{usuariosBean.soloEncargados}" var="usu"
                                        itemLabel="#{usu.nombres}" itemValue="#{usu.idusuario}" />

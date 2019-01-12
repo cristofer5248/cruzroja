@@ -128,23 +128,38 @@
             </b:form>
             <button id="btn1" class="btn btn-success" style="margin-top: 10px;" >Descargar</button><br></br>
         </b:modal>
-        <b:modal title="Asistencia por fecha / exportacion" styleClass="responsiveModalPseudoClass1"
+        <b:modal title="Consolidacion por fecha / exportacion" styleClass="responsiveModalPseudoClass1"
                  id="responsiveModal3" closable="false">
             <b:form id="consolidated">     
 
                 <p:dataTable id="consolidatedTable" value="#{beneficiadoBeans.consolidated()}" rendered="#{beneficiadoBeans.fecha1!=null}"  var="con"  paginator="false" class="consolidatedClass" widgetVar="nolose1">
-
-                    <p:column headerText="Rango de edades">
+                    <f:facet name="header">  
+                        <h:outputText value="CRUZ ROJA SALVADOREÑA" style="color:red;"/>  
+                    </f:facet> 
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column rowspan="3" headerText="Rango de edades" />
+                            <p:column colspan="2" headerText="Sexo" />
+                        </p:row>
+                        <p:row>
+                            <p:column headerText="Masculino"/>
+                            <p:column headerText="Femenino"/>
+                        </p:row>
+                    </p:columnGroup>
+                    <p:column>
                         <h:outputText value="#{con.rangoEdades}"/>
                     </p:column>
-                    <p:column headerText="Masculino">                      
+                    <p:column>                      
                         <h:outputText value="#{con.masculino}"/>
                     </p:column>
-                    <p:column headerText="Femenino">
+                    <p:column>
                         <h:outputText value="#{con.femenino}"/>
-                    </p:column>
+                    </p:column>                       
                 </p:dataTable>
-
+<!--                <h:commandLink>
+                    <p:graphicImage name="img/excel.png" />
+                    <p:dataExporter type="xls" target="consolidatedTable" fileName="Consolidacion" pageOnly="true"/>
+                </h:commandLink>-->
             </b:form>
             <button id="btn2" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
         </b:modal>

@@ -64,10 +64,10 @@ public class actividadesDetallesBean {
             idgenerado = actividadesdetalles.getDetalle().substring(0, 2).toUpperCase().concat(actividadesdetalles.getTitulo().substring(0, 2).toUpperCase()).concat(milisegundos.substring(0, 2));
 //            idgenerado = idgenerado.concat(actividades.getTitulo().substring(0, 2).toUpperCase());
         } catch (Exception e) {
-            e.printStackTrace();
+            
             String milisegundos = Integer.toString(c1.get(Calendar.MILLISECOND));
             System.out.println(milisegundos);
-            idgenerado = actividadesdetalles.getTitulo().substring(0, 3).concat(milisegundos);
+            idgenerado = actividadesdetalles.getTitulo().substring(0, 3).toUpperCase().concat(milisegundos);
         }
         actividadesdetalles.setIdactividadesdetalles(idgenerado);
     }

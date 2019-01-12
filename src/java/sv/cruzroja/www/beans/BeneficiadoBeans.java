@@ -7,6 +7,7 @@ package sv.cruzroja.www.beans;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -223,7 +224,9 @@ public class BeneficiadoBeans {
 
         try {
             if (fecha1 != null && fecha2 != null);
-            List<Object[]> r = (List<Object[]>) modelo.nativo();
+            String fechaNformat = new SimpleDateFormat("yyyy-MM-dd").format(fecha1);
+            String fechaNformat2 = new SimpleDateFormat("yyyy-MM-dd").format(fecha2);
+            List<Object[]> r = (List<Object[]>) modelo.nativo(fechaNformat,fechaNformat2);
             List<ConsolidadoTable> consolidedLis = new ArrayList<ConsolidadoTable>(r.size());
             for (Object[] o : r) {
                 ConsolidadoTable b = new ConsolidadoTable();
