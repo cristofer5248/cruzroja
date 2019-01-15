@@ -56,19 +56,16 @@ WHERE
 	<field name="municipio_nombre" class="java.lang.String"/>
 	<field name="departamento_nombre" class="java.lang.String"/>
 	<field name="fechainicio" class="java.lang.String"/>
-	<field name="fechafinal" class="java.lang.String"/>
+	<field name="idproyecto" class="java.lang.String"/>
 	<group name="proyectos_nombre">
 		<groupExpression><![CDATA[$F{proyectos_nombre}]]></groupExpression>
 		<groupHeader>
 			<band height="27">
 				<frame>
 					<reportElement mode="Opaque" x="0" y="3" width="783" height="24" forecolor="#B89F7D" backcolor="#000000" uuid="33b3bef0-60d6-423c-aa37-0c0f5a0f1b22"/>
-					<textField isStretchWithOverflow="true">
-						<reportElement style="SubTitle" x="2" y="0" width="695" height="24" forecolor="#FFFFFF" uuid="017211d9-6608-46a6-89ec-714be6d10b49"/>
-						<textElement>
-							<font isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{proyectos_nombre}]]></textFieldExpression>
+					<textField>
+						<reportElement x="199" y="4" width="100" height="20" forecolor="#FFFFFF" uuid="f09d6eed-7daa-49eb-b33d-8c18ec71f2d0"/>
+						<textFieldExpression><![CDATA[$F{idproyecto}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<rectangle>
@@ -77,6 +74,13 @@ WHERE
 						<pen lineWidth="0.0"/>
 					</graphicElement>
 				</rectangle>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="SubTitle" x="5" y="0" width="695" height="24" forecolor="#FFFFFF" uuid="017211d9-6608-46a6-89ec-714be6d10b49"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{proyectos_nombre}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -149,35 +153,28 @@ WHERE
 				<text><![CDATA[Edad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="326" y="0" width="87" height="18" forecolor="#000000" uuid="8987725f-c7be-4ff8-a415-db9418736e4e"/>
+				<reportElement style="Column header" x="326" y="0" width="147" height="18" forecolor="#000000" uuid="8987725f-c7be-4ff8-a415-db9418736e4e"/>
 				<textElement>
-					<font isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Inicio]]></text>
+				<text><![CDATA[Fecha de inclusion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="413" y="0" width="72" height="18" forecolor="#000000" uuid="a1f700cf-0f71-4d33-a0f9-479f18688b46"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Finalizacion]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="496" y="0" width="61" height="18" forecolor="#000000" uuid="afa56bf5-4fcc-4f11-8446-4f438cd0ab7f"/>
+				<reportElement style="Column header" x="476" y="0" width="61" height="18" forecolor="#000000" uuid="afa56bf5-4fcc-4f11-8446-4f438cd0ab7f"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Telefono]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="557" y="0" width="72" height="18" forecolor="#000000" uuid="a1ea4613-2458-4ce3-924c-909e4f071958"/>
+				<reportElement style="Column header" x="546" y="0" width="72" height="18" forecolor="#000000" uuid="a1ea4613-2458-4ce3-924c-909e4f071958"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sexo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="629" y="0" width="72" height="18" forecolor="#000000" uuid="f33853c8-3725-4d05-ac6a-d1f23cf44263"/>
+				<reportElement style="Column header" x="620" y="0" width="72" height="18" forecolor="#000000" uuid="f33853c8-3725-4d05-ac6a-d1f23cf44263"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -225,21 +222,21 @@ WHERE
 					<textFieldExpression><![CDATA[$F{datosbeneficiados_edad}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="506" y="0" width="41" height="18" uuid="a025f2a4-a948-4c00-b28b-b6c06459e338"/>
+					<reportElement style="Detail" positionType="Float" x="482" y="0" width="41" height="18" uuid="a025f2a4-a948-4c00-b28b-b6c06459e338"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{datosbeneficiados_telefono}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="557" y="0" width="62" height="18" uuid="9166350d-0e84-4497-afb5-d3f4964ec25f"/>
+					<reportElement style="Detail" positionType="Float" x="547" y="0" width="62" height="18" uuid="9166350d-0e84-4497-afb5-d3f4964ec25f"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{genero_nombre}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="629" y="0" width="62" height="18" uuid="03cc4fe7-59d4-47fc-8cf9-f61d32f15c63"/>
+					<reportElement style="Detail" positionType="Float" x="619" y="0" width="73" height="18" uuid="03cc4fe7-59d4-47fc-8cf9-f61d32f15c63"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
@@ -260,18 +257,11 @@ WHERE
 					<textFieldExpression><![CDATA[$F{datosbeneficiados_nombres}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="315" y="1" width="98" height="17" uuid="9c6c8f2a-71cc-4f6d-adad-2f2dd20df4a5"/>
+					<reportElement x="326" y="1" width="127" height="17" uuid="9c6c8f2a-71cc-4f6d-adad-2f2dd20df4a5"/>
 					<textElement>
 						<font fontName="Times New Roman" size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{fechainicio}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="420" y="0" width="76" height="17" uuid="ca283ede-c557-4fc6-95b3-0b645097ab55"/>
-					<textElement>
-						<font fontName="Times New Roman" size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{fechafinal}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<textField>

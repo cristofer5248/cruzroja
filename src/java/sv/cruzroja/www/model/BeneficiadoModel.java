@@ -227,17 +227,19 @@ public class BeneficiadoModel {
             int totalcount = lista.size();
             for (BeneficiadosEntity b : lista) {
                 Map<String, Object> m = new HashMap<String, Object>();
-                fechaString = d.format(b.getIdproyecto().getLugarproyectoPadre().getFechainicio());
+                fechaString = d.format(b.getFecha());
                 fechaString2 = d.format(b.getIdproyecto().getLugarproyectoPadre().getFechafinal());
 //                m.put("fechainicio", fechaString);
 //                m.put("fechafinal", fechaString2);
+                
                 m.put("datosbeneficiados_idusuario", b.getIdbeneficiado().getIdusuario());
                 m.put("datosbeneficiados_nombres", b.getIdbeneficiado().getNombres());
                 m.put("datosbeneficiados_apellidos", b.getIdbeneficiado().getApellidos());
                 m.put("datosbeneficiados_edad", b.getIdbeneficiado().getEdad());
                 m.put("fechainicio", fechaString);
-                m.put("fechafinal", fechaString2);
+//                m.put("fechafinal", fechaString2);
                 m.put("proyectos_nombre", b.getIdproyecto().getLugarproyectoPadre().getIdlp().getNombre());
+                m.put("idproyecto", b.getIdproyecto().getLugarproyectoPadre().getIdlp().getIdproyecto());
                 m.put("datosbeneficiados_telefono", b.getIdbeneficiado().getTelefono());
                 m.put("genero_nombre", b.getIdbeneficiado().getGenero().getNombre());
                 m.put("actividadesdetalles_titulo", b.getIdproyecto().getDetalleactividad().getTitulo());
