@@ -160,3 +160,7 @@ ALTER TABLE cruzples.intentos
 ADD CONSTRAINT pk_intentoscategoria FOREIGN KEY (categoria) REFERENCES categoriaintentos (codintentos);
 ALTER TABLE cruzples.intentos
 ADD CONSTRAINT pk_intentosUser FOREIGN KEY (userintentos) REFERENCES users (codigouser);
+
+
+ALTER TABLE `users` ADD `telefono` INT(8) NULL AFTER `genero`;
+UPDATE `users` SET `telefono` = '71208113' WHERE `users`.`codigouser` = 'ADM123';
