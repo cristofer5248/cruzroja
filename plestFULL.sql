@@ -113,9 +113,50 @@ ADD CONSTRAINT pk_notitypenoti FOREIGN KEY (tipo) REFERENCES typenoti (codigotyp
 ALTER TABLE cruzples.notifications
 ADD CONSTRAINT pk_notiuser FOREIGN KEY (usuario) REFERENCES users (codigouser) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
+
 insert into usertype values (1,'admin');
-insert into users values ('ADM123','JUAN','CARLOS','12345',1);
+insert into users values ('ADM123','JUAN','CARLOS','12345',1,'CORRE@CORREO.COM');
 
 ALTER TABLE `users` ADD `correo` VARCHAR(40) NULL AFTER `tipou`;
 UPDATE `users` SET `correo` = 'cris@dsf.com' WHERE `users`.`codigouser` = 'ADM123';
 ALTER TABLE `users` CHANGE `correo` `correo` VARCHAR(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+
+
+ALTER TABLE `users` ADD `genero` INT(1) NULL AFTER `correo`;
+UPDATE `users` SET `genero` = '1' WHERE `users`.`codigouser` = 'ADM123';
+create table genero(
+codgenero int(1) PRIMARY KEY,
+nombre varchar (20) NOT NULL
+);
+
+insert into genero values(1,'Masculino');
+insert into genero values(2,'Femenino');
+
+alter table cruzples.users
+ADD CONSTRAINT pk_usergenero FOREIGN KEY (genero) REFERENCES genero (codgenero);
+
+create table categoriaIntentos(
+codintentos int(2) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+nombre varchar (30) NOT NULL
+);
+
+INSERT INTO categoriaIntentos VALUES (1,'nombre');
+
+CREATE table intentos(
+codintentos int(3)PRIMARY KEY NOT NULL AUTO_INCREMENT,
+nombre varchar()NOT NULL,
+user varchar(6) NOT NULL,
+categoria int(2) NOT NULL
+);
+
+CREATE table intentos(
+codintentos int(3)PRIMARY KEY NOT NULL AUTO_INCREMENT,
+nombre varchar(20)NOT NULL,
+usersintentos varchar(6) NOT NULL,
+categoria int(2) NOT NULL
+);
+
+ALTER TABLE cruzples.intentos
+ADD CONSTRAINT pk_intentoscategoria FOREIGN KEY (categoria) REFERENCES categoriaintentos (codintentos);
+ALTER TABLE cruzples.intentos
+ADD CONSTRAINT pk_intentosUser FOREIGN KEY (userintentos) REFERENCES users (codigouser);
