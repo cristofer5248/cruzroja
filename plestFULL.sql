@@ -115,13 +115,13 @@ ADD CONSTRAINT pk_notiuser FOREIGN KEY (usuario) REFERENCES users (codigouser) O
 
 
 insert into usertype values (1,'admin');
-insert into users values ('ADM123','JUAN','CARLOS','12345',1,'CORRE@CORREO.COM');
+
 
 ALTER TABLE `users` ADD `correo` VARCHAR(40) NULL AFTER `tipou`;
 UPDATE `users` SET `correo` = 'cris@dsf.com' WHERE `users`.`codigouser` = 'ADM123';
 ALTER TABLE `users` CHANGE `correo` `correo` VARCHAR(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
 
-
+insert into users values ('ADM123','JUAN','CARLOS','12345',1,'correo@correo.com');
 ALTER TABLE `users` ADD `genero` INT(1) NULL AFTER `correo`;
 UPDATE `users` SET `genero` = '1' WHERE `users`.`codigouser` = 'ADM123';
 create table genero(
@@ -144,15 +144,8 @@ INSERT INTO categoriaIntentos VALUES (1,'nombre');
 
 CREATE table intentos(
 codintentos int(3)PRIMARY KEY NOT NULL AUTO_INCREMENT,
-nombre varchar()NOT NULL,
-user varchar(6) NOT NULL,
-categoria int(2) NOT NULL
-);
-
-CREATE table intentos(
-codintentos int(3)PRIMARY KEY NOT NULL AUTO_INCREMENT,
 nombre varchar(20)NOT NULL,
-usersintentos varchar(6) NOT NULL,
+userintentos varchar(6) NOT NULL,
 categoria int(2) NOT NULL
 );
 
