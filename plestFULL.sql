@@ -157,3 +157,9 @@ ADD CONSTRAINT pk_intentosUser FOREIGN KEY (userintentos) REFERENCES users (codi
 
 ALTER TABLE `users` ADD `telefono` INT(8) NULL AFTER `genero`;
 UPDATE `users` SET `telefono` = '71208113' WHERE `users`.`codigouser` = 'ADM123';
+
+#triggers
+INSERT INTO `categoriaintentos` (`codintentos`, `nombre`) VALUES ('2', 'Perfil actualizado');
+CREATE TRIGGER `after_changeusertry` AFTER UPDATE ON `users` FOR EACH ROW BEGIN INSERT INTO intentos VALUES (NULL,'Cambio de contraseña',new.codigouser,2); END 
+ALTER TABLE `intentos` CHANGE `codintentos` `codintentos` INT(3) NOT NULL;
+ALTER TABLE `intentos` CHANGE `codintentos` `codintentos` INT(3) NOT NULL AUTO_INCREMENT;
