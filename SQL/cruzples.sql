@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 05, 2019 at 07:28 AM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 5.6.36
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 02-04-2019 a las 18:16:20
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,32 +19,32 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cruzples`
+-- Base de datos: `cruzples`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categoriaIntentos`
+-- Estructura de tabla para la tabla `categoriaintentos`
 --
 
-CREATE TABLE `categoriaIntentos` (
+CREATE TABLE `categoriaintentos` (
   `codintentos` int(2) NOT NULL,
   `nombre` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `categoriaIntentos`
+-- Volcado de datos para la tabla `categoriaintentos`
 --
 
-INSERT INTO `categoriaIntentos` (`codintentos`, `nombre`) VALUES
+INSERT INTO `categoriaintentos` (`codintentos`, `nombre`) VALUES
 (1, 'nombre'),
 (2, 'Perfil actualizado');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `consolidatorpo`
+-- Estructura de tabla para la tabla `consolidatorpo`
 --
 
 CREATE TABLE `consolidatorpo` (
@@ -55,20 +55,24 @@ CREATE TABLE `consolidatorpo` (
   `year` int(4) NOT NULL,
   `planificado` int(5) NOT NULL,
   `ejecutado` int(5) DEFAULT NULL,
-  `comentario` varchar(150) DEFAULT NULL
+  `comentario` varchar(150) DEFAULT NULL,
+  `rowspan` int(3) DEFAULT NULL,
+  `rowspan2` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `consolidatorpo`
+-- Volcado de datos para la tabla `consolidatorpo`
 --
 
-INSERT INTO `consolidatorpo` (`codigocon`, `codigoPO`, `physicalgoal`, `trimestre`, `year`, `planificado`, `ejecutado`, `comentario`) VALUES
-(5, 2, 2, 0, 2016, 50, 12, 'Comentario de prueba');
+INSERT INTO `consolidatorpo` (`codigocon`, `codigoPO`, `physicalgoal`, `trimestre`, `year`, `planificado`, `ejecutado`, `comentario`, `rowspan`, `rowspan2`) VALUES
+(5, 3, 2, 0, 2014, 50, 12, 'Comentariodeprueba', 1, 1),
+(6, 2, 2, 3, 2019, 200, 120, 'heheeh', 1, 2),
+(7, 2, 2, 2, 2018, 90, 75, 'hola', 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `genero`
+-- Estructura de tabla para la tabla `genero`
 --
 
 CREATE TABLE `genero` (
@@ -77,7 +81,7 @@ CREATE TABLE `genero` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `genero`
+-- Volcado de datos para la tabla `genero`
 --
 
 INSERT INTO `genero` (`codgenero`, `nombre`) VALUES
@@ -87,7 +91,7 @@ INSERT INTO `genero` (`codgenero`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `indicatorpo`
+-- Estructura de tabla para la tabla `indicatorpo`
 --
 
 CREATE TABLE `indicatorpo` (
@@ -97,7 +101,7 @@ CREATE TABLE `indicatorpo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `indicatorpo`
+-- Volcado de datos para la tabla `indicatorpo`
 --
 
 INSERT INTO `indicatorpo` (`codigoind`, `detalle`, `tipou`) VALUES
@@ -155,7 +159,7 @@ INSERT INTO `indicatorpo` (`codigoind`, `detalle`, `tipou`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `intentos`
+-- Estructura de tabla para la tabla `intentos`
 --
 
 CREATE TABLE `intentos` (
@@ -165,10 +169,18 @@ CREATE TABLE `intentos` (
   `categoria` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `intentos`
+--
+
+INSERT INTO `intentos` (`codintentos`, `nombre`, `userintentos`, `categoria`) VALUES
+(1, 'Cambio de contraseña', 'ADM123', 2),
+(2, 'Cambio de contraseña', 'ADM123', 2);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `measurementunits`
+-- Estructura de tabla para la tabla `measurementunits`
 --
 
 CREATE TABLE `measurementunits` (
@@ -178,7 +190,7 @@ CREATE TABLE `measurementunits` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `measurementunits`
+-- Volcado de datos para la tabla `measurementunits`
 --
 
 INSERT INTO `measurementunits` (`codigomea`, `nombre`, `especificaciones`) VALUES
@@ -222,7 +234,7 @@ INSERT INTO `measurementunits` (`codigomea`, `nombre`, `especificaciones`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notifications`
+-- Estructura de tabla para la tabla `notifications`
 --
 
 CREATE TABLE `notifications` (
@@ -235,7 +247,7 @@ CREATE TABLE `notifications` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `physical_goal`
+-- Estructura de tabla para la tabla `physical_goal`
 --
 
 CREATE TABLE `physical_goal` (
@@ -244,7 +256,7 @@ CREATE TABLE `physical_goal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `physical_goal`
+-- Volcado de datos para la tabla `physical_goal`
 --
 
 INSERT INTO `physical_goal` (`codigo`, `meta`) VALUES
@@ -253,7 +265,7 @@ INSERT INTO `physical_goal` (`codigo`, `meta`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `po_table`
+-- Estructura de tabla para la tabla `po_table`
 --
 
 CREATE TABLE `po_table` (
@@ -267,16 +279,17 @@ CREATE TABLE `po_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `po_table`
+-- Volcado de datos para la tabla `po_table`
 --
 
 INSERT INTO `po_table` (`codigopo`, `actividad`, `indicatores`, `meta_global`, `unidad`, `encargado`, `areaest`) VALUES
-(2, '', 1, 100, 1, 'ADM123', 1);
+(2, 'UNO', 1, 100, 1, 'ADM123', 1),
+(3, 'dos', 23, 300, 16, 'ADM123', 17);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `privilegesuser`
+-- Estructura de tabla para la tabla `privilegesuser`
 --
 
 CREATE TABLE `privilegesuser` (
@@ -288,7 +301,7 @@ CREATE TABLE `privilegesuser` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `results`
+-- Estructura de tabla para la tabla `results`
 --
 
 CREATE TABLE `results` (
@@ -299,7 +312,7 @@ CREATE TABLE `results` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `strategicareas`
+-- Estructura de tabla para la tabla `strategicareas`
 --
 
 CREATE TABLE `strategicareas` (
@@ -308,7 +321,7 @@ CREATE TABLE `strategicareas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `strategicareas`
+-- Volcado de datos para la tabla `strategicareas`
 --
 
 INSERT INTO `strategicareas` (`codigostr`, `nombre`) VALUES
@@ -338,7 +351,7 @@ INSERT INTO `strategicareas` (`codigostr`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `typenoti`
+-- Estructura de tabla para la tabla `typenoti`
 --
 
 CREATE TABLE `typenoti` (
@@ -349,7 +362,7 @@ CREATE TABLE `typenoti` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Estructura de tabla para la tabla `users`
 --
 
 CREATE TABLE `users` (
@@ -364,14 +377,14 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`codigouser`, `nombre`, `apellidos`, `pass`, `tipou`, `correo`, `genero`, `telefono`) VALUES
-('ADM123', 'JUAN', 'CARLOS', '12345', 1, 'correo@correo.com', 1, NULL);
+('ADM123', 'JUAN', 'CARLOS', '12345', 1, 'correo@correo.com', 1, 71208113);
 
 --
--- Triggers `users`
+-- Disparadores `users`
 --
 DELIMITER $$
 CREATE TRIGGER `after_changeusertry` AFTER UPDATE ON `users` FOR EACH ROW BEGIN INSERT INTO intentos VALUES (NULL,'Cambio de contraseña',new.codigouser,2);
@@ -382,7 +395,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usertype`
+-- Estructura de tabla para la tabla `usertype`
 --
 
 CREATE TABLE `usertype` (
@@ -391,24 +404,24 @@ CREATE TABLE `usertype` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `usertype`
+-- Volcado de datos para la tabla `usertype`
 --
 
 INSERT INTO `usertype` (`codigousertype`, `tipo`) VALUES
 (1, 'admin');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `categoriaIntentos`
+-- Indices de la tabla `categoriaintentos`
 --
-ALTER TABLE `categoriaIntentos`
+ALTER TABLE `categoriaintentos`
   ADD PRIMARY KEY (`codintentos`);
 
 --
--- Indexes for table `consolidatorpo`
+-- Indices de la tabla `consolidatorpo`
 --
 ALTER TABLE `consolidatorpo`
   ADD PRIMARY KEY (`codigocon`),
@@ -416,19 +429,19 @@ ALTER TABLE `consolidatorpo`
   ADD KEY `pk_physicalgoalcon` (`physicalgoal`);
 
 --
--- Indexes for table `genero`
+-- Indices de la tabla `genero`
 --
 ALTER TABLE `genero`
   ADD PRIMARY KEY (`codgenero`);
 
 --
--- Indexes for table `indicatorpo`
+-- Indices de la tabla `indicatorpo`
 --
 ALTER TABLE `indicatorpo`
   ADD PRIMARY KEY (`codigoind`);
 
 --
--- Indexes for table `intentos`
+-- Indices de la tabla `intentos`
 --
 ALTER TABLE `intentos`
   ADD PRIMARY KEY (`codintentos`),
@@ -436,13 +449,13 @@ ALTER TABLE `intentos`
   ADD KEY `pk_intentosUser` (`userintentos`);
 
 --
--- Indexes for table `measurementunits`
+-- Indices de la tabla `measurementunits`
 --
 ALTER TABLE `measurementunits`
   ADD PRIMARY KEY (`codigomea`);
 
 --
--- Indexes for table `notifications`
+-- Indices de la tabla `notifications`
 --
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`codigonoti`),
@@ -450,13 +463,13 @@ ALTER TABLE `notifications`
   ADD KEY `pk_notiuser` (`usuario`);
 
 --
--- Indexes for table `physical_goal`
+-- Indices de la tabla `physical_goal`
 --
 ALTER TABLE `physical_goal`
   ADD PRIMARY KEY (`codigo`);
 
 --
--- Indexes for table `po_table`
+-- Indices de la tabla `po_table`
 --
 ALTER TABLE `po_table`
   ADD PRIMARY KEY (`codigopo`),
@@ -466,32 +479,32 @@ ALTER TABLE `po_table`
   ADD KEY `´pk_postrategicAreas´` (`areaest`);
 
 --
--- Indexes for table `privilegesuser`
+-- Indices de la tabla `privilegesuser`
 --
 ALTER TABLE `privilegesuser`
   ADD PRIMARY KEY (`codigopri`),
   ADD KEY `pk_privileges` (`user`);
 
 --
--- Indexes for table `results`
+-- Indices de la tabla `results`
 --
 ALTER TABLE `results`
   ADD PRIMARY KEY (`codigo`);
 
 --
--- Indexes for table `strategicareas`
+-- Indices de la tabla `strategicareas`
 --
 ALTER TABLE `strategicareas`
   ADD PRIMARY KEY (`codigostr`);
 
 --
--- Indexes for table `typenoti`
+-- Indices de la tabla `typenoti`
 --
 ALTER TABLE `typenoti`
   ADD PRIMARY KEY (`codigotypenoti`);
 
 --
--- Indexes for table `users`
+-- Indices de la tabla `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`codigouser`),
@@ -499,126 +512,126 @@ ALTER TABLE `users`
   ADD KEY `pk_usergenero` (`genero`);
 
 --
--- Indexes for table `usertype`
+-- Indices de la tabla `usertype`
 --
 ALTER TABLE `usertype`
   ADD PRIMARY KEY (`codigousertype`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `categoriaIntentos`
+-- AUTO_INCREMENT de la tabla `categoriaintentos`
 --
-ALTER TABLE `categoriaIntentos`
+ALTER TABLE `categoriaintentos`
   MODIFY `codintentos` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `consolidatorpo`
+-- AUTO_INCREMENT de la tabla `consolidatorpo`
 --
 ALTER TABLE `consolidatorpo`
-  MODIFY `codigocon` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `codigocon` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `genero`
+-- AUTO_INCREMENT de la tabla `genero`
 --
 ALTER TABLE `genero`
   MODIFY `codgenero` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `indicatorpo`
+-- AUTO_INCREMENT de la tabla `indicatorpo`
 --
 ALTER TABLE `indicatorpo`
   MODIFY `codigoind` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
--- AUTO_INCREMENT for table `intentos`
+-- AUTO_INCREMENT de la tabla `intentos`
 --
 ALTER TABLE `intentos`
-  MODIFY `codintentos` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `codintentos` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `measurementunits`
+-- AUTO_INCREMENT de la tabla `measurementunits`
 --
 ALTER TABLE `measurementunits`
   MODIFY `codigomea` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT for table `notifications`
+-- AUTO_INCREMENT de la tabla `notifications`
 --
 ALTER TABLE `notifications`
   MODIFY `codigonoti` int(7) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `physical_goal`
+-- AUTO_INCREMENT de la tabla `physical_goal`
 --
 ALTER TABLE `physical_goal`
   MODIFY `codigo` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `po_table`
+-- AUTO_INCREMENT de la tabla `po_table`
 --
 ALTER TABLE `po_table`
-  MODIFY `codigopo` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigopo` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `privilegesuser`
+-- AUTO_INCREMENT de la tabla `privilegesuser`
 --
 ALTER TABLE `privilegesuser`
   MODIFY `codigopri` int(2) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `results`
+-- AUTO_INCREMENT de la tabla `results`
 --
 ALTER TABLE `results`
   MODIFY `codigo` int(5) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `strategicareas`
+-- AUTO_INCREMENT de la tabla `strategicareas`
 --
 ALTER TABLE `strategicareas`
   MODIFY `codigostr` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT for table `typenoti`
+-- AUTO_INCREMENT de la tabla `typenoti`
 --
 ALTER TABLE `typenoti`
   MODIFY `codigotypenoti` int(2) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `usertype`
+-- AUTO_INCREMENT de la tabla `usertype`
 --
 ALTER TABLE `usertype`
   MODIFY `codigousertype` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `consolidatorpo`
+-- Filtros para la tabla `consolidatorpo`
 --
 ALTER TABLE `consolidatorpo`
   ADD CONSTRAINT `pk_consolidatorpo` FOREIGN KEY (`codigoPO`) REFERENCES `po_table` (`codigopo`),
   ADD CONSTRAINT `pk_physicalgoalcon` FOREIGN KEY (`physicalgoal`) REFERENCES `physical_goal` (`codigo`);
 
 --
--- Constraints for table `intentos`
+-- Filtros para la tabla `intentos`
 --
 ALTER TABLE `intentos`
   ADD CONSTRAINT `pk_intentosUser` FOREIGN KEY (`userintentos`) REFERENCES `users` (`codigouser`),
-  ADD CONSTRAINT `pk_intentoscategoria` FOREIGN KEY (`categoria`) REFERENCES `categoriaIntentos` (`codintentos`);
+  ADD CONSTRAINT `pk_intentoscategoria` FOREIGN KEY (`categoria`) REFERENCES `categoriaintentos` (`codintentos`);
 
 --
--- Constraints for table `notifications`
+-- Filtros para la tabla `notifications`
 --
 ALTER TABLE `notifications`
   ADD CONSTRAINT `pk_notitypenoti` FOREIGN KEY (`tipo`) REFERENCES `typenoti` (`codigotypenoti`),
   ADD CONSTRAINT `pk_notiuser` FOREIGN KEY (`usuario`) REFERENCES `users` (`codigouser`);
 
 --
--- Constraints for table `po_table`
+-- Filtros para la tabla `po_table`
 --
 ALTER TABLE `po_table`
   ADD CONSTRAINT `pk_poindicator` FOREIGN KEY (`indicatores`) REFERENCES `indicatorpo` (`codigoind`),
@@ -627,19 +640,19 @@ ALTER TABLE `po_table`
   ADD CONSTRAINT `´pk_postrategicAreas´` FOREIGN KEY (`areaest`) REFERENCES `strategicareas` (`codigostr`);
 
 --
--- Constraints for table `privilegesuser`
+-- Filtros para la tabla `privilegesuser`
 --
 ALTER TABLE `privilegesuser`
   ADD CONSTRAINT `pk_privileges` FOREIGN KEY (`user`) REFERENCES `users` (`codigouser`);
 
 --
--- Constraints for table `results`
+-- Filtros para la tabla `results`
 --
 ALTER TABLE `results`
   ADD CONSTRAINT `pk_resultscon` FOREIGN KEY (`codigo`) REFERENCES `consolidatorpo` (`codigocon`);
 
 --
--- Constraints for table `users`
+-- Filtros para la tabla `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `pk_usergenero` FOREIGN KEY (`genero`) REFERENCES `genero` (`codgenero`),
